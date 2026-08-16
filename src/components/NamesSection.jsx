@@ -1,9 +1,11 @@
 import SectionHeading from './SectionHeading.jsx'
+import { stepButtonStyle } from '../theme.js'
 
-export default function NamesSection({ style, persons, onRemovePerson, pName, onPNameChange, onPersonKeyDown, onAddPerson }) {
+export default function NamesSection({ style, persons, onRemovePerson, pName, onPNameChange, onPersonKeyDown, onAddPerson, onNext }) {
+  const canProceed = persons.length >= 2
   return (
     <section id="sec-names" style={style}>
-      <SectionHeading step="03" title="Who's here" />
+      <SectionHeading step={3} title="Who's here" description="Add everyone who's splitting the bill." />
       <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
         <input
           placeholder="Name"
@@ -25,6 +27,9 @@ export default function NamesSection({ style, persons, onRemovePerson, pName, on
           </button>
         ))}
       </div>
+      <button onClick={onNext} disabled={!canProceed} style={stepButtonStyle(canProceed)}>
+        Next step
+      </button>
     </section>
   )
 }

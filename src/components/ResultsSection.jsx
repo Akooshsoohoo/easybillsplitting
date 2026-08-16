@@ -1,12 +1,10 @@
+import SectionHeading from './SectionHeading.jsx'
 import { formatMoney } from '../utils.js'
 
 export default function ResultsSection({ style, currency, rows, tipEven, onTipModeChange, grandTotal, hasUnassigned, unassignedAmount }) {
   return (
     <section id="sec-results" style={style}>
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 18 }}>
-        <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: '#19b083' }}>05</span>
-        <h2 style={{ margin: 0, fontSize: 20, fontWeight: 500, letterSpacing: '-0.025em' }}>Who owes what</h2>
-      </div>
+      <SectionHeading step={5} title="Who owes what" description="Here's the final breakdown, including tax and tip." />
       <label style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 16px', background: '#fff', border: '1px solid #dceae4', borderRadius: 16, marginBottom: 12, cursor: 'pointer' }}>
         <input type="checkbox" checked={tipEven} onChange={(e) => onTipModeChange(e.target.checked)} style={{ width: 18, height: 18, accentColor: '#19b083', margin: 0 }} />
         <span style={{ fontSize: 14 }}>Split the tip evenly</span>

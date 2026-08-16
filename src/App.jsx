@@ -34,12 +34,15 @@ export default function App() {
   const [nName, setNName] = useState('')
   const [nPrice, setNPrice] = useState('')
 
+  const [itemsDone, setItemsDone] = useState(false)
+
   const [tax, setTax] = useState('')
   const [tip, setTip] = useState('')
   const [taxTipDone, setTaxTipDone] = useState(false)
 
   const [persons, setPersons] = useState([])
   const [pName, setPName] = useState('')
+  const [namesDone, setNamesDone] = useState(false)
 
   const [assign, setAssign] = useState({})
   const [assignDone, setAssignDone] = useState(false)
@@ -52,28 +55,6 @@ export default function App() {
   const uidRef = useRef(1)
   const nextId = (prefix) => prefix + uidRef.current++
 
-  const pendingScrollRef = useRef(null)
-  useEffect(() => {
-    if (pendingScrollRef.current) {
-      scrollToId(pendingScrollRef.current)
-      pendingScrollRef.current = null
-    }
-  }, [mode])
-
-  const gateTracker = useRef({ itemsLen: 0, taxTipDone: false, personsLen: 0, assignDone: false })
-  useEffect(() => {
-    if (mode !== 'item') {
-      gateTracker.current = { itemsLen: items.length, taxTipDone, personsLen: persons.length, assignDone }
-      return
-    }
-    const prev = gateTracker.current
-    if (prev.itemsLen === 0 && items.length > 0) scrollToId('sec-taxtip')
-    if (!prev.taxTipDone && taxTipDone) scrollToId('sec-names')
-    if (prev.personsLen < 2 && persons.length >= 2) scrollToId('sec-assign')
-    if (!prev.assignDone && assignDone) scrollToId('sec-results')
-    gateTracker.current = { itemsLen: items.length, taxTipDone, personsLen: persons.length, assignDone }
-  }, [mode, items.length, taxTipDone, persons.length, assignDone])
-
   const dragHandlers = useRef({ onMove: null, onUp: null })
   useEffect(() => () => {
     if (dragHandlers.current.onMove) window.removeEventListener('pointermove', dragHandlers.current.onMove)
@@ -82,7 +63,26 @@ export default function App() {
 
   function pick(m, id) {
     setMode(m)
-    pendingScrollRef.current = id
+    scrollToId(id)
+  }
+
+  function confirmItems() {
+    if (items.length === 0) return
+    setItemsDone(true)
+    scrollToId('sec-taxtip')
+  }
+  function confirmTaxTip() {
+    setTaxTipDone(true)
+    scrollToId('sec-names')
+  }
+  function confirmNames() {
+    if (persons.length < 2) return
+    setNamesDone(true)
+    scrollToId('sec-assign')
+  }
+  function confirmAssign() {
+    setAssignDone(true)
+    scrollToId('sec-results')
   }
 
   function addItem() {
@@ -192,9 +192,9 @@ export default function App() {
     return m
   }, [computed.rows])
 
-  const gateTaxTip = items.length > 0
+  const gateTaxTip = itemsDone
   const gateNames = gateTaxTip && taxTipDone
-  const gateAssign = gateNames && persons.length >= 2
+  const gateAssign = gateNames && namesDone
   const gateResults = gateAssign && assignDone
 
   const grandTotal = computed.assignedTotal + computed.unassigned + computed.tax + computed.tip
@@ -239,6 +239,7 @@ export default function App() {
                 onNPriceChange={setNPrice}
                 onItemKeyDown={(e) => { if (e.key === 'Enter') addItem() }}
                 onAddItem={addItem}
+                onNext={confirmItems}
               />
               <TaxTipSection
                 style={sectionStyle(gateTaxTip)}
@@ -247,7 +248,7 @@ export default function App() {
                 tip={tip}
                 onTaxChange={setTax}
                 onTipChange={setTip}
-                onConfirm={() => setTaxTipDone(true)}
+                onConfirm={confirmTaxTip}
               />
               <NamesSection
                 style={sectionStyle(gateNames)}
@@ -257,6 +258,7 @@ export default function App() {
                 onPNameChange={setPName}
                 onPersonKeyDown={(e) => { if (e.key === 'Enter') addPerson() }}
                 onAddPerson={addPerson}
+                onNext={confirmNames}
               />
               <AssignSection
                 style={sectionStyle(gateAssign)}
@@ -271,7 +273,7 @@ export default function App() {
                 onItemPointerDown={startDrag}
                 onBucketClick={onBucketClick}
                 onRemoveChip={unassign}
-                onConfirm={() => setAssignDone(true)}
+                onConfirm={confirmAssign}
               />
               <ResultsSection
                 style={sectionStyle(gateResults)}

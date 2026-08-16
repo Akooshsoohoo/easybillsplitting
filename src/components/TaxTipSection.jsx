@@ -1,9 +1,10 @@
 import SectionHeading from './SectionHeading.jsx'
+import { stepButtonStyle } from '../theme.js'
 
 export default function TaxTipSection({ style, currency, tax, tip, onTaxChange, onTipChange, onConfirm }) {
   return (
     <section id="sec-taxtip" style={style}>
-      <SectionHeading step="02" title="Tax &amp; tip" />
+      <SectionHeading step={2} title="Tax & tip" description="Enter the tax and tip shown on the receipt." />
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
         <div style={{ background: '#fff', border: '1px solid #dceae4', borderRadius: 16, padding: 16 }}>
           <div style={{ fontSize: 12, color: '#7b9189', marginBottom: 8 }}>Tax</div>
@@ -32,8 +33,8 @@ export default function TaxTipSection({ style, currency, tax, tip, onTaxChange, 
           </div>
         </div>
       </div>
-      <button onClick={onConfirm} style={{ marginTop: 14, width: '100%', padding: 13, borderRadius: 12, border: 0, background: '#19b083', color: '#fff', fontSize: 14, cursor: 'pointer', fontFamily: 'inherit' }}>
-        Continue
+      <button onClick={onConfirm} style={stepButtonStyle(true)}>
+        Next step
       </button>
     </section>
   )

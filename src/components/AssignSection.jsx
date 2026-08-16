@@ -1,5 +1,6 @@
 import SectionHeading from './SectionHeading.jsx'
 import { formatMoney } from '../utils.js'
+import { stepButtonStyle } from '../theme.js'
 
 export default function AssignSection({
   style, currency, items, persons, assign, sel, hover, drag, rowsById,
@@ -10,11 +11,8 @@ export default function AssignSection({
 
   return (
     <section id="sec-assign" style={style}>
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 6 }}>
-        <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: '#19b083' }}>04</span>
-        <h2 style={{ margin: 0, fontSize: 20, fontWeight: 500, letterSpacing: '-0.025em' }}>Assign</h2>
-      </div>
-      <p style={{ margin: '0 0 16px', fontSize: 13, color: '#7b9189', lineHeight: 1.5 }}>
+      <SectionHeading step={4} title="Assign" description="Match each item to whoever ordered it." />
+      <p style={{ margin: '-8px 0 16px', fontSize: 13, color: '#7b9189', lineHeight: 1.5 }}>
         Drag an item onto a person, or tap the item, then tap everyone sharing it. Items stay in the tray.
       </p>
 
@@ -92,8 +90,8 @@ export default function AssignSection({
           </div>
         )}
       </div>
-      <button onClick={onConfirm} style={{ marginTop: 16, width: '100%', padding: 13, borderRadius: 12, border: 0, background: '#19b083', color: '#fff', fontSize: 14, cursor: 'pointer', fontFamily: 'inherit' }}>
-        Continue to results
+      <button onClick={onConfirm} style={stepButtonStyle(true)}>
+        Next step
       </button>
     </section>
   )

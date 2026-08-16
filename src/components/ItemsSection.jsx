@@ -1,10 +1,12 @@
 import SectionHeading from './SectionHeading.jsx'
 import { formatMoney } from '../utils.js'
+import { stepButtonStyle } from '../theme.js'
 
-export default function ItemsSection({ currency, items, onRemoveItem, nName, nPrice, onNNameChange, onNPriceChange, onItemKeyDown, onAddItem }) {
+export default function ItemsSection({ currency, items, onRemoveItem, nName, nPrice, onNNameChange, onNPriceChange, onItemKeyDown, onAddItem, onNext }) {
+  const canProceed = items.length > 0
   return (
     <section style={{ padding: '44px 0 0' }}>
-      <SectionHeading step="01" title="Items" />
+      <SectionHeading step={1} title="Items" description="Add each item that was ordered, with its price." />
       <div style={{ background: '#ffffff', border: '1px solid #dceae4', borderRadius: 18, padding: 8 }}>
         {items.map((it) => (
           <div key={it.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 12px', borderBottom: '1px solid #f0f6f3' }}>
@@ -32,6 +34,9 @@ export default function ItemsSection({ currency, items, onRemoveItem, nName, nPr
           <button onClick={onAddItem} style={{ width: 42, height: 42, borderRadius: 12, border: 0, background: '#19b083', color: '#fff', fontSize: 20, cursor: 'pointer', fontFamily: 'inherit' }}>+</button>
         </div>
       </div>
+      <button onClick={onNext} disabled={!canProceed} style={stepButtonStyle(canProceed)}>
+        Next step
+      </button>
     </section>
   )
 }

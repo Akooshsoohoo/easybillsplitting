@@ -30,3 +30,19 @@ export function sectionStyle(unlocked) {
     pointerEvents: unlocked ? 'auto' : 'none',
   };
 }
+
+export function stepButtonStyle(enabled) {
+  return {
+    marginTop: 14,
+    width: '100%',
+    padding: 13,
+    borderRadius: 12,
+    border: 0,
+    background: enabled ? '#19b083' : '#e4efea',
+    color: enabled ? '#fff' : '#a8bcb4',
+    fontSize: 14,
+    fontFamily: 'inherit',
+    cursor: enabled ? 'pointer' : 'not-allowed',
+    transition: 'background .15s ease, color .15s ease',
+  };
+}
