@@ -21,7 +21,7 @@ export default function ItemsSection({ currency, items, onRemoveItem, nName, nPr
             value={nName}
             onChange={(e) => onNNameChange(e.target.value)}
             onKeyDown={onItemKeyDown}
-            style={{ flex: 1, minWidth: 0, height: 42, padding: '0 12px', border: '1px solid #e4efea', borderRadius: 12, fontSize: 15, outline: 'none', background: '#f9fcfb' }}
+            style={{ flex: 1, minWidth: 0, height: 42, padding: '0 12px', border: '1px solid #e4efea', borderRadius: 12, fontSize: 16, outline: 'none', background: '#f9fcfb' }}
           />
           <input
             inputMode="decimal"
@@ -29,7 +29,7 @@ export default function ItemsSection({ currency, items, onRemoveItem, nName, nPr
             value={nPrice}
             onChange={(e) => onNPriceChange(e.target.value)}
             onKeyDown={onItemKeyDown}
-            style={{ width: 88, height: 42, padding: '0 12px', border: '1px solid #e4efea', borderRadius: 12, fontSize: 15, outline: 'none', background: '#f9fcfb', fontFamily: "'DM Mono',monospace" }}
+            style={{ width: 88, height: 42, padding: '0 12px', border: '1px solid #e4efea', borderRadius: 12, fontSize: 16, outline: 'none', background: '#f9fcfb', fontFamily: "'DM Mono',monospace" }}
           />
           <button onClick={onAddItem} style={{ width: 42, height: 42, borderRadius: 12, border: 0, background: '#19b083', color: '#fff', fontSize: 20, cursor: 'pointer', fontFamily: 'inherit' }}>+</button>
         </div>

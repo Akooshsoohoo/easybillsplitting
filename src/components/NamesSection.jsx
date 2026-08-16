@@ -12,7 +12,7 @@ export default function NamesSection({ style, persons, onRemovePerson, pName, on
           value={pName}
           onChange={(e) => onPNameChange(e.target.value)}
           onKeyDown={onPersonKeyDown}
-          style={{ flex: 1, minWidth: 0, height: 44, padding: '0 14px', border: '1px solid #dceae4', borderRadius: 14, fontSize: 15, outline: 'none', background: '#fff' }}
+          style={{ flex: 1, minWidth: 0, height: 44, padding: '0 14px', border: '1px solid #dceae4', borderRadius: 14, fontSize: 16, outline: 'none', background: '#fff' }}
         />
         <button onClick={onAddPerson} style={{ height: 44, padding: '0 18px', borderRadius: 14, border: 0, background: '#19b083', color: '#fff', fontSize: 15, cursor: 'pointer', fontFamily: 'inherit' }}>Add</button>
       </div>
