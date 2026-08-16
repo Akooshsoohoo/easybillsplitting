@@ -1,7 +1,39 @@
+import { useState } from 'react'
 import SectionHeading from './SectionHeading.jsx'
 import { formatMoney } from '../utils.js'
+import { stepButtonStyle } from '../theme.js'
+import { generateShareCard, buildShareText } from '../shareCard.js'
 
 export default function ResultsSection({ style, currency, rows, tipEven, onTipModeChange, grandTotal, hasUnassigned, unassignedAmount }) {
+  const [sharing, setSharing] = useState(false)
+
+  async function handleShare() {
+    if (sharing || rows.length === 0) return
+    setSharing(true)
+    try {
+      const blob = await generateShareCard({ rows, grandTotal, currency, hasUnassigned, unassignedAmount })
+      const file = new File([blob], 'bill-split.png', { type: 'image/png' })
+      const text = buildShareText({ rows, grandTotal, currency })
+
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: 'Bill split', text })
+      } else {
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = 'bill-split.png'
+        document.body.appendChild(a)
+        a.click()
+        a.remove()
+        URL.revokeObjectURL(url)
+      }
+    } catch (err) {
+      if (err?.name !== 'AbortError') console.error(err)
+    } finally {
+      setSharing(false)
+    }
+  }
+
   return (
     <section id="sec-results" style={style}>
       <SectionHeading step={5} title="Who owes what" description="Here's the final breakdown, including tax and tip." />
@@ -52,6 +84,9 @@ export default function ResultsSection({ style, currency, rows, tipEven, onTipMo
           {formatMoney(unassignedAmount, currency)} of items isn&rsquo;t assigned to anyone yet.
         </div>
       )}
+      <button onClick={handleShare} disabled={sharing || rows.length === 0} style={stepButtonStyle(!sharing && rows.length > 0)}>
+        {sharing ? 'Preparing…' : 'Share breakdown'}
+      </button>
     </section>
   )
 }
