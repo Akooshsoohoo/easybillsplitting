@@ -10,21 +10,41 @@ export default function ResultsSection({ style, currency, rows, tipEven, onTipMo
         <span style={{ fontSize: 14 }}>Split the tip evenly</span>
         <span style={{ marginLeft: 'auto', fontSize: 12, color: '#8ba49b' }}>{tipEven ? 'even' : 'proportional'}</span>
       </label>
-      <div style={{ background: '#fff', border: '1px solid #dceae4', borderRadius: 18, overflow: 'hidden' }}>
+      <div style={{ background: '#fff', border: '1px solid #b9dcce', borderRadius: 20, overflow: 'hidden', boxShadow: '0 10px 28px rgba(25,176,131,.1)' }}>
         {rows.map((r) => (
-          <div key={r.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: '16px 18px', borderBottom: '1px solid #f0f6f3' }}>
-            <div>
-              <div style={{ fontSize: 15, fontWeight: 500 }}>{r.name}</div>
-              <div style={{ fontSize: 12, color: '#8ba49b', marginTop: 3 }}>
-                {formatMoney(r.sub, currency)} items · {formatMoney(r.tax, currency)} tax · {formatMoney(r.tip, currency)} tip
+          <div
+            key={r.id}
+            style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 14,
+              padding: '18px 20px', borderBottom: '1px solid #eaf5f0', borderLeft: '4px solid #19b083',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div
+                style={{
+                  width: 38, height: 38, borderRadius: '50%', flexShrink: 0,
+                  background: 'linear-gradient(135deg, #19b083, #0e6b4f)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: '#fff', fontSize: 15, fontWeight: 600,
+                }}
+              >
+                {r.name.trim().charAt(0).toUpperCase() || '?'}
+              </div>
+              <div>
+                <div style={{ fontSize: 15, fontWeight: 600 }}>{r.name}</div>
+                <div style={{ fontSize: 12, color: '#8ba49b', marginTop: 3 }}>
+                  {formatMoney(r.sub, currency)} items · {formatMoney(r.tax, currency)} tax · {formatMoney(r.tip, currency)} tip
+                </div>
               </div>
             </div>
-            <div style={{ fontFamily: "'DM Mono',monospace", fontSize: 19, fontWeight: 500, letterSpacing: '-0.02em' }}>{formatMoney(r.total, currency)}</div>
+            <div style={{ fontFamily: "'DM Mono',monospace", fontSize: 21, fontWeight: 600, letterSpacing: '-0.02em', color: '#0e6b4f' }}>
+              {formatMoney(r.total, currency)}
+            </div>
           </div>
         ))}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 18px', background: '#f6fbf9' }}>
-          <span style={{ fontSize: 13, color: '#7b9189' }}>Bill total</span>
-          <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 15, fontWeight: 500 }}>{formatMoney(grandTotal, currency)}</span>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', background: '#e7f4ee', borderTop: '1px solid #b9dcce' }}>
+          <span style={{ fontSize: 13, fontWeight: 600, color: '#0e6b4f' }}>Bill total</span>
+          <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 16, fontWeight: 600, color: '#0e6b4f' }}>{formatMoney(grandTotal, currency)}</span>
         </div>
       </div>
       {hasUnassigned && (
