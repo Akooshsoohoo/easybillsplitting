@@ -11,7 +11,7 @@ export default function Header() {
         rel="noopener noreferrer"
         style={{ fontSize: 13, color: '#6e857c', textDecoration: 'none' }}
       >
-        1sahakash1@gmail.com
+        Portfolio
       </a>
     </header>
   )

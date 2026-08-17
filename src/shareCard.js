@@ -184,5 +184,5 @@ export async function generateShareCard({ rows, grandTotal, currency, hasUnassig
 
 export function buildShareText({ rows, grandTotal, currency }) {
   const lines = rows.map((r) => `${r.name}: ${formatMoney(r.total, currency)}`)
-  return `Bill split — total ${formatMoney(grandTotal, currency)}\n${lines.join('\n')}`
+  return `Bill split, total ${formatMoney(grandTotal, currency)}\n${lines.join('\n')}`
 }

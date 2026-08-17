@@ -8,7 +8,7 @@ export default function EvenSplitSection({ currency, total, onTotalChange, headc
 
   return (
     <section id="sec-even" style={{ padding: '44px 0 0' }}>
-      <SectionHeading step={1} title="Even split" description="Enter the total bill and how many people are splitting it — updates instantly as you type." />
+      <SectionHeading step={1} title="Even split" description="Enter the total bill and how many people are splitting it. Updates instantly as you type." />
       <div style={{ background: '#ffffff', border: '1px solid #dceae4', borderRadius: 18, padding: 20 }}>
         <label style={{ display: 'block', fontSize: 12, color: '#7b9189', marginBottom: 7 }}>Total bill</label>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid #e4efea', paddingBottom: 12, marginBottom: 20 }}>
