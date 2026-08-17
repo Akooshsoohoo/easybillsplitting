@@ -45,3 +45,21 @@ input:focus-visible {
     display: none;
   }
 }
+
+.bmc-slot .bmc-btn-container {
+  margin: 0;
+}
+.bmc-slot .bmc-btn {
+  min-width: 0;
+  height: 26px;
+  font-size: 13px;
+  padding: 0 10px;
+  border-radius: 7px;
+  line-height: 1;
+}
+.bmc-slot .bmc-btn-text {
+  margin-left: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+}
