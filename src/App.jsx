@@ -7,8 +7,9 @@ import ItemsSection from './components/ItemsSection.jsx'
 import TaxTipSection from './components/TaxTipSection.jsx'
 import NamesSection from './components/NamesSection.jsx'
 import AssignSection from './components/AssignSection.jsx'
+import DiscountsSection from './components/DiscountsSection.jsx'
 import ResultsSection from './components/ResultsSection.jsx'
-import { parseNum } from './utils.js'
+import { parseNum, discountAmount } from './utils.js'
 import { sectionStyle } from './theme.js'
 
 const CURRENCY = '$'
@@ -50,6 +51,18 @@ export default function App() {
   const [drag, setDrag] = useState(null)
   const [hover, setHover] = useState(null)
 
+  const [discounts, setDiscounts] = useState([])
+  const [discountsDone, setDiscountsDone] = useState(false)
+  const [dLabel, setDLabel] = useState('')
+  const [dKind, setDKind] = useState('percent')
+  const [dValue, setDValue] = useState('')
+  const [dTarget, setDTarget] = useState('order')
+
+  const [evenDiscounts, setEvenDiscounts] = useState([])
+  const [eLabel, setELabel] = useState('')
+  const [eKind, setEKind] = useState('percent')
+  const [eValue, setEValue] = useState('')
+
   const [tipEven, setTipEven] = useState(null)
 
   const uidRef = useRef(1)
@@ -82,6 +95,10 @@ export default function App() {
   }
   function confirmAssign() {
     setAssignDone(true)
+    scrollToId('sec-discounts')
+  }
+  function confirmDiscounts() {
+    setDiscountsDone(true)
     scrollToId('sec-results')
   }
 
@@ -109,6 +126,27 @@ export default function App() {
       const { [pid]: _, ...rest } = a
       return rest
     })
+    setDiscounts((s) => s.filter((d) => d.target !== pid))
+    setDTarget((t) => (t === pid ? 'order' : t))
+  }
+
+  function addDiscount(target) {
+    if (!(parseNum(dValue) > 0)) return
+    setDiscounts((s) => [...s, { id: nextId('d'), label: dLabel.trim(), kind: dKind, value: dValue, target }])
+    setDLabel('')
+    setDValue('')
+  }
+  function removeDiscount(id) {
+    setDiscounts((s) => s.filter((x) => x.id !== id))
+  }
+  function addEvenDiscount() {
+    if (!(parseNum(eValue) > 0)) return
+    setEvenDiscounts((s) => [...s, { id: nextId('d'), label: eLabel.trim(), kind: eKind, value: eValue }])
+    setELabel('')
+    setEValue('')
+  }
+  function removeEvenDiscount(id) {
+    setEvenDiscounts((s) => s.filter((x) => x.id !== id))
   }
 
   function assignTo(pid, iid) {
@@ -164,27 +202,57 @@ export default function App() {
   const computed = useMemo(() => {
     const taxAmt = parseNum(tax)
     const tipAmt = parseNum(tip)
-    const sub = {}
-    persons.forEach((p) => { sub[p.id] = 0 })
+    const rawSub = {}
+    persons.forEach((p) => { rawSub[p.id] = 0 })
     let assignedTotal = 0
     let unassigned = 0
     items.forEach((it) => {
       const sharers = persons.filter((p) => (assign[p.id] || []).includes(it.id))
       if (!sharers.length) { unassigned += it.price; return }
       const share = it.price / sharers.length
-      sharers.forEach((p) => { sub[p.id] += share })
+      sharers.forEach((p) => { rawSub[p.id] += share })
       assignedTotal += it.price
     })
+
+    // Whole-order discounts come off the item subtotal, allocated proportionally.
+    const orderDiscRaw = discounts
+      .filter((d) => d.target === 'order')
+      .reduce((sum, d) => sum + discountAmount(assignedTotal, d.kind, d.value), 0)
+    const orderDiscTotal = Math.min(Math.max(orderDiscRaw, 0), assignedTotal)
+    const discountedAssignedTotal = assignedTotal - orderDiscTotal
+    const scale = assignedTotal > 0 ? discountedAssignedTotal / assignedTotal : 0
+
+    let personDiscTotal = 0
     const rows = persons.map((p) => {
-      const s = sub[p.id]
-      const t = assignedTotal > 0 ? taxAmt * s / assignedTotal : 0
+      const s = rawSub[p.id] * scale
+      const frac = discountedAssignedTotal > 0 ? s / discountedAssignedTotal : 0
+      const t = taxAmt * frac
       const ti = resolvedTipEven
         ? (persons.length ? tipAmt / persons.length : 0)
-        : (assignedTotal > 0 ? tipAmt * s / assignedTotal : 0)
-      return { id: p.id, name: p.name, sub: s, tax: t, tip: ti, total: s + t + ti }
+        : tipAmt * frac
+      const beforePersonal = s + t + ti
+      // Per-person discounts come off the final total, floored at zero.
+      const mineRaw = discounts
+        .filter((d) => d.target === p.id)
+        .reduce((sum, d) => sum + discountAmount(beforePersonal, d.kind, d.value), 0)
+      const personDisc = Math.min(Math.max(mineRaw, 0), beforePersonal)
+      personDiscTotal += personDisc
+      return {
+        id: p.id,
+        name: p.name,
+        rawSub: rawSub[p.id],
+        sub: s,
+        orderDisc: rawSub[p.id] - s,
+        personDisc,
+        tax: t,
+        tip: ti,
+        total: beforePersonal - personDisc,
+      }
     })
-    return { rows, tax: taxAmt, tip: tipAmt, unassigned, assignedTotal }
-  }, [items, persons, assign, tax, tip, resolvedTipEven])
+
+    const savings = orderDiscTotal + personDiscTotal
+    return { rows, tax: taxAmt, tip: tipAmt, unassigned, assignedTotal, orderDiscTotal, savings }
+  }, [items, persons, assign, tax, tip, resolvedTipEven, discounts])
 
   const rowsById = useMemo(() => {
     const m = {}
@@ -195,9 +263,10 @@ export default function App() {
   const gateTaxTip = itemsDone
   const gateNames = gateTaxTip && taxTipDone
   const gateAssign = gateNames && namesDone
-  const gateResults = gateAssign && assignDone
+  const gateDiscounts = gateAssign && assignDone
+  const gateResults = gateDiscounts && discountsDone
 
-  const grandTotal = computed.assignedTotal + computed.unassigned + computed.tax + computed.tip
+  const grandTotal = computed.rows.reduce((s, r) => s + r.total, 0) + computed.unassigned
   const hasUnassigned = computed.unassigned > 0.001
 
   function reset() {
@@ -224,6 +293,15 @@ export default function App() {
               onHeadcountChange={setHeadcount}
               onInc={() => setHeadcount((h) => (Math.max(1, parseInt(h, 10) || 1)) + 1)}
               onDec={() => setHeadcount((h) => Math.max(1, (Math.max(1, parseInt(h, 10) || 1)) - 1))}
+              evenDiscounts={evenDiscounts}
+              eLabel={eLabel}
+              eKind={eKind}
+              eValue={eValue}
+              onELabelChange={setELabel}
+              onEKindChange={setEKind}
+              onEValueChange={setEValue}
+              onAddEvenDiscount={addEvenDiscount}
+              onRemoveEvenDiscount={removeEvenDiscount}
             />
           )}
 
@@ -275,6 +353,24 @@ export default function App() {
                 onRemoveChip={unassign}
                 onConfirm={confirmAssign}
               />
+              <DiscountsSection
+                style={sectionStyle(gateDiscounts)}
+                currency={CURRENCY}
+                persons={persons}
+                discounts={discounts}
+                savings={computed.savings}
+                dLabel={dLabel}
+                dKind={dKind}
+                dValue={dValue}
+                dTarget={dTarget}
+                onDLabelChange={setDLabel}
+                onDKindChange={setDKind}
+                onDValueChange={setDValue}
+                onDTargetChange={setDTarget}
+                onAddDiscount={addDiscount}
+                onRemoveDiscount={removeDiscount}
+                onConfirm={confirmDiscounts}
+              />
               <ResultsSection
                 style={sectionStyle(gateResults)}
                 currency={CURRENCY}
@@ -282,6 +378,7 @@ export default function App() {
                 tipEven={resolvedTipEven}
                 onTipModeChange={setTipEven}
                 grandTotal={grandTotal}
+                savings={computed.savings}
                 hasUnassigned={hasUnassigned}
                 unassignedAmount={computed.unassigned}
               />

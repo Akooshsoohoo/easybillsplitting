@@ -6,3 +6,8 @@ export function parseNum(v) {
 export function formatMoney(n, currency = '$') {
   return currency + n.toFixed(2);
 }
+
+export function discountAmount(base, kind, value) {
+  const v = parseNum(value);
+  return kind === 'percent' ? (base * v) / 100 : v;
+}

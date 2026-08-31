@@ -28,7 +28,8 @@ function roundRectPath(ctx, x, y, w, h, r) {
   ctx.closePath()
 }
 
-export async function generateShareCard({ rows, grandTotal, currency, hasUnassigned, unassignedAmount }) {
+export async function generateShareCard({ rows, grandTotal, currency, savings = 0, hasUnassigned, unassignedAmount }) {
+  const hasSavings = savings > 0.005
   if (document.fonts?.load) {
     await Promise.all([
       document.fonts.load('700 18px "DM Sans"'),
@@ -43,9 +44,10 @@ export async function generateShareCard({ rows, grandTotal, currency, hasUnassig
   const headerH = 84
   const rowH = 92
   const totalH = 64
+  const savingsH = hasSavings ? 44 : 0
   const warnH = hasUnassigned ? 56 : 0
   const cardW = W - PAD * 2
-  const cardH = headerH + rows.length * rowH + totalH + warnH
+  const cardH = headerH + rows.length * rowH + totalH + savingsH + warnH
   const H = cardH + PAD * 2
 
   const dpr = Math.min(window.devicePixelRatio || 1, 3)
@@ -164,6 +166,24 @@ export async function generateShareCard({ rows, grandTotal, currency, hasUnassig
 
   y += totalH
 
+  if (hasSavings) {
+    ctx.fillStyle = COLORS.card
+    ctx.fillRect(cardX, y, cardW, savingsH)
+    ctx.strokeStyle = COLORS.divider
+    ctx.beginPath()
+    ctx.moveTo(cardX, y)
+    ctx.lineTo(cardX + cardW, y)
+    ctx.stroke()
+    ctx.fillStyle = COLORS.green
+    ctx.font = '700 14px "DM Sans"'
+    ctx.fillText('You saved', cardX + innerX, y + savingsH / 2)
+    ctx.font = '500 16px "DM Mono"'
+    ctx.textAlign = 'right'
+    ctx.fillText(formatMoney(savings, currency), cardX + cardW - innerX, y + savingsH / 2 + 1)
+    ctx.textAlign = 'left'
+    y += savingsH
+  }
+
   if (hasUnassigned) {
     ctx.fillStyle = COLORS.warnBg
     ctx.fillRect(cardX, y, cardW, warnH)
@@ -182,7 +202,8 @@ export async function generateShareCard({ rows, grandTotal, currency, hasUnassig
   return new Promise((resolve) => canvas.toBlob(resolve, 'image/png', 1))
 }
 
-export function buildShareText({ rows, grandTotal, currency }) {
+export function buildShareText({ rows, grandTotal, currency, savings = 0 }) {
   const lines = rows.map((r) => `${r.name}: ${formatMoney(r.total, currency)}`)
-  return `Bill split, total ${formatMoney(grandTotal, currency)}\n${lines.join('\n')}`
+  const saved = savings > 0.005 ? `\nSaved ${formatMoney(savings, currency)}` : ''
+  return `Bill split, total ${formatMoney(grandTotal, currency)}\n${lines.join('\n')}${saved}`
 }

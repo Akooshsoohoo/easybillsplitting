@@ -4,16 +4,17 @@ import { formatMoney } from '../utils.js'
 import { stepButtonStyle } from '../theme.js'
 import { generateShareCard, buildShareText } from '../shareCard.js'
 
-export default function ResultsSection({ style, currency, rows, tipEven, onTipModeChange, grandTotal, hasUnassigned, unassignedAmount }) {
+export default function ResultsSection({ style, currency, rows, tipEven, onTipModeChange, grandTotal, savings = 0, hasUnassigned, unassignedAmount }) {
   const [sharing, setSharing] = useState(false)
+  const hasSavings = savings > 0.005
 
   async function handleShare() {
     if (sharing || rows.length === 0) return
     setSharing(true)
     try {
-      const blob = await generateShareCard({ rows, grandTotal, currency, hasUnassigned, unassignedAmount })
+      const blob = await generateShareCard({ rows, grandTotal, currency, savings, hasUnassigned, unassignedAmount })
       const file = new File([blob], 'bill-split.png', { type: 'image/png' })
-      const text = buildShareText({ rows, grandTotal, currency })
+      const text = buildShareText({ rows, grandTotal, currency, savings })
 
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         await navigator.share({ files: [file], title: 'Bill split', text })
@@ -43,7 +44,9 @@ export default function ResultsSection({ style, currency, rows, tipEven, onTipMo
         <span style={{ marginLeft: 'auto', fontSize: 12, color: '#8ba49b' }}>{tipEven ? 'even' : 'proportional'}</span>
       </label>
       <div style={{ background: '#fff', border: '1px solid #b9dcce', borderRadius: 20, overflow: 'hidden', boxShadow: '0 10px 28px rgba(25,176,131,.1)' }}>
-        {rows.map((r) => (
+        {rows.map((r) => {
+          const off = (r.orderDisc || 0) + (r.personDisc || 0)
+          return (
           <div
             key={r.id}
             style={{
@@ -66,6 +69,7 @@ export default function ResultsSection({ style, currency, rows, tipEven, onTipMo
                 <div style={{ fontSize: 15, fontWeight: 600 }}>{r.name}</div>
                 <div style={{ fontSize: 12, color: '#8ba49b', marginTop: 3 }}>
                   {formatMoney(r.sub, currency)} items · {formatMoney(r.tax, currency)} tax · {formatMoney(r.tip, currency)} tip
+                  {off > 0.005 && <span style={{ color: '#19b083' }}> · −{formatMoney(off, currency)} off</span>}
                 </div>
               </div>
             </div>
@@ -73,7 +77,14 @@ export default function ResultsSection({ style, currency, rows, tipEven, onTipMo
               {formatMoney(r.total, currency)}
             </div>
           </div>
-        ))}
+          )
+        })}
+        {hasSavings && (
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 20px', borderTop: '1px solid #eaf5f0', color: '#19b083' }}>
+            <span style={{ fontSize: 13, fontWeight: 600 }}>You saved</span>
+            <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 14, fontWeight: 600 }}>{formatMoney(savings, currency)}</span>
+          </div>
+        )}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', background: '#e7f4ee', borderTop: '1px solid #b9dcce' }}>
           <span style={{ fontSize: 13, fontWeight: 600, color: '#0e6b4f' }}>Bill total</span>
           <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 16, fontWeight: 600, color: '#0e6b4f' }}>{formatMoney(grandTotal, currency)}</span>
