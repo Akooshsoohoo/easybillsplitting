@@ -1,14 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import SectionHeading from './SectionHeading.jsx'
 import DiscountForm from './DiscountForm.jsx'
 import DiscountList from './DiscountList.jsx'
 import { formatMoney, parseNum, discountAmount } from '../utils.js'
+import { upsertHistoryEntry } from '../history.js'
 
 export default function EvenSplitSection({
   currency, total, onTotalChange, headcount, onHeadcountChange, onInc, onDec,
   evenDiscounts = [], eLabel, eKind, eValue,
   onELabelChange, onEKindChange, onEValueChange, onAddEvenDiscount, onRemoveEvenDiscount,
-  onSave, saved,
 }) {
   const [open, setOpen] = useState(false)
   const head = Math.max(1, parseInt(headcount, 10) || 1)
@@ -19,6 +19,18 @@ export default function EvenSplitSection({
   const per = (subtotal - discTotal) / head
   const rawPer = subtotal / head
   const evenNote = `${head}${head === 1 ? ' person' : ' people'} · ${formatMoney(subtotal, currency)} total`
+
+  const entryIdRef = useRef(null)
+  useEffect(() => {
+    if (!(subtotal > 0)) return
+    const timer = setTimeout(() => {
+      const record = upsertHistoryEntry(entryIdRef.current, {
+        mode: 'even', headcount: head, total: subtotal, discount: discTotal, perPerson: per, currency,
+      })
+      entryIdRef.current = record.id
+    }, 700)
+    return () => clearTimeout(timer)
+  }, [subtotal, head, discTotal, per, currency])
 
   return (
     <section id="sec-even" style={{ padding: '44px 0 0' }}>
@@ -88,16 +100,6 @@ export default function EvenSplitSection({
         </div>
         <div style={{ fontSize: 12, opacity: 0.82, textAlign: 'right', lineHeight: 1.5 }}>{evenNote}</div>
       </div>
-      {onSave && (
-        <button
-          type="button"
-          onClick={() => onSave({ mode: 'even', headcount: head, total: subtotal, discount: discTotal, perPerson: per, currency })}
-          disabled={!(subtotal > 0)}
-          style={{ marginTop: 12, width: '100%', padding: 13, borderRadius: 14, border: '1px solid #dceae4', background: 'transparent', fontSize: 14, color: subtotal > 0 ? '#0e6b4f' : '#a8bcb4', cursor: subtotal > 0 ? 'pointer' : 'not-allowed', fontFamily: 'inherit' }}
-        >
-          {saved ? 'Saved' : 'Save this split'}
-        </button>
-      )}
     </section>
   )
 }

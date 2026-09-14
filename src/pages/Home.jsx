@@ -12,7 +12,6 @@ import ResultsSection from '../components/ResultsSection.jsx'
 import { parseNum, discountAmount } from '../utils.js'
 import { sectionStyle, colors } from '../theme.js'
 import { usePageMeta } from '../usePageMeta.js'
-import { saveHistoryEntry } from '../history.js'
 
 const CURRENCY = '$'
 const DEFAULT_TIP_EVEN = false
@@ -71,16 +70,6 @@ export default function Home() {
   const [eValue, setEValue] = useState('')
 
   const [tipEven, setTipEven] = useState(null)
-
-  const [saved, setSaved] = useState(false)
-  const savedTimerRef = useRef(null)
-  function saveSplit(entry) {
-    saveHistoryEntry(entry)
-    setSaved(true)
-    clearTimeout(savedTimerRef.current)
-    savedTimerRef.current = setTimeout(() => setSaved(false), 2000)
-  }
-  useEffect(() => () => clearTimeout(savedTimerRef.current), [])
 
   const uidRef = useRef(1)
   const nextId = (prefix) => prefix + uidRef.current++
@@ -318,8 +307,6 @@ export default function Home() {
               onEValueChange={setEValue}
               onAddEvenDiscount={addEvenDiscount}
               onRemoveEvenDiscount={removeEvenDiscount}
-              onSave={saveSplit}
-              saved={saved}
             />
           )}
 
@@ -399,8 +386,6 @@ export default function Home() {
                 savings={computed.savings}
                 hasUnassigned={hasUnassigned}
                 unassignedAmount={computed.unassigned}
-                onSave={saveSplit}
-                saved={saved}
               />
             </div>
           )}
@@ -446,10 +431,10 @@ function HomeContent() {
           you enter each item's price, add everyone's name, then drag items onto the people who ordered them
           (an item can be dragged onto more than one person if it was shared). Tax and tip are then divided
           proportionally to what each person actually ordered, or split evenly if you flip the toggle on the
-          results screen. Nothing is sent to a server. If you click "Save this split" or "Save to history" on
-          the results screen, that split is kept in your browser on this device so you can look it up later in{' '}
-          <Link to="/history" style={{ color: colors.greenDark }}>History</Link>. Otherwise it is gone as soon as
-          you leave the page.
+          results screen. Nothing is sent to a server. Once a split has real numbers in it, it's automatically
+          saved to your browser's local storage on this device, and keeps updating as you make changes, so you
+          can find it later on the{' '}
+          <Link to="/history" style={{ color: colors.greenDark }}>History</Link> page.
         </p>
         <p style={{ fontSize: 14.5, lineHeight: 1.65, color: colors.muted1, margin: 0 }}>
           Want the full walkthrough, including how discounts and shared items are handled?{' '}
@@ -461,8 +446,8 @@ function HomeContent() {
         <h2 style={{ fontSize: 20, fontWeight: 500, letterSpacing: '-0.02em', margin: '0 0 10px' }}>Why use it</h2>
         <p style={{ fontSize: 14.5, lineHeight: 1.65, color: colors.muted1, margin: 0 }}>
           No account, no app install, and no ads inside the calculator flow itself. Because the math runs
-          entirely in your browser, your bill amounts and names are never uploaded to a server, even when you
-          choose to save a split for later. See the{' '}
+          entirely in your browser, your bill amounts and names are never uploaded to a server, even when a
+          split is automatically saved to your history. See the{' '}
           <Link to="/privacy-policy" style={{ color: colors.greenDark }}>privacy policy</Link> for details.
         </p>
       </section>
@@ -470,10 +455,9 @@ function HomeContent() {
       <section style={{ marginTop: 32 }}>
         <h2 style={{ fontSize: 20, fontWeight: 500, letterSpacing: '-0.02em', margin: '0 0 10px' }}>Common questions</h2>
         <FaqRow q="Does this app store my bill or my friends' names?">
-          There's no backend and no database. What you type while using the calculator only lives in your
-          browser's memory for that visit and disappears when you refresh or close the tab, unless you choose to
-          save the result. A saved split is kept in your browser's local storage on this device only, and you
-          can remove it anytime from the History page.
+          There's no backend and no database. Once a split has real numbers in it, it's automatically saved to
+          your browser's local storage on this device, so it's still there if you come back later. You can
+          remove any saved split, or clear all of them, from the History page at any time.
         </FaqRow>
         <FaqRow q="How is tax and tip divided when items are shared?">
           By default, tax and tip are split in proportion to how much each person's items cost. If two people

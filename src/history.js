@@ -19,11 +19,26 @@ function writeHistory(list) {
   }
 }
 
-export function saveHistoryEntry(entry) {
-  const id = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
-  const next = [{ id, createdAt: Date.now(), ...entry }, ...loadHistory()].slice(0, MAX_ENTRIES)
+function makeId() {
+  return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
+}
+
+// Creates a new entry, or updates the one at `id` in place if it already exists.
+// Used for autosave: the first save creates the record, later edits to the same
+// split update it instead of piling up duplicates. Returns the saved record.
+export function upsertHistoryEntry(id, entry) {
+  const list = loadHistory()
+  const idx = id ? list.findIndex((e) => e.id === id) : -1
+  if (idx === -1) {
+    const record = { id: id || makeId(), createdAt: Date.now(), ...entry }
+    writeHistory([record, ...list].slice(0, MAX_ENTRIES))
+    return record
+  }
+  const record = { ...list[idx], ...entry }
+  const next = [...list]
+  next[idx] = record
   writeHistory(next)
-  return next
+  return record
 }
 
 export function removeHistoryEntry(id) {

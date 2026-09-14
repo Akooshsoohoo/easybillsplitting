@@ -84,13 +84,12 @@ export default function History() {
   return (
     <ContentPage
       title="History"
-      subtitle="Splits you have chosen to save. This list is stored only on this device and is never sent anywhere."
+      subtitle="Splits you have calculated. This list is saved automatically, stored only on this device, and is never sent anywhere."
     >
       {entries.length === 0 ? (
         <p style={{ color: colors.muted1 }}>
-          No saved splits yet. Use the "Save this split" or "Save to history" button on the results screen after
-          calculating a split, and it will show up here. Try the{' '}
-          <Link to="/" style={{ color: colors.greenDark }}>calculator</Link>.
+          No saved splits yet. Splits are saved automatically once you calculate one, so try the{' '}
+          <Link to="/" style={{ color: colors.greenDark }}>calculator</Link>, and it will show up here.
         </p>
       ) : (
         <>

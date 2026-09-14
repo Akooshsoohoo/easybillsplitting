@@ -1,12 +1,25 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import SectionHeading from './SectionHeading.jsx'
 import { formatMoney } from '../utils.js'
 import { stepButtonStyle } from '../theme.js'
 import { generateShareCard, buildShareText } from '../shareCard.js'
+import { upsertHistoryEntry } from '../history.js'
 
-export default function ResultsSection({ style, currency, rows, tipEven, onTipModeChange, grandTotal, savings = 0, hasUnassigned, unassignedAmount, onSave, saved }) {
+export default function ResultsSection({ style, currency, rows, tipEven, onTipModeChange, grandTotal, savings = 0, hasUnassigned, unassignedAmount }) {
   const [sharing, setSharing] = useState(false)
   const hasSavings = savings > 0.005
+
+  const entryIdRef = useRef(null)
+  useEffect(() => {
+    if (rows.length === 0) return
+    const timer = setTimeout(() => {
+      const record = upsertHistoryEntry(entryIdRef.current, {
+        mode: 'item', people: rows.map((r) => ({ name: r.name, total: r.total })), grandTotal, savings, currency,
+      })
+      entryIdRef.current = record.id
+    }, 700)
+    return () => clearTimeout(timer)
+  }, [rows, grandTotal, savings, currency])
 
   async function handleShare() {
     if (sharing || rows.length === 0) return
@@ -98,16 +111,6 @@ export default function ResultsSection({ style, currency, rows, tipEven, onTipMo
       <button onClick={handleShare} disabled={sharing || rows.length === 0} style={stepButtonStyle(!sharing && rows.length > 0)}>
         {sharing ? 'Preparing…' : 'Share breakdown'}
       </button>
-      {onSave && (
-        <button
-          type="button"
-          onClick={() => onSave({ mode: 'item', people: rows.map((r) => ({ name: r.name, total: r.total })), grandTotal, savings, currency })}
-          disabled={rows.length === 0}
-          style={{ marginTop: 10, width: '100%', padding: 13, borderRadius: 14, border: '1px solid #dceae4', background: 'transparent', fontSize: 14, color: rows.length > 0 ? '#0e6b4f' : '#a8bcb4', cursor: rows.length > 0 ? 'pointer' : 'not-allowed', fontFamily: 'inherit' }}
-        >
-          {saved ? 'Saved' : 'Save to history'}
-        </button>
-      )}
     </section>
   )
 }
