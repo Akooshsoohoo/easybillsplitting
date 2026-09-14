@@ -42,6 +42,7 @@ export default function SiteHeader() {
           <NavLink to="/" end style={navLinkStyle}>Split a bill</NavLink>
           <NavLink to="/how-to-split-a-bill" style={navLinkStyle}>How to split a bill</NavLink>
           <NavLink to="/faq" style={navLinkStyle}>FAQ</NavLink>
+          <NavLink to="/history" style={navLinkStyle}>History</NavLink>
           <NavLink to="/about" style={navLinkStyle}>About</NavLink>
           <CoffeeButtonSlot />
         </nav>

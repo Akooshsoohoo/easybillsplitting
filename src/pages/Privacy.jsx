@@ -22,9 +22,21 @@ export default function Privacy() {
       <Section title="What this site does not collect">
         <p>
           EasyBillSplitting has no user accounts, no login, and no backend server. The bill amounts, item
-          names, prices, and person names you type into the calculator are held only in your browser's memory
-          for that page visit. They are never transmitted to, or stored on, any server we operate, and they
-          disappear when you refresh or close the tab.
+          names, prices, and person names you type into the calculator are never transmitted to, or stored on,
+          any server we operate. While you're using the calculator, that data lives only in your browser's
+          memory for that page visit and disappears when you refresh or close the tab, unless you choose to
+          save the result as described below.
+        </p>
+      </Section>
+
+      <Section title="Saved split history">
+        <p>
+          If you click "Save this split" or "Save to history" on the results screen, that split's totals are
+          written to your browser's local storage and shown on the History page the next time you visit, even
+          after closing the browser. This is optional and only happens if you take that action. The saved data
+          stays on this device, is never transmitted to us or anyone else, and can be removed at any time by
+          deleting individual entries or clicking "Clear all" on the History page. Clearing your browser's site
+          data will also remove it.
         </p>
       </Section>
 

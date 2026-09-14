@@ -29,7 +29,10 @@ export default function About() {
       </p>
       <p>
         The tool is intentionally simple. There is no account, no app to install, and no server storing what
-        you type. Every calculation happens in your browser and is gone when you leave the page. See the{' '}
+        you type. Each calculation happens in your browser and is gone once you leave the page, unless you
+        choose to save it. A saved split stays in{' '}
+        <Link to="/history" style={{ color: colors.greenDark }}>your history</Link>, stored only on this device,
+        until you remove it. See the{' '}
         <Link to="/privacy-policy" style={{ color: colors.greenDark }}>privacy policy</Link> for details. It's
         kept online and free through a small amount of on-page advertising and an optional tip jar in the
         header, not through fees or accounts.

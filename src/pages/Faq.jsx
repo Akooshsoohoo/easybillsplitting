@@ -6,7 +6,11 @@ import { usePageMeta } from '../usePageMeta.js'
 const faqs = [
   {
     q: 'Does EasyBillSplitting store my bill, names, or amounts?',
-    a: "No. There's no account, no database, and no server processing your numbers. Everything you type, including item prices, names, tax, and tip, stays in your browser's memory for that page visit and disappears the moment you refresh or close the tab.",
+    a: "There's no account, no database, and no server processing your numbers. Everything you type, including item prices, names, tax, and tip, stays in your browser's memory for that page visit and disappears the moment you refresh or close the tab, unless you choose to save the result to your history.",
+  },
+  {
+    q: 'Can I see past splits I have calculated?',
+    a: "Yes. After a split is calculated, a \"Save this split\" or \"Save to history\" button appears on the results screen. Saved splits show up on the History page, listed by date, and are stored only in your browser's local storage on this device. You can remove one split or clear all of them from that page at any time. Nothing is ever sent to a server.",
   },
   {
     q: 'Do I need to create an account?',

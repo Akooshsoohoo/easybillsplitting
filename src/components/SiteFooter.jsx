@@ -12,6 +12,7 @@ export default function SiteFooter() {
           <Link to="/about" style={linkStyle}>About</Link>
           <Link to="/faq" style={linkStyle}>FAQ</Link>
           <Link to="/how-to-split-a-bill" style={linkStyle}>How to split a bill</Link>
+          <Link to="/history" style={linkStyle}>History</Link>
           <Link to="/privacy-policy" style={linkStyle}>Privacy Policy</Link>
           <Link to="/terms" style={linkStyle}>Terms of Use</Link>
         </nav>

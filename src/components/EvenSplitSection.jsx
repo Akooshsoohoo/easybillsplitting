@@ -8,6 +8,7 @@ export default function EvenSplitSection({
   currency, total, onTotalChange, headcount, onHeadcountChange, onInc, onDec,
   evenDiscounts = [], eLabel, eKind, eValue,
   onELabelChange, onEKindChange, onEValueChange, onAddEvenDiscount, onRemoveEvenDiscount,
+  onSave, saved,
 }) {
   const [open, setOpen] = useState(false)
   const head = Math.max(1, parseInt(headcount, 10) || 1)
@@ -87,6 +88,16 @@ export default function EvenSplitSection({
         </div>
         <div style={{ fontSize: 12, opacity: 0.82, textAlign: 'right', lineHeight: 1.5 }}>{evenNote}</div>
       </div>
+      {onSave && (
+        <button
+          type="button"
+          onClick={() => onSave({ mode: 'even', headcount: head, total: subtotal, discount: discTotal, perPerson: per, currency })}
+          disabled={!(subtotal > 0)}
+          style={{ marginTop: 12, width: '100%', padding: 13, borderRadius: 14, border: '1px solid #dceae4', background: 'transparent', fontSize: 14, color: subtotal > 0 ? '#0e6b4f' : '#a8bcb4', cursor: subtotal > 0 ? 'pointer' : 'not-allowed', fontFamily: 'inherit' }}
+        >
+          {saved ? 'Saved' : 'Save this split'}
+        </button>
+      )}
     </section>
   )
 }
