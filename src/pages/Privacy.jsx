@@ -13,7 +13,7 @@ function Section({ title, children }) {
 
 export default function Privacy() {
   usePageMeta(
-    'Privacy Policy — EasyBillSplitting',
+    'Privacy Policy | EasyBillSplitting',
     'How EasyBillSplitting handles data: what the calculator does and does not collect, and how third-party ad providers use cookies.'
   )
 
@@ -23,7 +23,7 @@ export default function Privacy() {
         <p>
           EasyBillSplitting has no user accounts, no login, and no backend server. The bill amounts, item
           names, prices, and person names you type into the calculator are held only in your browser's memory
-          for that page visit — they are never transmitted to, or stored on, any server we operate, and they
+          for that page visit. They are never transmitted to, or stored on, any server we operate, and they
           disappear when you refresh or close the tab.
         </p>
       </Section>
@@ -52,7 +52,7 @@ export default function Privacy() {
 
       <Section title="Changes to this policy">
         <p>
-          If this policy changes — for example, if a new analytics or advertising provider is added — the
+          If this policy changes, for example if a new analytics or advertising provider is added, the
           "last updated" date above will be revised.
         </p>
       </Section>

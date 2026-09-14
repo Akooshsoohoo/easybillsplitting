@@ -14,7 +14,7 @@ function Section({ title, children }) {
 
 export default function Terms() {
   usePageMeta(
-    'Terms of Use — EasyBillSplitting',
+    'Terms of Use | EasyBillSplitting',
     'Terms of use for EasyBillSplitting, a free browser-based bill-splitting calculator.'
   )
 

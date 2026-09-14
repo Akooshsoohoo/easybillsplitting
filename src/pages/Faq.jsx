@@ -6,7 +6,7 @@ import { usePageMeta } from '../usePageMeta.js'
 const faqs = [
   {
     q: 'Does EasyBillSplitting store my bill, names, or amounts?',
-    a: "No. There's no account, no database, and no server processing your numbers. Everything you type — item prices, names, tax, tip — stays in your browser's memory for that page visit and disappears the moment you refresh or close the tab.",
+    a: "No. There's no account, no database, and no server processing your numbers. Everything you type, including item prices, names, tax, and tip, stays in your browser's memory for that page visit and disappears the moment you refresh or close the tab.",
   },
   {
     q: 'Do I need to create an account?',
@@ -14,7 +14,7 @@ const faqs = [
   },
   {
     q: "How does the app split tax and tip when people ordered different amounts?",
-    a: "By default, tax and tip are divided in proportion to each person's share of the item subtotal — so if one person's items came to twice as much as another's, they pay roughly twice the tax and tip. On the results screen you can flip a toggle to split tip evenly across everyone instead, regardless of what each person ordered.",
+    a: "By default, tax and tip are divided in proportion to each person's share of the item subtotal. So if one person's items came to twice as much as another's, they pay roughly twice the tax and tip. On the results screen you can flip a toggle to split tip evenly across everyone instead, regardless of what each person ordered.",
   },
   {
     q: 'What happens if two or more people shared one item?',
@@ -26,15 +26,15 @@ const faqs = [
   },
   {
     q: 'Can I apply a discount or coupon?',
-    a: "Yes — you can add a discount to the whole order (applied proportionally across everyone before tax/tip) or to a specific person's total. Both work as either a percentage or a flat amount.",
+    a: "Yes. You can add a discount to the whole order, applied proportionally across everyone before tax and tip, or to a specific person's total. Both work as either a percentage or a flat amount.",
   },
   {
     q: 'Does the even-split mode support discounts too?',
-    a: 'Yes — the Split Evenly flow has its own optional discount field that applies before the total is divided by headcount.',
+    a: 'Yes. The Split Evenly flow has its own optional discount field that applies before the total is divided by headcount.',
   },
   {
     q: 'Is there a mobile app?',
-    a: "No separate app — the site is built mobile-first and works the same way in any phone or desktop browser, including the touch-based drag-and-drop for assigning items.",
+    a: "There's no separate app. The site is built mobile-first and works the same way in any phone or desktop browser, including the touch-based drag-and-drop for assigning items.",
   },
   {
     q: 'Does it work without an internet connection?',
@@ -48,7 +48,7 @@ const faqs = [
 
 export default function Faq() {
   usePageMeta(
-    'FAQ — EasyBillSplitting',
+    'FAQ | EasyBillSplitting',
     'Answers to common questions about splitting bills, shared items, tax and tip, and how EasyBillSplitting handles your data.'
   )
 
