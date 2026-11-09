@@ -5,7 +5,7 @@ import { colors } from '../theme.js'
 
 export default function Layout() {
   return (
-    <div style={{ minHeight: '100vh', background: colors.bg, color: colors.text, fontFamily: "'Satoshi',system-ui,sans-serif", display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: '100vh', background: colors.bg, color: colors.text, fontFamily: "'General Sans',system-ui,sans-serif", display: 'flex', flexDirection: 'column' }}>
       <SiteHeader />
       <main style={{ flex: 1 }}>
         <Outlet />

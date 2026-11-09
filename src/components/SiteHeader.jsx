@@ -24,25 +24,30 @@ function CoffeeButtonSlot() {
 }
 
 const navLinkStyle = ({ isActive }) => ({
-  fontSize: 13.5,
-  color: isActive ? colors.text : colors.muted2,
-  fontWeight: isActive ? 500 : 400,
+  fontSize: 14,
+  color: colors.text,
+  fontWeight: 600,
   textDecoration: 'none',
+  padding: '6px 12px',
+  borderRadius: 8,
+  border: isActive ? '2px solid #1c1b18' : '2px solid transparent',
+  background: isActive ? '#19b083' : 'transparent',
+  boxShadow: isActive ? '2px 2px 0 #1c1b18' : 'none',
 })
 
 export default function SiteHeader() {
   return (
-    <header style={{ borderBottom: `1px solid ${colors.divider}` }}>
+    <header style={{ borderBottom: '2px solid #1c1b18' }}>
       <div style={{ maxWidth: 1240, margin: '0 auto', padding: '18px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 9, textDecoration: 'none', color: 'inherit' }}>
-          <span style={{ fontSize: 14, fontWeight: 500, letterSpacing: '-0.01em' }}>EasyBillSplitting</span>
+          <span style={{ fontSize: 18, fontWeight: 700, letterSpacing: '-0.03em' }}>EasyBillSplitting</span>
         </Link>
-        <nav style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
-          <NavLink to="/" end style={navLinkStyle}>Split a bill</NavLink>
-          <NavLink to="/how-to-split-a-bill" style={navLinkStyle}>How to split a bill</NavLink>
-          <NavLink to="/faq" style={navLinkStyle}>FAQ</NavLink>
-          <NavLink to="/history" style={navLinkStyle}>History</NavLink>
-          <NavLink to="/about" style={navLinkStyle}>About</NavLink>
+        <nav style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+          <NavLink className="nav-link" to="/" end style={navLinkStyle}>Split a bill</NavLink>
+          <NavLink className="nav-link" to="/how-to-split-a-bill" style={navLinkStyle}>How to split a bill</NavLink>
+          <NavLink className="nav-link" to="/faq" style={navLinkStyle}>FAQ</NavLink>
+          <NavLink className="nav-link" to="/history" style={navLinkStyle}>History</NavLink>
+          <NavLink className="nav-link" to="/about" style={navLinkStyle}>About</NavLink>
           <CoffeeButtonSlot />
         </nav>
       </div>

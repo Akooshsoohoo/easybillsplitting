@@ -393,7 +393,7 @@ export default function Home() {
           {mode && (
             <button
               onClick={reset}
-              style={{ marginTop: 32, width: '100%', padding: 14, borderRadius: 14, border: '1px solid #dceae4', background: 'transparent', fontSize: 14, color: '#7b9189', cursor: 'pointer', fontFamily: 'inherit' }}
+              style={{ marginTop: 32, width: '100%', padding: 14, borderRadius: 9, border: '1px solid #e2ddd3', background: 'transparent', fontSize: 14, color: '#7d776b', cursor: 'pointer', fontFamily: 'inherit' }}
             >
               Start over
             </button>
@@ -409,7 +409,7 @@ export default function Home() {
         <div
           style={{
             position: 'fixed', left: drag.x, top: drag.y, transform: 'translate(-50%,-140%)',
-            pointerEvents: 'none', zIndex: 99, padding: '10px 14px', borderRadius: 12,
+            pointerEvents: 'none', zIndex: 99, padding: '10px 14px', borderRadius: 8,
             background: '#19b083', color: '#fff', fontSize: 13, boxShadow: '0 10px 24px rgba(18,33,28,.22)',
           }}
         >

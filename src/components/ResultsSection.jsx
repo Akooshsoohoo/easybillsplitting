@@ -51,12 +51,12 @@ export default function ResultsSection({ style, currency, rows, tipEven, onTipMo
   return (
     <section id="sec-results" style={style}>
       <SectionHeading step={5} title="Who owes what" description="Here's the final breakdown, including tax and tip." />
-      <label style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 16px', background: '#fff', border: '1px solid #dceae4', borderRadius: 16, marginBottom: 12, cursor: 'pointer' }}>
+      <label style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 16px', background: '#fff', border: '2px solid #1c1b18', boxShadow: '4px 4px 0 #1c1b18', borderRadius: 10, marginBottom: 12, cursor: 'pointer' }}>
         <input type="checkbox" checked={tipEven} onChange={(e) => onTipModeChange(e.target.checked)} style={{ width: 18, height: 18, accentColor: '#19b083', margin: 0 }} />
         <span style={{ fontSize: 14 }}>Split the tip evenly</span>
-        <span style={{ marginLeft: 'auto', fontSize: 12, color: '#8ba49b' }}>{tipEven ? 'even' : 'proportional'}</span>
+        <span style={{ marginLeft: 'auto', fontSize: 12, color: '#8d877b' }}>{tipEven ? 'even' : 'proportional'}</span>
       </label>
-      <div style={{ background: '#fff', border: '1px solid #b9dcce', borderRadius: 20, overflow: 'hidden', boxShadow: '0 10px 28px rgba(25,176,131,.1)' }}>
+      <div className="hard-card" style={{ background: '#fff', border: '2px solid #1c1b18', boxShadow: '4px 4px 0 #1c1b18', borderRadius: 10, overflow: 'hidden' }}>
         {rows.map((r) => {
           const off = (r.orderDisc || 0) + (r.personDisc || 0)
           return (
@@ -64,7 +64,7 @@ export default function ResultsSection({ style, currency, rows, tipEven, onTipMo
             key={r.id}
             style={{
               display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 14,
-              padding: '18px 20px', borderBottom: '1px solid #eaf5f0', borderLeft: '4px solid #19b083',
+              padding: '18px 20px', borderBottom: '1px solid #efebe3', borderLeft: '4px solid #19b083',
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -80,7 +80,7 @@ export default function ResultsSection({ style, currency, rows, tipEven, onTipMo
               </div>
               <div>
                 <div style={{ fontSize: 15, fontWeight: 600 }}>{r.name}</div>
-                <div style={{ fontSize: 12, color: '#8ba49b', marginTop: 3 }}>
+                <div style={{ fontSize: 12, color: '#8d877b', marginTop: 3 }}>
                   {formatMoney(r.sub, currency)} items · {formatMoney(r.tax, currency)} tax · {formatMoney(r.tip, currency)} tip
                   {off > 0.005 && <span style={{ color: '#19b083' }}> · −{formatMoney(off, currency)} off</span>}
                 </div>
@@ -93,7 +93,7 @@ export default function ResultsSection({ style, currency, rows, tipEven, onTipMo
           )
         })}
         {hasSavings && (
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 20px', borderTop: '1px solid #eaf5f0', color: '#19b083' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 20px', borderTop: '1px solid #efebe3', color: '#19b083' }}>
             <span style={{ fontSize: 13, fontWeight: 600 }}>You saved</span>
             <span style={{ fontFamily: 'inherit', fontVariantNumeric: 'tabular-nums', fontSize: 14, fontWeight: 600 }}>{formatMoney(savings, currency)}</span>
           </div>
@@ -104,11 +104,11 @@ export default function ResultsSection({ style, currency, rows, tipEven, onTipMo
         </div>
       </div>
       {hasUnassigned && (
-        <div style={{ marginTop: 10, padding: '12px 14px', borderRadius: 14, background: '#fff5e8', border: '1px solid #f2ddc0', fontSize: 13, color: '#8a6a3a' }}>
+        <div style={{ marginTop: 10, padding: '12px 14px', borderRadius: 9, background: '#fff5e8', border: '1px solid #f2ddc0', fontSize: 13, color: '#8a6a3a' }}>
           {formatMoney(unassignedAmount, currency)} of items isn&rsquo;t assigned to anyone yet.
         </div>
       )}
-      <button onClick={handleShare} disabled={sharing || rows.length === 0} style={stepButtonStyle(!sharing && rows.length > 0)}>
+      <button className="hard-btn" onClick={handleShare} disabled={sharing || rows.length === 0} style={stepButtonStyle(!sharing && rows.length > 0)}>
         {sharing ? 'Preparing…' : 'Share breakdown'}
       </button>
     </section>
