@@ -4,7 +4,7 @@ import DiscountList from './DiscountList.jsx'
 import { formatMoney } from '../utils.js'
 import { stepButtonStyle } from '../theme.js'
 
-const blockLabel = { fontSize: 12, fontWeight: 700, color: '#7b9189', margin: '0 0 10px' }
+const blockLabel = { fontSize: 12, fontWeight: 700, color: '#7d776b', margin: '0 0 10px' }
 
 export default function DiscountsSection({
   style, currency, persons, discounts, savings,
@@ -39,7 +39,7 @@ export default function DiscountsSection({
           <select
             value={personChosen ? dTarget : ''}
             onChange={(e) => onDTargetChange(e.target.value)}
-            style={{ width: '100%', height: 44, padding: '0 12px', border: '1px solid #dceae4', borderRadius: 14, fontSize: 15, background: '#fff', color: personChosen ? '#12211c' : '#a8bcb4', outline: 'none', marginBottom: 10, fontFamily: 'inherit' }}
+            style={{ width: '100%', height: 44, padding: '0 12px', border: '1px solid #e2ddd3', borderRadius: 9, fontSize: 15, background: '#fff', color: personChosen ? '#1c1b18' : '#b0aa9e', outline: 'none', marginBottom: 10, fontFamily: 'inherit' }}
           >
             <option value="" disabled>Choose a person…</option>
             {persons.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
@@ -63,12 +63,12 @@ export default function DiscountsSection({
         </div>
       )}
 
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px', background: '#e7f4ee', border: '1px solid #b9dcce', borderRadius: 16 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px', background: '#e7f4ee', border: '2px solid #1c1b18', boxShadow: '4px 4px 0 #1c1b18', borderRadius: 10 }}>
         <span style={{ fontSize: 13, fontWeight: 600, color: '#0e6b4f' }}>You'll save</span>
         <span style={{ fontFamily: 'inherit', fontVariantNumeric: 'tabular-nums', fontSize: 16, fontWeight: 600, color: '#0e6b4f' }}>{formatMoney(savings, currency)}</span>
       </div>
 
-      <button onClick={onConfirm} style={stepButtonStyle(true)}>
+      <button className="hard-btn" onClick={onConfirm} style={stepButtonStyle(true)}>
         Next step
       </button>
     </section>

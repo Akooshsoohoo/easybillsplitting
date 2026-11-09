@@ -15,7 +15,7 @@ function formatDate(ts) {
 function EntryCard({ entry, onRemove }) {
   const currency = entry.currency || '$'
   return (
-    <div style={{ background: '#fff', border: `1px solid ${colors.borderMed}`, borderRadius: 16, padding: '16px 18px', marginBottom: 14 }}>
+    <div className="hard-card" style={{ background: '#fff', border: '2px solid #1c1b18', boxShadow: '4px 4px 0 #1c1b18', borderRadius: 10, padding: '16px 18px', marginBottom: 14 }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
         <div>
           <div style={{ fontSize: 12.5, fontWeight: 600, color: colors.greenDark,  }}>

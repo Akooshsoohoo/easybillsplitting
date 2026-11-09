@@ -4,9 +4,9 @@ html {
 
 body {
   margin: 0;
-  background: #f2f7f4;
-  color: #12211c;
-  font-family: 'Satoshi', system-ui, sans-serif;
+  background: #f6f3ee;
+  color: #1c1b18;
+  font-family: 'General Sans', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -32,12 +32,15 @@ input:focus-visible {
 }
 
 .mode-btn {
-  transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+  transition: transform .12s ease, box-shadow .12s ease;
 }
 .mode-btn:hover {
-  transform: translateY(-2px);
-  background: #14a37f !important;
-  box-shadow: 0 10px 26px rgba(25, 176, 131, .45) !important;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #1c1b18 !important;
+}
+.mode-btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 #1c1b18 !important;
 }
 
 @media (max-width: 1120px) {
@@ -62,4 +65,62 @@ input:focus-visible {
   font-size: 13px;
   font-weight: 500;
   line-height: 1;
+}
+
+.hard-btn:not(:disabled):hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 #1c1b18 !important;
+}
+.hard-btn:not(:disabled):active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #1c1b18 !important;
+}
+.hard-btn { transition: transform .12s ease, box-shadow .12s ease; }
+
+.nav-link {
+  transition: background .12s ease;
+}
+.nav-link:not(.active):hover {
+  background: #e8e4dc !important;
+}
+.nav-link:not(.active) {
+  transition: background .12s ease;
+}
+
+/* motion */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes pop-in {
+  0% { opacity: 0; transform: scale(.92); }
+  60% { transform: scale(1.03); }
+  100% { opacity: 1; transform: none; }
+}
+.rise { animation: rise .5s cubic-bezier(.2,.7,.2,1) backwards; }
+.pop-in { animation: pop-in .28s ease-out backwards; }
+
+.hard-card { transition: transform .15s ease, box-shadow .15s ease; }
+.hard-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #1c1b18 !important;
+}
+
+.chip { transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease; }
+.chip:hover {
+  transform: translateY(-2px);
+  border-color: #1c1b18 !important;
+  box-shadow: 0 2px 0 #1c1b18;
+}
+.chip:active { transform: translateY(0); box-shadow: none; }
+
+.nav-link { transition: transform .12s ease, background .12s ease; }
+.nav-link:hover { transform: translateY(-1px); }
+
+.foot-link { text-decoration-thickness: 2px; transition: text-decoration-thickness .12s ease, color .12s ease; }
+.foot-link:hover { text-decoration-thickness: 4px !important; color: #1c1b18; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rise, .pop-in { animation: none; }
+  .hard-card, .chip, .nav-link, .hard-btn, .mode-btn { transition: none; }
 }
