@@ -157,3 +157,17 @@ input:focus-visible {
   .rise, .pop-in { animation: none; }
   .hard-card, .chip, .nav-link, .hard-btn, .mode-btn { transition: none; }
 }
+
+/* Mobile header and footer: centered, equal-width grid so nothing wraps raggedly */
+.nav-short { display: none; }
+@media (max-width: 640px) {
+  .site-header-inner { justify-content: center !important; flex-direction: column; gap: 12px !important; padding-bottom: 14px !important; }
+  .site-nav { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px !important; width: 100%; }
+  .site-nav .nav-link { text-align: center; padding: 9px 4px !important; font-size: 13.5px !important; white-space: nowrap; }
+  .nav-long { display: none; }
+  .nav-short { display: inline; }
+  .site-foot-nav { display: flex !important; justify-content: center; gap: 22px !important; width: 100%; }
+  .foot-dup { display: none; }
+  .site-foot-copy { width: 100%; text-align: center; order: 2; }
+  footer > div { flex-direction: column; }
+}

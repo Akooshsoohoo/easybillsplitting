@@ -5,6 +5,7 @@ import { colors } from '../theme.js'
 import { formatMoney } from '../utils.js'
 import { loadHistory, removeHistoryEntry, clearHistory } from '../history.js'
 import { usePageMeta } from '../usePageMeta.js'
+import Avatar from '../components/Avatar.jsx'
 
 function formatDate(ts) {
   return new Date(ts).toLocaleString(undefined, {
@@ -45,8 +46,8 @@ function EntryCard({ entry, onRemove }) {
       ) : (
         <div style={{ fontSize: 14.5 }}>
           {(entry.people || []).map((p, i) => (
-            <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '4px 0', color: colors.muted1 }}>
-              <span>{p.name}</span>
+            <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '4px 0', color: colors.muted1 }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>{p.avatar && <Avatar avatar={p.avatar} name={p.name} size={22} />}{p.name}</span>
               <span style={{ fontWeight: 600, color: colors.text }}>{formatMoney(p.total, currency)}</span>
             </div>
           ))}

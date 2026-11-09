@@ -1,4 +1,5 @@
-import { formatMoney } from './utils.js'
+import { formatMoney, breakdownText } from './utils.js'
+import { avatarImage } from './avatars.js'
 
 const COLORS = {
   bg: '#f6f3ee',
@@ -103,7 +104,9 @@ export async function generateShareCard({ rows, grandTotal, currency, savings = 
 
   y += headerH
 
-  rows.forEach((r) => {
+  const avatarImgs = await Promise.all(rows.map((r) => avatarImage(r.avatar, 192)))
+
+  rows.forEach((r, idx) => {
     ctx.fillStyle = COLORS.green
     ctx.fillRect(cardX, y, 4, rowH)
 
@@ -111,18 +114,28 @@ export async function generateShareCard({ rows, grandTotal, currency, savings = 
     const avatarR = 24
     const avatarCx = cardX + innerX + avatarR
     const avatarCy = rowCenterY
-    const grad = ctx.createLinearGradient(avatarCx - avatarR, avatarCy - avatarR, avatarCx + avatarR, avatarCy + avatarR)
-    grad.addColorStop(0, COLORS.green)
-    grad.addColorStop(1, COLORS.greenDark)
-    ctx.beginPath()
-    ctx.arc(avatarCx, avatarCy, avatarR, 0, Math.PI * 2)
-    ctx.fillStyle = grad
-    ctx.fill()
-    ctx.fillStyle = '#fff'
-    ctx.font = '700 18px "General Sans"'
-    ctx.textAlign = 'center'
-    ctx.fillText((r.name.trim().charAt(0) || '?').toUpperCase(), avatarCx, avatarCy + 1)
-    ctx.textAlign = 'left'
+    const avImg = avatarImgs[idx]
+    if (avImg) {
+      ctx.save()
+      ctx.beginPath()
+      ctx.arc(avatarCx, avatarCy, avatarR, 0, Math.PI * 2)
+      ctx.clip()
+      ctx.drawImage(avImg, avatarCx - avatarR, avatarCy - avatarR, avatarR * 2, avatarR * 2)
+      ctx.restore()
+    } else {
+      const grad = ctx.createLinearGradient(avatarCx - avatarR, avatarCy - avatarR, avatarCx + avatarR, avatarCy + avatarR)
+      grad.addColorStop(0, COLORS.green)
+      grad.addColorStop(1, COLORS.greenDark)
+      ctx.beginPath()
+      ctx.arc(avatarCx, avatarCy, avatarR, 0, Math.PI * 2)
+      ctx.fillStyle = grad
+      ctx.fill()
+      ctx.fillStyle = '#fff'
+      ctx.font = '700 18px "General Sans"'
+      ctx.textAlign = 'center'
+      ctx.fillText((r.name.trim().charAt(0) || '?').toUpperCase(), avatarCx, avatarCy + 1)
+      ctx.textAlign = 'left'
+    }
 
     const textX = avatarCx + avatarR + 14
     ctx.fillStyle = COLORS.text
@@ -132,7 +145,7 @@ export async function generateShareCard({ rows, grandTotal, currency, savings = 
     ctx.fillStyle = COLORS.muted
     ctx.font = '400 13px "General Sans"'
     ctx.fillText(
-      `${formatMoney(r.sub, currency)} items · ${formatMoney(r.tax, currency)} tax · ${formatMoney(r.tip, currency)} tip`,
+      breakdownText(r, currency),
       textX, rowCenterY + 12
     )
 

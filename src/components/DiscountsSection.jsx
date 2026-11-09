@@ -23,7 +23,7 @@ export default function DiscountsSection({
 
   return (
     <section id="sec-discounts" style={style}>
-      <SectionHeading step={5} title="Discounts" description="Take money off the whole order, or off one person's share. Skip this step if there's nothing to apply." />
+      <SectionHeading step={5} title="Discounts" description="Optional." />
 
       <div style={{ marginBottom: 22 }}>
         <p style={blockLabel}>Whole order</p>

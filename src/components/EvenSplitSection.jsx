@@ -35,7 +35,7 @@ export default function EvenSplitSection({
 
   return (
     <section id="sec-even" style={{ padding: '44px 0 0' }}>
-      <SectionHeading step={1} title="Even split" description="Enter the total bill and how many people are splitting it. Updates instantly as you type." />
+      <SectionHeading step={1} title="Even split" />
       <ReceiptScanner mode="total" currency={currency} onTotal={onTotalChange} />
       <div className="hard-card" style={{ background: '#fff', border: '2px solid #1c1b18', boxShadow: '4px 4px 0 #1c1b18', borderRadius: 10, padding: 20 }}>
         <label style={{ display: 'block', fontSize: 12, color: '#7d776b', marginBottom: 7 }}>Total bill</label>

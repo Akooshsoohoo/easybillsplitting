@@ -5,6 +5,7 @@ import AdRail from '../components/AdRail.jsx'
 import EvenSplitSection from '../components/EvenSplitSection.jsx'
 import ItemsSection from '../components/ItemsSection.jsx'
 import { tapLight } from '../haptics.js'
+import { randomAvatar } from '../avatars.js'
 import TaxTipSection from '../components/TaxTipSection.jsx'
 import NamesSection from '../components/NamesSection.jsx'
 import AssignSection from '../components/AssignSection.jsx'
@@ -129,7 +130,7 @@ export default function Home() {
   function addPerson() {
     const n = pName.trim()
     if (!n) return
-    setPersons((s) => [...s, { id: nextId('p'), name: n }])
+    setPersons((s) => [...s, { id: nextId('p'), name: n, avatar: randomAvatar(s.map((x) => x.avatar)) }])
     setPName('')
   }
   function removePerson(pid) {
@@ -253,6 +254,7 @@ export default function Home() {
       return {
         id: p.id,
         name: p.name,
+        avatar: p.avatar,
         rawSub: rawSub[p.id],
         sub: s,
         orderDisc: rawSub[p.id] - s,

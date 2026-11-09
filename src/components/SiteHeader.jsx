@@ -39,13 +39,13 @@ const navLinkStyle = ({ isActive }) => ({
 export default function SiteHeader() {
   return (
     <header style={{ borderBottom: '2px solid #1c1b18' }}>
-      <div style={{ maxWidth: 1240, margin: '0 auto', padding: '18px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+      <div className="site-header-inner" style={{ maxWidth: 1240, margin: '0 auto', padding: '18px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 9, textDecoration: 'none', color: 'inherit' }}>
           <span style={{ fontSize: 18, fontWeight: 700, letterSpacing: '-0.03em' }}>EasyBillSplitting</span>
         </Link>
-        <nav style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+        <nav className="site-nav" style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
           <NavLink className="nav-link" to="/" end style={navLinkStyle}>Split a bill</NavLink>
-          <NavLink className="nav-link" to="/how-to-split-a-bill" style={navLinkStyle}>How to split a bill</NavLink>
+          <NavLink className="nav-link" to="/how-to-split-a-bill" style={navLinkStyle}><span className="nav-long">How to split a bill</span><span className="nav-short">How to</span></NavLink>
           <NavLink className="nav-link" to="/guides" style={navLinkStyle}>Guides</NavLink>
           <NavLink className="nav-link" to="/faq" style={navLinkStyle}>FAQ</NavLink>
           <NavLink className="nav-link" to="/history" style={navLinkStyle}>History</NavLink>

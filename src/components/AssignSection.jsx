@@ -1,6 +1,7 @@
 import SectionHeading from './SectionHeading.jsx'
 import { formatMoney } from '../utils.js'
 import { stepButtonStyle } from '../theme.js'
+import Avatar from './Avatar.jsx'
 
 export default function AssignSection({
   style, currency, items, persons, assign, sel, hover, drag, rowsById,
@@ -11,9 +12,9 @@ export default function AssignSection({
 
   return (
     <section id="sec-assign" style={style}>
-      <SectionHeading step={4} title="Assign" description="Match each item to whoever ordered it." />
-      <p style={{ margin: '-8px 0 16px', fontSize: 13, color: '#7d776b', lineHeight: 1.5 }}>
-        Drag an item onto a person, or tap the item, then tap everyone sharing it. Items stay in the tray.
+      <SectionHeading step={4} title="Assign" />
+      <p style={{ margin: '-4px 0 16px', fontSize: 13, color: '#7d776b', lineHeight: 1.5 }}>
+        Drag an item onto a person, or tap an item, then tap everyone sharing it.
       </p>
 
       <div style={{ position: 'sticky', top: 0, zIndex: 3, background: '#f6f3ee', padding: '10px 0' }}>
@@ -62,8 +63,8 @@ export default function AssignSection({
                 boxShadow: 'none',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 10 }}>
-                <span style={{ fontSize: 15, fontWeight: 500, letterSpacing: '-0.01em' }}>{p.name}</span>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 15, fontWeight: 500, letterSpacing: '-0.01em' }}><Avatar avatar={p.avatar} name={p.name} size={30} />{p.name}</span>
                 <span style={{ fontFamily: 'inherit', fontVariantNumeric: 'tabular-nums', fontSize: 13, color: '#7d776b' }}>{formatMoney(row ? row.sub : 0, currency)}</span>
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7 }}>

@@ -4,7 +4,7 @@ import { stepButtonStyle } from '../theme.js'
 export default function TaxTipSection({ style, currency, tax, tip, onTaxChange, onTipChange, onConfirm }) {
   return (
     <section id="sec-taxtip" style={style}>
-      <SectionHeading step={2} title="Tax & tip" description="Enter the tax and tip shown on the receipt." />
+      <SectionHeading step={2} title="Tax & tip" />
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
         <div className="hard-card" style={{ background: '#fff', border: '2px solid #1c1b18', boxShadow: '4px 4px 0 #1c1b18', borderRadius: 10, padding: 16 }}>
           <div style={{ fontSize: 12, color: '#7d776b', marginBottom: 8 }}>Tax</div>

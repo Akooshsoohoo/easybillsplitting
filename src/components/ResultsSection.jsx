@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import SectionHeading from './SectionHeading.jsx'
-import { formatMoney } from '../utils.js'
+import { formatMoney, breakdownText } from '../utils.js'
 import { stepButtonStyle } from '../theme.js'
 import { generateShareCard, buildShareText } from '../shareCard.js'
 import { upsertHistoryEntry } from '../history.js'
 import { isNative } from '../platform.js'
 import { shareImageNative } from '../nativeShare.js'
 import { tapSuccess } from '../haptics.js'
+import Avatar from './Avatar.jsx'
 
 export default function ResultsSection({ style, currency, rows, tipEven, onTipModeChange, grandTotal, savings = 0, hasUnassigned, unassignedAmount }) {
   const [sharing, setSharing] = useState(false)
@@ -17,7 +18,7 @@ export default function ResultsSection({ style, currency, rows, tipEven, onTipMo
     if (rows.length === 0) return
     const timer = setTimeout(() => {
       const record = upsertHistoryEntry(entryIdRef.current, {
-        mode: 'item', people: rows.map((r) => ({ name: r.name, total: r.total })), grandTotal, savings, currency,
+        mode: 'item', people: rows.map((r) => ({ name: r.name, total: r.total, avatar: r.avatar })), grandTotal, savings, currency,
       })
       entryIdRef.current = record.id
     }, 700)
@@ -56,11 +57,10 @@ export default function ResultsSection({ style, currency, rows, tipEven, onTipMo
 
   return (
     <section id="sec-results" style={style}>
-      <SectionHeading step={5} title="Who owes what" description="Here's the final breakdown, including tax and tip." />
+      <SectionHeading step={5} title="Who owes what" />
       <label style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 16px', background: '#fff', border: '2px solid #1c1b18', boxShadow: '4px 4px 0 #1c1b18', borderRadius: 10, marginBottom: 12, cursor: 'pointer' }}>
         <input type="checkbox" checked={tipEven} onChange={(e) => onTipModeChange(e.target.checked)} style={{ width: 18, height: 18, accentColor: '#19b083', margin: 0 }} />
         <span style={{ fontSize: 14 }}>Split the tip evenly</span>
-        <span style={{ marginLeft: 'auto', fontSize: 12, color: '#8d877b' }}>{tipEven ? 'even' : 'proportional'}</span>
       </label>
       <div className="hard-card" style={{ background: '#fff', border: '2px solid #1c1b18', boxShadow: '4px 4px 0 #1c1b18', borderRadius: 10, overflow: 'hidden' }}>
         {rows.map((r) => {
@@ -74,20 +74,11 @@ export default function ResultsSection({ style, currency, rows, tipEven, onTipMo
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <div
-                style={{
-                  width: 38, height: 38, borderRadius: '50%', flexShrink: 0,
-                  background: 'linear-gradient(135deg, #19b083, #0e6b4f)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: '#fff', fontSize: 15, fontWeight: 600,
-                }}
-              >
-                {r.name.trim().charAt(0).toUpperCase() || '?'}
-              </div>
+              <Avatar avatar={r.avatar} name={r.name} size={40} />
               <div>
                 <div style={{ fontSize: 15, fontWeight: 600 }}>{r.name}</div>
                 <div style={{ fontSize: 12, color: '#8d877b', marginTop: 3 }}>
-                  {formatMoney(r.sub, currency)} items · {formatMoney(r.tax, currency)} tax · {formatMoney(r.tip, currency)} tip
+                  {breakdownText(r, currency)}
                   {off > 0.005 && <span style={{ color: '#19b083' }}> · −{formatMoney(off, currency)} off</span>}
                 </div>
               </div>

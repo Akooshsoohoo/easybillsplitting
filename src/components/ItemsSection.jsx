@@ -7,7 +7,7 @@ export default function ItemsSection({ currency, items, onRemoveItem, nName, nPr
   const canProceed = items.length > 0
   return (
     <section style={{ padding: '44px 0 0' }}>
-      <SectionHeading step={1} title="Items" description="Add each item that was ordered, with its price." />
+      <SectionHeading step={1} title="Items" />
       <ReceiptScanner mode="items" currency={currency} onItems={onScanned} />
       <div className="hard-card" style={{ background: '#fff', border: '2px solid #1c1b18', boxShadow: '4px 4px 0 #1c1b18', borderRadius: 10, padding: 8 }}>
         {items.map((it) => (

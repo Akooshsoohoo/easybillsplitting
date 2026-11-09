@@ -16,6 +16,8 @@ export default function ReceiptScanner(props) {
 
 function WebReceiptScanner({ mode, currency, onItems, onTotal }) {
   const inputRef = useRef(null)
+  const uploadRef = useRef(null)
+  const [touch] = useState(() => typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia('(pointer: coarse)').matches)
   const [status, setStatus] = useState('idle') // idle | scanning | review | error
   const [progress, setProgress] = useState(0)
   const [rows, setRows] = useState([])
@@ -83,15 +85,22 @@ function WebReceiptScanner({ mode, currency, onItems, onTotal }) {
       style={{ marginBottom: 12, padding: dragOver ? 10 : 0, borderRadius: 10, border: dragOver ? '2px dashed #19b083' : '2px dashed transparent', background: dragOver ? '#e7f4ee' : 'transparent', transition: 'background .15s' }}
     >
       <input ref={inputRef} type="file" accept="image/*" capture="environment" onChange={onFile} style={{ display: 'none' }} />
+      <input ref={uploadRef} type="file" accept="image/*" onChange={onFile} style={{ display: 'none' }} />
       {(status === 'idle' || status === 'error') && (
         <>
-          <button type="button" className="hard-btn" onClick={() => inputRef.current && inputRef.current.click()} style={{ ...btn, background: '#fff', color: '#1c1b18' }}>
-            Scan a receipt
-          </button>
-          <span style={{ marginLeft: 10, fontSize: 12, color: '#8d877b' }}>Tap to take a photo, or drop an image here. Read on your device, nothing is uploaded.</span>
+          <div style={{ display: 'flex', gap: 10 }}>
+            {touch && (
+              <button type="button" className="hard-btn" onClick={() => inputRef.current && inputRef.current.click()} style={{ ...btn, flex: 1, background: '#fff', color: '#1c1b18' }}>
+                Take photo
+              </button>
+            )}
+            <button type="button" className="hard-btn" onClick={() => uploadRef.current && uploadRef.current.click()} style={{ ...btn, flex: touch ? 1 : 'none', background: '#fff', color: '#1c1b18' }}>
+              {touch ? 'Upload' : 'Upload a receipt'}
+            </button>
+          </div>
           {status === 'error' && (
             <div role="alert" style={{ marginTop: 8, fontSize: 13, color: '#8a6a3a' }}>
-              Couldn't read that receipt. Try a flatter, brighter photo (drop an image file, not another type), or enter it by hand.
+              Couldn't read that receipt. Try a flatter, brighter photo, or enter it by hand.
             </div>
           )}
         </>
