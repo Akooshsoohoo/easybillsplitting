@@ -6,27 +6,27 @@ export const guides = [
     slug: 'split-tip-evenly-or-proportionally',
     title: 'Should you split the tip evenly or in proportion?',
     description: 'The two ways to divide a restaurant tip, a worked example with real numbers, and how to decide which one your group should use.',
-    intro: `The tip is the part of a shared bill that causes the most quiet resentment. Two people can agree on every item and still disagree about whether the tip should be shared equally or by how much each person ordered. Here is how both methods work, when each one is fair, and how to settle it fast.`,
+    intro: `Nobody argues about the pasta. It's the tip that gets people tight-lipped. You can agree on every line of the check and still end up in a standoff over whether the tip gets divided by head count or by who ate what.`,
     sections: [
-      { h: `The two methods`, p: [
-        `An even tip split adds up the whole tip and divides it by the number of people. A proportional tip split gives each person a share of the tip that matches their share of the food: if you ordered 40 percent of what was on the table, you cover 40 percent of the tip.`,
-        `Proportional is the default most people expect, because tip is normally a percentage of the bill. If everyone tips 20 percent of their own meal, the group total is the same as a proportional split. An even split quietly means the big orderers pay less tip than they would on their own, and the light orderers pay more.`,
+      { h: `Even versus proportional`, p: [
+        `Even is the lazy version: add up the tip, divide by the number of people, done. Proportional ties each person's tip to their own food, so if you ordered 40 percent of everything on the table you cover 40 percent of the tip.`,
+        `Most people expect proportional without ever saying so, since tips are a percentage to begin with. Tip 20 percent on your own meal and the group's total is identical to a proportional split. Go even and somebody is quietly subsidizing somebody else. Usually it's the person who stuck to a salad.`,
       ]},
-      { h: `A worked example`, p: [
-        `Four friends share a check. Ana ordered 60 dollars of food and drinks, Ben 40, Cara 25 and Dev 15, so the subtotal is 140. The group agrees on a 20 percent tip, which is 28 dollars.`,
-        `Split evenly, each person adds 7 dollars of tip. Dev, who ordered a salad and water, pays 7 on a 15 dollar meal, which is 47 percent. Ana pays 7 on 60, which is about 12 percent.`,
-        `Split proportionally, the tip follows the food. Ana pays 12, Ben pays 8, Cara pays 5 and Dev pays 3. Everyone effectively tipped 20 percent of their own order. This is the result most people call fair, and it is what EasyBillSplitting does unless you switch it.`,
+      { h: `Try it with numbers`, p: [
+        `Say four of you get a 140 dollar check. Ana's food and drinks came to 60, Ben's to 40, Cara's to 25 and Dev's to 15. You settle on 20 percent, so 28 dollars of tip.`,
+        `Even split: everyone puts in 7. That's fine for Ana, who's tipping about 12 percent of her own order. Dev ordered a 15 dollar meal and just tipped 47 percent on it.`,
+        `Proportional: Ana pays 12, Ben 8, Cara 5, Dev 3. Each of them has tipped exactly 20 percent of what they ordered, which is why this is the version that rarely starts a fight. It's also what EasyBillSplitting does by default, though there's a checkbox if you'd rather go even.`,
       ]},
-      { h: `When an even split is the better choice`, p: [
-        `There are good reasons to split the tip evenly. When orders are close in size, the two methods give almost the same answer, so the simpler one wins. When the group is celebrating someone, or the table has agreed to take turns paying, an even split avoids bookkeeping. And when service was shared by everyone, for example one large pitcher and one set of plates, the work the server did does not scale with each person's order.`,
-        `An even split is also kinder to anyone who stuck to water because of budget or health. They already paid less for the food, and the server did the same work for them.`,
+      { h: `When even is the right call`, p: [
+        `If everyone's order landed within a few dollars of each other, the two methods give nearly the same answer, so take the easy one. Even also makes sense when someone's being treated, or when the table has an informal deal that you take turns covering things.`,
+        `It's kinder to the person who skipped drinks to save money, too. The server still walked to the table for them just as often.`,
       ]},
-      { h: `How to decide quickly`, p: [
-        `Ask before the check arrives, not after. A simple line works: "Should we split the tip evenly or by what we ordered?" If the gap between the biggest and smallest order is less than about 30 percent, go even. If it is larger, go proportional.`,
-        `Whichever you choose, agree on the tip percentage first. Disagreements about the rate are about values, and disagreements about the split are about arithmetic. Keep them separate and both get easier.`,
+      { h: `Settling it in ten seconds`, p: [
+        `Ask before the check shows up, because it's much harder to raise afterward. Something like "evenly or by what we ordered?" is plenty. A rough rule: if the biggest order is less than about 30 percent above the smallest, go even. Beyond that, go proportional.`,
+        `Pick the percentage first and the method second. Arguing about the rate is arguing about values. Arguing about the method is arithmetic. They're easier to solve one at a time.`,
       ]},
-      { h: `Tip on the pre-tax amount or the total?`, p: [
-        `Many people calculate the tip on the pre-tax subtotal, since the tax goes to the government and not the server. Others tip on the final total because it is faster. The difference is small, roughly one to two percentage points of the tip, so it is fine either way as long as the group is consistent. In EasyBillSplitting you type in the tip amount, so you can calculate it whichever way you prefer.`,
+      { h: `Before or after tax?`, p: [
+        `Plenty of people tip on the pre-tax subtotal, since the tax isn't going to the server. Others tip on the final total because it's quicker. You're talking about a point or two of difference on the tip itself, so don't lose sleep over it. Just make sure the whole table is doing the same thing. EasyBillSplitting asks for the tip as an amount, so use whichever you like.`,
       ]},
     ],
   },
@@ -34,26 +34,26 @@ export const guides = [
     slug: 'splitting-a-bill-with-roommates',
     title: 'Splitting bills with roommates without the arguments',
     description: 'How roommates can divide rent, utilities, internet and groceries fairly, with rules that prevent resentment before it starts.',
-    intro: `Shared meals are a one-time split. Shared housing is a split that repeats every month, which means small unfairness compounds. A few clear rules set up at the start prevent most roommate money arguments.`,
+    intro: `A dinner out is over by ten p.m. A flat share goes on for twelve months at least, and every little unfairness comes back on the first of the month. Sort out the money rules in week one and most of the drama never gets a chance to start.`,
     sections: [
-      { h: `Split rent by room, not by head`, p: [
-        `If one bedroom is larger, has its own bathroom or gets more light, an equal rent split is not equal in value. A common fair method is to weight rent by room: add up the total rent, assign each room a points value based on size and features, and divide in proportion. A room worth 40 percent of the total value pays 40 percent of the rent.`,
-        `Be honest about trade-offs. The room next to the street, the one with the shared closet, or the one that people walk through to reach the kitchen should earn a discount.`,
+      { h: `Equal rent isn't always fair rent`, p: [
+        `Say one bedroom is twice the size of the other and comes with its own bathroom. Splitting the rent fifty-fifty is a bit silly, isn't it? The person in the small room pays the same and gets far less.`,
+        `What helps is a points system. Score each room on size, light, noise and bathroom access, add the scores up, and everybody pays their slice of the total. The grim ones (street side, the walk-through room, the closet the size of a shoebox) ought to cost noticeably less. Say that out loud before anyone signs.`,
       ]},
-      { h: `Utilities and internet`, p: [
-        `Electricity, gas, water and internet are normally split evenly among everyone living there, because the household shares them. Exceptions are fair when one person works from home with a second monitor and heater running all day, or when someone is away for most of the month. Agree on the exception in advance, not in the middle of a heated month.`,
-        `Put the bills in one person's name only if the others reimburse them on a fixed date. The person whose name is on the account carries the risk of a late payment, so it helps to rotate that role every year.`,
+      { h: `Bills: even, with a couple of exceptions`, p: [
+        `Electricity, gas, water and internet usually get split evenly, since you all live there. But if one of you works from home with a space heater on all day, or is away half the month, bring it up before the first big bill, not after. People are surprisingly reasonable when they aren't already annoyed.`,
+        `Whoever has the accounts in their name carries the risk of a late payment, so everyone else should pay them back by a fixed date. Rotate that job yearly. It stops one person becoming the permanent landlord figure.`,
       ]},
-      { h: `Groceries and shared supplies`, p: [
-        `There are three workable systems. The first is fully separate: everyone buys and labels their own food. The second is a shared pool for staples such as milk, oil, cleaning supplies and toilet paper, with everyone contributing the same amount monthly. The third is itemized: whoever shops keeps the receipt and the group splits it by item.`,
-        `For the itemized approach, scan or enter the receipt, assign each item to the people who use it, and divide the shared things evenly. That is exactly the split by item mode here, and it works well for a monthly grocery run when one person did the shopping.`,
+      { h: `The fridge problem`, p: [
+        `Most flats land on one of three setups. Separate shelves, separate food, labels on everything. A monthly pot for staples (milk, oil, dish soap, loo roll). Or whoever does the big shop keeps the receipt and the rest divide it line by line.`,
+        `The line-by-line version sounds fussy, but it takes about two minutes. Enter or scan the receipt, drag each item onto the people who'll actually eat or use it, and share the common stuff equally. Done.`,
       ]},
-      { h: `Make paying back easy`, p: [
-        `Set a day each month when everyone settles up, such as the first. Use the same payment method every time, and send a plain message with the amount and what it covers. Most conflicts do not come from the amount. They come from not knowing when it is due.`,
-        `Keep a shared note listing who paid what and when. If a roommate is short one month, agree a repayment date in writing. It is awkward for a minute and saves months of tension.`,
+      { h: `Make paying back boring`, p: [
+        `Pick one settle-up day (the first works) and stick to one app or bank transfer. Send a short message with the amount and what it's for. Honestly, the sum is rarely what causes bad feeling. Not knowing when it's due is.`,
+        `Keep a shared note of who paid what. And if someone's broke one month, get the repayment date in writing. A bit awkward for sixty seconds, then no resentment for the next six months.`,
       ]},
-      { h: `When someone moves out`, p: [
-        `Decide in advance how the lease, the deposit and any shared purchases are handled. Shared items bought together, such as a couch or a router, should be listed at the start with who owns what, so nobody has to argue about it on the way out.`,
+      { h: `Leaving`, p: [
+        `Settle what happens to the deposit and the shared stuff early. If you bought a couch or a router together, write down who owns it. Having that argument while somebody's carrying boxes downstairs is no fun for anyone.`,
       ]},
     ],
   },
@@ -61,29 +61,29 @@ export const guides = [
     slug: 'tipping-guide-by-country',
     title: 'Tipping around the world: a practical guide',
     description: 'What is customary for restaurant tipping in the United States, Canada, the UK, Europe, Japan, Australia and more, and why it varies.',
-    intro: `Tipping norms are one of the biggest differences travelers meet at the table. In some countries a 20 percent tip is expected, in others it can be a mild insult. This guide covers general customs. Always check the bill first, because many places add a service charge automatically.`,
+    intro: `Tipping is the thing most likely to make a traveler look like they don't know what they're doing. Leave 20 percent in Tokyo and the server may politely hand it back. Leave nothing in Chicago and you've insulted someone. What follows are broad customs, and they do shift, so always look at the bill first. A lot of places add a service charge without telling you.`,
     sections: [
-      { h: `United States and Canada`, p: [
-        `At a sit-down restaurant, 18 to 20 percent of the pre-tax bill is standard, with more for exceptional service. Servers rely on tips as a major part of their pay, so tipping well below 15 percent is noticed. For counter service, bars and delivery the norms are looser: a dollar or two per drink at a bar, 10 to 15 percent for delivery.`,
-        `Large groups often have an automatic gratuity of 18 percent or more added to the bill. Check for it before adding another tip.`,
+      { h: `The US and Canada`, p: [
+        `Sit down for dinner and you're looking at 18 to 20 percent of the pre-tax bill, maybe a little more if the service was special. Under 15 and people will notice, because for many servers tips are most of the paycheck. At a bar it's about a dollar or two a drink. Delivery drivers get 10 to 15 percent, give or take.`,
+        `Big parties often have 18 percent or so added automatically. Spot it on the check and you can relax: don't tip again.`,
       ]},
-      { h: `United Kingdom and Ireland`, p: [
-        `A discretionary service charge of 10 to 12.5 percent is common and is often added to the bill, especially for groups. If it is already included, you do not need to add more. If it is not, 10 percent for good service is usual. Tipping at pubs where you order at the bar is not expected.`,
+      { h: `The UK and Ireland`, p: [
+        `First, hunt for a service charge. Ten to twelve and a half percent is common, groups especially. If it's printed there, that's your tip. If it isn't, around 10 percent for decent service is plenty. Ordering at the bar of a pub? Nobody expects a thing.`,
       ]},
-      { h: `France, Italy, Spain and Germany`, p: [
-        `In France, service is included by law in the price of the menu, and leaving a few extra euros is a gesture of thanks, not an obligation. In Italy, a cover charge called coperto is often listed separately, and small extra tips are welcome but modest. In Spain, rounding up or leaving a few euros is typical. In Germany, rounding up the bill by 5 to 10 percent is customary, and you usually tell the server the total you want to pay when handing over the money.`,
+      { h: `Mainland Europe`, p: [
+        `In France, service is already baked into menu prices by law, so a couple of euros on the table is just a thank-you. Italy sometimes adds a coperto, a cover charge, as its own line, and extra tips on top are small. In Spain people round up or leave some coins. Germany's the odd one out. You tell the server the total you want to pay as you hand over the money, usually 5 to 10 percent above the bill, instead of leaving anything behind.`,
       ]},
-      { h: `Japan, South Korea and China`, p: [
-        `Tipping is not part of the culture in Japan and tipping can cause confusion or be politely returned to you. The same is broadly true in South Korea and mainland China, where service is built into the price. Some upscale hotels and tourist restaurants add a service charge instead.`,
+      { h: `East Asia`, p: [
+        `In Japan, tipping simply isn't done, and it may cause confusion or be returned to you politely. South Korea and mainland China are broadly similar. Upscale hotels and restaurants aimed at tourists sometimes add a service charge to make up for it.`,
       ]},
       { h: `Australia and New Zealand`, p: [
-        `Wages are higher and tipping is not expected. Leaving about 10 percent for a great meal at a nicer restaurant is appreciated but never assumed.`,
+        `Wages are higher, so there's no expectation. If a meal at a nice place blew you away, around 10 percent is welcome. Nobody will think less of you for skipping it.`,
       ]},
       { h: `Latin America and the Caribbean`, p: [
-        `Customs vary. In Mexico, 10 to 15 percent is typical. In many other countries a service charge of 10 percent is added to the bill automatically, so check before tipping again. Tipping in cash is often preferred because card tips may not reach the server.`,
+        `Wide range. In Mexico, 10 to 15 percent is typical. Elsewhere a 10 percent service charge might already be on the bill, so check before you pay twice. Bring some cash: card tips don't always reach the staff.`,
       ]},
-      { h: `A simple rule for travelers`, p: [
-        `Look at the bill for a line labelled service, servicio, couvert, coperto or similar. If it is there, you are mostly done. If not, ask a local or check a recent guide for that country. When in doubt, a small round-up shows appreciation without causing offense. Enter whichever tip you decide on in the tip box when you split by item, and the split will take care of the math for everyone at the table.`,
+      { h: `One habit worth building`, p: [
+        `Before tipping anywhere unfamiliar, hunt for a line on the bill that says service, servicio, couvert or coperto. If it's there, you're pretty much done. If you can't tell, ask the hotel front desk what locals do. Whatever you land on, type it into the tip box when you split by item and the app shares it out across the table.`,
       ]},
     ],
   },
@@ -91,24 +91,24 @@ export const guides = [
     slug: 'shared-appetizers-and-drinks',
     title: 'How to fairly split shared appetizers, wine and drinks',
     description: 'Practical rules for shared plates, bottles of wine, rounds of drinks and the person who skipped alcohol.',
-    intro: `Shared items are where itemized splits get tricky. Who pays for the bottle of wine when two people drank it? What about the dessert everybody tasted? These rules keep it simple and fair.`,
+    intro: `Splitting by item works nicely right up until somebody orders nachos for the table. Then you're asking who ate how much, whether a single bite counts, and why the wine suddenly cost 60 dollars. A few simple rules cover most of it.`,
     sections: [
-      { h: `Shared plates: divide by people who ate`, p: [
-        `The cleanest rule is to divide a shared plate equally among everyone who ate some of it. A 24 dollar appetizer eaten by four people costs 6 each. If one person only had a bite, it is reasonable to leave them out and divide it among three, but be consistent across the whole meal.`,
-        `Do not assign a shared plate to whoever happened to order it. They would end up paying for other people's food, and the same person often ends up ordering shared plates every time.`,
+      { h: `Plates for the middle of the table`, p: [
+        `Share the price equally among whoever actually ate some. Four people, 24 dollar appetizer, 6 each. If one of them only stole a single bite, you can leave them out and divide by three, as long as you do the same all night.`,
+        `What you shouldn't do is leave it with whoever ordered it. That person ends up paying for everyone's food, and it's nearly always the same person, because every group has one who orders for the table.`,
       ]},
-      { h: `Wine and bottles`, p: [
-        `A bottle shared by two people is split between those two. A bottle poured for the whole table is divided among everyone who drank it. The person who did not drink should not be asked to pay for wine they did not have, even if it is awkward to bring up.`,
-        `If the group likes a bottle of wine at every dinner, agree that wine is always split among the drinkers. It prevents repeating the discussion at every outing.`,
+      { h: `Wine`, p: [
+        `Bottle shared by two? Those two split it. Poured around the table? Whoever had a glass shares it. The friend who doesn't drink shouldn't be funding a Malbec they never touched, even though saying so feels a bit petty.`,
+        `If your group always orders wine, make it standing policy that wine goes to the drinkers. Then you only have that conversation once.`,
       ]},
-      { h: `Rounds of drinks`, p: [
-        `Rounds can be messy because of cost differences. A fair option is to track each person's own drinks as items and share a round of drinks only when it was bought for the whole table. If people take turns buying rounds, make sure the number of rounds and the cost per round are roughly the same, or settle the difference at the end.`,
+      { h: `Rounds are messy`, p: [
+        `Drinks cost wildly different amounts, and there's always one pricey cocktail next to a glass of tap water. Easiest fix: log each person's own drinks as items, and only share a round if it was clearly for everyone. Taking turns at the bar? Keep the number of rounds and the cost roughly level, or square up at the end.`,
       ]},
-      { h: `The person who ordered less`, p: [
-        `If one person had a salad and water while others had steak and cocktails, an even split is unfair to them. Splitting by item solves this without making them argue for it. Everyone pays for their own food, shares the common plates equally, and the tax and tip follow in proportion.`,
+      { h: `The salad-and-water person`, p: [
+        `Don't make them argue for it. An even split of a table that's mostly steak and cocktails isn't fair to the person who had a salad. Splitting by item handles it quietly: you pay for yours, shared plates get divided, and tax and tip follow the food.`,
       ]},
-      { h: `How it works in EasyBillSplitting`, p: [
-        `In the split by item mode, add every item, add the people, and drag an item onto each person who shared it. When an item is assigned to more than one person, its price is divided equally between them. Tax, tip and any discounts are then spread in proportion, so the result matches how much each person actually ordered.`,
+      { h: `How it works in the app`, p: [
+        `Add every item, add the people, then drag each item onto everyone who shared it. Put one item on three people and its price is divided three ways. Tax, tip and discounts are then spread in proportion, so each total matches what that person actually ordered.`,
       ]},
     ],
   },
@@ -116,26 +116,26 @@ export const guides = [
     slug: 'discounts-coupons-and-bills',
     title: 'How to split a bill when there is a discount or coupon',
     description: 'Percent-off coupons, fixed-amount vouchers, buy-one-get-one deals and loyalty rewards: who gets the savings and how to divide them.',
-    intro: `A coupon on a shared bill raises a surprisingly common question: who gets the savings? The fair answer depends on what the discount applies to. Here are the cases you will meet most often.`,
+    intro: `There's a coupon, and now there's a little problem: whose savings are they? Usually the answer depends on what the coupon actually applies to. Here are the situations that crop up most often.`,
     sections: [
-      { h: `Percent off the whole bill`, p: [
-        `If a coupon takes 15 percent off the entire check, everyone should get 15 percent off their own share. This is the easiest case. Apply the percentage to each person's subtotal, then add their share of tax and tip.`,
-        `Be careful about whether the discount is applied before or after tax. Most restaurants apply it before tax, so the tax is calculated on the lower amount, which saves slightly more.`,
+      { h: `Percent off the entire check`, p: [
+        `Say it's 15 percent off everything. Then everyone gets 15 percent off their own food. Apply the percentage to each person's subtotal, then add their share of tax and tip.`,
+        `One catch: find out whether the discount comes off before or after tax. Most restaurants take it off first, so tax is calculated on a smaller number and you save a touch more than the coupon says.`,
       ]},
-      { h: `A fixed dollar voucher`, p: [
-        `A 20 dollar voucher on a 120 dollar bill is a flat saving. The fair way to divide it is in proportion to what each person ordered: the person who ordered one sixth of the bill gets one sixth of the voucher, which is 3.33 dollars. Splitting a fixed voucher evenly is simpler, and fine when orders are similar.`,
+      { h: `A fixed voucher`, p: [
+        `A 20 dollar voucher on a 120 dollar bill is a flat saving. Fair way to share it? By what each person ordered. Someone responsible for a sixth of the bill gets a sixth of the voucher, about 3.33. Splitting it evenly is simpler and fine when everyone's order was similar.`,
       ]},
-      { h: `Discounts on a single item`, p: [
-        `Sometimes a deal applies to only one dish, such as a happy hour price or a free dessert for a birthday. The savings should go to the people who share that item. If the birthday dessert is free and four people ate it, the saving is divided among the four, which in practice means nobody pays for it.`,
+      { h: `A deal on one dish`, p: [
+        `Happy hour pricing, a free birthday dessert. The saving goes to whoever shared that dish. If four people ate the free dessert, they split the saving four ways, which in practice means nobody pays for it.`,
       ]},
-      { h: `Buy one, get one free`, p: [
-        `A buy one get one free deal on two meals ordered by different people is easiest to treat as a 50 percent discount on both. That is fair when the two items cost the same. If they cost different amounts, the free item is normally the cheaper one, so the saving belongs to the pair and can be divided between the two people in proportion.`,
+      { h: `Buy one, get one`, p: [
+        `Two meals, two people, one deal. Easiest is to treat it as 50 percent off both. That's fair if they cost the same. If not, the free one is normally the cheaper dish, so the saving belongs to the pair and you can divide it between those two by price.`,
       ]},
-      { h: `Loyalty points and the person whose account it is`, p: [
-        `If one person pays with a card that earns points and everyone else reimburses them, the points belong to that person. It is a friendly gesture to take turns using your card. A discount from a specific member account, such as a student or employee rate, can reasonably go to the account holder alone, but it is polite to agree on it before the bill arrives.`,
+      { h: `Points and member rates`, p: [
+        `If one person pays on a card that earns points and everybody reimburses them, the points are theirs. Taking turns is a nice gesture. A student or member discount tied to a single account can go to that person alone, but agree on it before the check comes, not after.`,
       ]},
-      { h: `Entering discounts here`, p: [
-        `EasyBillSplitting lets you add percent or fixed discounts, either to the whole order or to a single item. The totals shown at the end already include them, and the app shows how much each group saved.`,
+      { h: `In the app`, p: [
+        `You can add a percent or fixed discount in EasyBillSplitting, on the whole order or on one item. The final totals already include it, and you'll see how much the group saved.`,
       ]},
     ],
   },
@@ -143,26 +143,26 @@ export const guides = [
     slug: 'splitting-group-trip-expenses',
     title: 'How to split expenses on a group trip',
     description: 'A clear system for travel costs: lodging, groceries, shared transport and who paid what, so the group settles up once at the end.',
-    intro: `Group trips create dozens of small costs paid by different people. Without a system, someone ends up quietly covering far more than their share. This approach keeps it simple and keeps friendships intact.`,
+    intro: `Six people, one rental house, two cars and a hundred small purchases. By day four nobody remembers who paid for the ferry. A little structure on day one stops one person quietly covering half the trip. This is the setup that tends to work.`,
     sections: [
-      { h: `Agree on the rules before you go`, p: [
-        `Decide in advance which costs are shared and which are personal. Typically lodging, groceries, rental car, gas, parking and shared activities are shared. Individual meals out, souvenirs and personal activities are not. Writing this down in the group chat takes five minutes and avoids most arguments.`,
+      { h: `Decide what's shared before you leave`, p: [
+        `Usually lodging, groceries, the rental car, gas, parking and group activities are shared. Your own lunch out, souvenirs and anything you do solo aren't. Type it into the group chat. Takes five minutes and saves a lot of grumbling.`,
       ]},
-      { h: `One tracker, everyone logs`, p: [
-        `Keep one shared note or spreadsheet. Each time someone pays for a shared cost, they add a line with the date, what it was and the amount. Take a photo of any receipt. By the end of the trip you have an accurate list without anyone reconstructing it from memory.`,
+      { h: `One place to write everything down`, p: [
+        `A shared note works, so does a spreadsheet. Whoever pays for something shared adds a line (date, what, how much) and snaps the receipt. That way nobody's trying to rebuild the week from memory at the airport.`,
       ]},
-      { h: `Lodging: equal or weighted`, p: [
-        `If everyone gets a similar room, split lodging equally. If one couple gets the master suite and others share a pull-out sofa, weight it. A simple method is to give each bed a rating and split in proportion. People are rarely upset about paying more for a better room as long as they chose it.`,
+      { h: `Rooms that aren't equal`, p: [
+        `When rooms are similar, split lodging equally. When one couple takes the master suite and two friends share a pull-out sofa, don't. Rate each bed and split in proportion. People don't usually mind paying more for a nicer room as long as it was their choice.`,
       ]},
-      { h: `Groceries and group meals`, p: [
-        `Buying groceries for a shared house is much cheaper than eating out. Have one person shop, keep the receipt, and split it evenly among everyone who ate. For a single dinner out, use the split by item mode when orders differ, and an even split when they were similar.`,
+      { h: `Food`, p: [
+        `Cooking at the rental is way cheaper than eating out every night. One person does the shop and keeps the receipt, and everyone who ate splits it equally. For a restaurant night where orders were all over the place, use split by item. Pretty similar orders? Just split evenly and move on.`,
       ]},
-      { h: `Settle up once, with the fewest payments`, p: [
-        `At the end, add up what each person paid and what each person owes. Those who paid more than their share are owed money, those who paid less owe money. Match the largest debts to the largest credits so that the number of payments is as small as possible. For a group of six, this usually takes three or four payments, not fifteen.`,
-        `Settle within a week of getting home while the trip is fresh. Waiting a month makes small amounts feel like favors and large ones feel awkward to ask for.`,
+      { h: `Settling up`, p: [
+        `At the end, add up what each person paid and what each person owes. People who paid more than their share are owed money. People who paid less owe it. Pair the biggest debts with the biggest credits and you'll need far fewer transfers. For six people that's typically three or four payments rather than fifteen.`,
+        `Do it within a week of getting home. After a month, small amounts start to feel like favors and big ones feel rude to ask for.`,
       ]},
-      { h: `Currency and exchange rates`, p: [
-        `If you cross borders, record costs in the currency they were paid in and agree on one exchange rate to convert them at the end, such as the day you return. EasyBillSplitting supports changing the currency symbol, so each dinner can be calculated in the local currency.`,
+      { h: `Money from other countries`, p: [
+        `Write each cost down in the currency you paid in, then pick one exchange rate for the final tally (the rate on the day you fly home works). You can change the currency symbol in EasyBillSplitting, so a dinner in Lisbon can be worked out in euros.`,
       ]},
     ],
   },
@@ -170,24 +170,24 @@ export const guides = [
     slug: 'how-restaurant-tax-works',
     title: 'How restaurant tax works and how to divide it fairly',
     description: 'What sales tax on a restaurant bill is calculated on, why it differs by place, and how to share it when everyone ordered something different.',
-    intro: `Tax is the line on the check nobody thinks about until it has to be divided. Understanding what it is calculated on makes it easy to split without anyone overpaying.`,
+    intro: `Tax is the line on the check nobody reads until it has to be split. Knowing what it's based on makes it easy to divide without anyone overpaying.`,
     sections: [
-      { h: `What the tax is applied to`, p: [
-        `In most places, sales tax on a meal is a percentage of the food and drink subtotal. Rates vary widely by city, state and country. In some regions, tax is already included in the menu price, which is common in much of Europe and in Japan, and in others it is added at the end, as in most of the United States.`,
-        `Some places also tax alcohol at a higher rate, or add a separate charge for takeout containers or local levies. If the bill shows more than one tax line, add them together and use the total.`,
+      { h: `What gets taxed`, p: [
+        `In most places, tax on a meal is a percentage of the food and drink subtotal, and the rate depends on the city, state or country. Sometimes it's already inside the menu price, as in much of Europe and Japan. In other places, like most of the United States, it's added at the end.`,
+        `Alcohol may be taxed at a higher rate, and some bills add separate charges for takeout containers or local levies. If there's more than one tax line, add them up and treat the total as the tax.`,
       ]},
-      { h: `Why tax should follow what you ordered`, p: [
-        `Because tax is a percentage of the subtotal, each person's share of tax is naturally proportional to what they ordered. If your food is 25 percent of the subtotal, you are responsible for 25 percent of the tax. An even split of tax shifts cost onto people who ordered less and away from people who ordered more.`,
+      { h: `Why tax should follow your order`, p: [
+        `Since tax is a percentage of the subtotal, each person's share is naturally proportional to what they ordered. If your food was a quarter of the subtotal, you owe a quarter of the tax. Splitting tax evenly pushes cost onto people who ordered less.`,
       ]},
       { h: `A quick example`, p: [
-        `A table of three has a subtotal of 100 dollars with 8 percent tax, which is 8 dollars. One person ordered 50 dollars of it, another 30 and the third 20. Their tax shares are 4, 2.40 and 1.60. If tax were divided evenly, each would pay 2.67, so the first person would underpay by 1.33 and the third would overpay by 1.07.`,
-        `The amounts are small on one dinner, but over a year of group meals they add up, and they are the kind of thing people notice.`,
+        `Three people, a 100 dollar subtotal, 8 percent tax, so 8 dollars. One ordered 50 of it, another 30 and the third 20. Their tax shares are 4, 2.40 and 1.60. Split evenly, each would pay 2.67, so the first person underpays by 1.33 and the third overpays by 1.07.`,
+        `It's pocket change on one dinner. Across a year of group meals it adds up, and people do notice.`,
       ]},
       { h: `Discounts and tax`, p: [
-        `When a discount is applied before tax, the tax is calculated on the reduced amount, so the saving is a bit larger than the discount itself. When it is applied after tax, the tax is unchanged. Check which one your restaurant uses and enter the final amounts from the bill.`,
+        `If a discount comes off before tax, the tax is calculated on the lower amount, so the saving is a bit bigger than the discount itself. If it comes off after tax, the tax doesn't change. Look at which one your restaurant did and use the figures from the bill.`,
       ]},
-      { h: `Entering tax here`, p: [
-        `In split by item mode, type the tax from the receipt in the tax and tip step. EasyBillSplitting divides it across people in proportion to their subtotals, so the result always adds up to the exact amount on the check.`,
+      { h: `Entering tax in the app`, p: [
+        `In split by item mode, type the tax from the receipt in the tax and tip step. EasyBillSplitting spreads it across people in proportion to their subtotals, so the totals always add up to the amount on the check.`,
       ]},
     ],
   },
@@ -195,25 +195,25 @@ export const guides = [
     slug: 'awkward-bill-splitting-situations',
     title: 'Awkward bill-splitting situations and what to say',
     description: 'Polite scripts for the moments when the check arrives and the split is not obvious: unequal orders, someone short on cash, and the friend who always pays late.',
-    intro: `Bill splitting is a small money task wrapped in social pressure. A few calm sentences, said early, keep it friendly. Here are the situations that come up most and a simple way to handle each.`,
+    intro: `The check lands, everyone suddenly finds their phone fascinating, and somebody has to say something. It's a small money problem with a lot of social pressure on top. These are the moments that come up most, and what usually works.`,
     sections: [
-      { h: `When one person ordered much less`, p: [
-        `Say it before the check arrives: "Should we split by what we ordered?" Raising it as a general suggestion, not as a personal request, makes it easy for everyone to agree. If you are the one who ordered less, you can also say, "I only had a salad, so I will cover mine plus a share of tip."`,
+      { h: `You ordered way less than everyone`, p: [
+        `Say something before the check arrives, and make it about the table instead of yourself. "Should we just split by what we ordered?" is hard to disagree with. And if you're the one who ate light, "I only had a salad, so I'll cover mine plus a bit of tip" tends to end the conversation on the spot.`,
       ]},
-      { h: `When someone does not drink`, p: [
-        `Do not make them argue for it. The group can simply decide that alcohol is paid for by the people who drank it. If you are hosting, mention at the start that drinks will be split separately. It is a courtesy that people remember.`,
+      { h: `One friend doesn't drink`, p: [
+        `Don't make them be the one to ask. The group can just agree that drinks are paid for by whoever had them. If you're organizing, say so at the start of the night. Small thing, but people remember it.`,
       ]},
-      { h: `When someone is short on money`, p: [
-        `Offer to cover it and let them pay you back, quietly and without commentary. Nobody needs to know. If it keeps happening, suggest cheaper places or splitting before ordering, such as agreeing on a rough budget per person.`,
+      { h: `Someone can't really afford it`, p: [
+        `Cover it quietly and let them pay you back whenever they can. No speech needed. If it keeps happening, pick cheaper places for a while, or agree a rough budget per person before anybody orders.`,
       ]},
-      { h: `The friend who always pays later`, p: [
-        `Send a short, friendly request with the exact amount and your preferred payment method the same day. If it is a recurring pattern, reply to your own message after a week with a simple reminder. Putting the number in writing makes it neutral, not personal.`,
+      { h: `The friend who forgets to pay you`, p: [
+        `Message them that evening with the exact amount and how you'd like to be paid. A week on, reply to your own message: "just a reminder." With the number in writing it feels like admin, not an accusation.`,
       ]},
-      { h: `When the bill does not add up`, p: [
-        `Check the totals before splitting. Duplicate items, missing discounts and an automatic gratuity already added are the usual causes. Ask the server to correct it before anyone pays, not afterwards.`,
+      { h: `The bill doesn't add up`, p: [
+        `Check it over before anyone pays. The usual suspects are an item charged twice, a discount nobody applied, or a gratuity that's already on the check. Get the server to fix it right then, because afterward it's a real hassle.`,
       ]},
-      { h: `Using a tool takes the heat off`, p: [
-        `Pulling out a neutral calculator makes the split feel like a process, not a negotiation. Enter the items, assign them, and the numbers come out the same for everyone. It is much easier to accept an answer from a tool than from the person across the table.`,
+      { h: `Let the app be the bad guy`, p: [
+        `A calculator on the table turns a negotiation into a process. Enter the items, drag them to whoever had them, and everyone sees the same answer. Taking a number from an app is far easier than taking it from the friend across the table.`,
       ]},
     ],
   },
@@ -221,25 +221,25 @@ export const guides = [
     slug: 'scan-a-receipt-to-split-it',
     title: 'How to scan a receipt to split a bill',
     description: 'How the receipt scanner works, how to get a good photo, what it can and cannot read, and why your photo never leaves your device.',
-    intro: `Typing every line of a long receipt is the slowest part of splitting a bill. The receipt scanner in EasyBillSplitting reads a photo and fills the items in for you, and everything stays on your device.`,
+    intro: `Typing out a long receipt line by line is the most tedious part of splitting a bill, so the scanner in EasyBillSplitting does it for you. It reads a photo and fills in the items. And the reading happens on your own device, not on a server.`,
     sections: [
-      { h: `How to use it`, p: [
-        `In split by item mode, tap Scan a receipt above the item list, then take a photo of the receipt. On a computer you can also drag an image file onto the same area. In the even split mode, the scanner looks for the total and fills it in.`,
-        `After a few seconds you will see a review screen showing what was found. Fix any mistakes, remove lines that are not items, and tap Add. If the receipt included tax and tip, they are filled in too.`,
+      { h: `Using it`, p: [
+        `In split by item mode, tap Scan a receipt above the item list and photograph the receipt. On a computer you can drag an image file onto the same spot. In even split mode, it hunts for the total and fills that in.`,
+        `A few seconds later a review screen shows what it found. Fix anything that's wrong, delete lines that aren't items, then tap Add. If the receipt had tax and a tip, those get filled in too.`,
       ]},
-      { h: `Taking a good photo`, p: [
-        `Good light and a flat receipt matter more than anything else. Lay it on a table, avoid shadows from your phone or hand, and fill the frame with the receipt. Crumpled or curled paper, faded thermal ink and glare all reduce accuracy.`,
-        `If a long receipt does not fit in one photo, scan the first half, add the items, then scan the second half. Each scan adds to the list.`,
+      { h: `A better photo`, p: [
+        `Light and a flat receipt matter more than anything else. Set it on a table, keep your hand and phone from casting a shadow, and fill the frame. Crumpled paper, faded thermal print and glare all hurt.`,
+        `Long receipt that won't fit in one shot? Scan the top, add those items, then scan the bottom. Each scan adds to the list rather than replacing it.`,
       ]},
-      { h: `What it reads well and what it misses`, p: [
-        `Printed receipts with clear item names and prices on the right usually come out well. It can struggle with handwriting, very small print, unusual fonts and receipts where quantities and prices wrap across lines. Modifiers such as extra cheese may be read as separate items, which you can delete or merge on the review screen.`,
-        `This is why the review screen exists. A scan is a head start, not a final answer, so always glance over the amounts before you continue.`,
+      { h: `Where it struggles`, p: [
+        `Clean printed receipts with item names on the left and prices on the right usually come out well. Handwriting, tiny type, unusual fonts and prices that wrap to a second line are harder. Add-ons such as "extra cheese" can show up as their own item, so delete or fix those on the review screen.`,
+        `That review screen is there for a reason. A scan gets you most of the way. Check the numbers before you carry on.`,
       ]},
       { h: `Privacy`, p: [
-        `The text recognition runs inside your browser or app. Your photo is not uploaded to a server, and it is not saved. The first time you scan in a browser, the recognition engine and language data are downloaded from a public content delivery network. That download does not include your photo or any bill details.`,
+        `The text recognition runs inside your browser or app. Your photo isn't uploaded and isn't saved. The first time you scan in a browser, the recognition engine and its language data are downloaded from a public content delivery network. That download doesn't include your photo or anything from your bill.`,
       ]},
-      { h: `After scanning`, p: [
-        `From there, continue as usual: add the names of the people, drag each item onto the person or people who had it, check the tax and tip, and see who owes what. You can share the result as an image from the results screen.`,
+      { h: `After the scan`, p: [
+        `From here it's the usual routine: add the names, drag each item onto whoever had it, check tax and tip, and see who owes what. You can share the result as an image from the results screen.`,
       ]},
     ],
   },
