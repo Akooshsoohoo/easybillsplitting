@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>EasyBillSplitting</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -24,14 +24,21 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7614951676615021"
-     crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="root"></div>
-<div style="display: none;">
-<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="sahakash" data-color="#40DCA5" data-emoji="☕"  data-font="Lato" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>
-</div>
+<script>
+// Web only: ads and the coffee button are skipped inside the iOS app (App Store rules).
+if (!window.Capacitor || !window.Capacitor.isNativePlatform || !window.Capacitor.isNativePlatform()) {
+  var a = document.createElement('script'); a.async = true; a.crossOrigin = 'anonymous';
+  a.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7614951676615021';
+  document.head.appendChild(a);
+  var b = document.createElement('script');
+  b.src = 'https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js';
+  ['name:bmc-button','slug:sahakash','color:#40DCA5','emoji:☕','font:Lato','text:Buy me a coffee','outline-color:#000000','font-color:#ffffff','coffee-color:#FFDD00'].forEach(function(kv){var i=kv.indexOf(':');b.setAttribute('data-'+kv.slice(0,i),kv.slice(i+1));});
+  var d = document.createElement('div'); d.style.display = 'none'; document.body.appendChild(d); d.appendChild(b);
+}
+</script>
 <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>

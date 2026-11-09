@@ -37,9 +37,18 @@ export default function Privacy() {
         </p>
       </Section>
 
+      <Section title="The iOS app">
+        <p>
+          The EasyBillSplitting iPhone app does not collect, transmit or sell any personal data. It has no
+          accounts, no advertising and no third-party tracking or analytics. Everything you enter, and your
+          saved split history, stays on your device and is removed if you delete the app. When you tap Share,
+          the image of your split is handed to the iOS share sheet and goes only where you choose to send it.
+        </p>
+      </Section>
+
       <Section title="Advertising and cookies">
         <p>
-          This site may show ads served by Google AdSense and its advertising partners. Google and its partners
+          The website (not the iOS app) may show ads served by Google AdSense and its advertising partners. Google and its partners
           use cookies to serve ads based on a visitor's prior visits to this site or other sites on the internet.
           You can opt out of personalized advertising by visiting{' '}
           <a href="https://adssettings.google.com" target="_blank" rel="noreferrer" style={{ color: colors.greenDark }}>

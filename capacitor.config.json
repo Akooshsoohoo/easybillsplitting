@@ -1,0 +1,9 @@
+{
+  "appId": "com.easybillsplitting.app",
+  "appName": "EasyBillSplitting",
+  "webDir": "dist",
+  "ios": { "contentInset": "always", "backgroundColor": "#faf8f4" },
+  "plugins": {
+    "SplashScreen": { "launchAutoHide": true, "launchShowDuration": 600, "backgroundColor": "#19b083" }
+  }
+}

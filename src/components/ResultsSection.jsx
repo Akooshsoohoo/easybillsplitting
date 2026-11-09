@@ -4,6 +4,8 @@ import { formatMoney } from '../utils.js'
 import { stepButtonStyle } from '../theme.js'
 import { generateShareCard, buildShareText } from '../shareCard.js'
 import { upsertHistoryEntry } from '../history.js'
+import { isNative } from '../platform.js'
+import { shareImageNative } from '../nativeShare.js'
 
 export default function ResultsSection({ style, currency, rows, tipEven, onTipModeChange, grandTotal, savings = 0, hasUnassigned, unassignedAmount }) {
   const [sharing, setSharing] = useState(false)
@@ -29,7 +31,9 @@ export default function ResultsSection({ style, currency, rows, tipEven, onTipMo
       const file = new File([blob], 'bill-split.png', { type: 'image/png' })
       const text = buildShareText({ rows, grandTotal, currency, savings })
 
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      if (isNative) {
+        await shareImageNative(blob, text)
+      } else if (navigator.canShare && navigator.canShare({ files: [file] })) {
         await navigator.share({ files: [file], title: 'Bill split', text })
       } else {
         const url = URL.createObjectURL(blob)

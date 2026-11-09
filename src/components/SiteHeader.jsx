@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { colors } from '../theme.js'
+import { isNative } from '../platform.js'
 
 function CoffeeButtonSlot() {
   const ref = useRef(null)
@@ -48,7 +49,7 @@ export default function SiteHeader() {
           <NavLink className="nav-link" to="/faq" style={navLinkStyle}>FAQ</NavLink>
           <NavLink className="nav-link" to="/history" style={navLinkStyle}>History</NavLink>
           <NavLink className="nav-link" to="/about" style={navLinkStyle}>About</NavLink>
-          <CoffeeButtonSlot />
+          {!isNative && <CoffeeButtonSlot />}
         </nav>
       </div>
     </header>
