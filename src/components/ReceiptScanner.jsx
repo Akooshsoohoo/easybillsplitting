@@ -12,12 +12,25 @@ export default function ReceiptScanner({ mode, currency, onItems, onTotal }) {
   const [status, setStatus] = useState('idle') // idle | scanning | review | error
   const [progress, setProgress] = useState(0)
   const [rows, setRows] = useState([])
+  const [dragOver, setDragOver] = useState(false)
   const [extra, setExtra] = useState({ tax: '', tip: '', total: '' })
 
-  async function onFile(e) {
+  function onFile(e) {
     const file = e.target.files && e.target.files[0]
     e.target.value = ''
-    if (!file) return
+    if (file) scan(file)
+  }
+
+  function onDrop(e) {
+    e.preventDefault()
+    setDragOver(false)
+    if (status === 'scanning' || status === 'review') return
+    const file = Array.from(e.dataTransfer.files || []).find((f) => f.type.startsWith('image/'))
+    if (file) scan(file)
+    else setStatus('error')
+  }
+
+  async function scan(file) {
     setStatus('scanning')
     setProgress(0)
     try {
@@ -56,17 +69,22 @@ export default function ReceiptScanner({ mode, currency, onItems, onTotal }) {
   }
 
   return (
-    <div style={{ marginBottom: 12 }}>
+    <div
+      onDragOver={(e) => { e.preventDefault(); setDragOver(true) }}
+      onDragLeave={() => setDragOver(false)}
+      onDrop={onDrop}
+      style={{ marginBottom: 12, padding: dragOver ? 10 : 0, borderRadius: 10, border: dragOver ? '2px dashed #19b083' : '2px dashed transparent', background: dragOver ? '#e7f4ee' : 'transparent', transition: 'background .15s' }}
+    >
       <input ref={inputRef} type="file" accept="image/*" capture="environment" onChange={onFile} style={{ display: 'none' }} />
       {(status === 'idle' || status === 'error') && (
         <>
           <button type="button" className="hard-btn" onClick={() => inputRef.current && inputRef.current.click()} style={{ ...btn, background: '#fff', color: '#1c1b18' }}>
             Scan a receipt
           </button>
-          <span style={{ marginLeft: 10, fontSize: 12, color: '#8d877b' }}>Reads the photo on your device. Nothing is uploaded.</span>
+          <span style={{ marginLeft: 10, fontSize: 12, color: '#8d877b' }}>Tap to take a photo, or drop an image here. Read on your device, nothing is uploaded.</span>
           {status === 'error' && (
             <div role="alert" style={{ marginTop: 8, fontSize: 13, color: '#8a6a3a' }}>
-              Couldn't read that receipt. Try a flatter, brighter photo, or enter it by hand.
+              Couldn't read that receipt. Try a flatter, brighter photo (drop an image file, not another type), or enter it by hand.
             </div>
           )}
         </>
