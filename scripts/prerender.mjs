@@ -11,7 +11,9 @@ const sitemap = fs.readFileSync('public/sitemap.xml', 'utf8')
 const routes = [...sitemap.matchAll(/<loc>https:\/\/www\.easybillsplitting\.com([^<]*)<\/loc>/g)].map((m) => m[1] || '/')
   .filter((r) => r !== '/history') // history reads localStorage, nothing useful to prerender
 
-const vite = await createServer({ server: { middlewareMode: true }, appType: 'custom', logLevel: 'error' })
+let vite
+try {
+vite = await createServer({ server: { middlewareMode: true }, appType: 'custom', logLevel: 'error' })
 const { render } = await vite.ssrLoadModule('/src/prerender-entry.jsx')
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
@@ -31,5 +33,12 @@ for (const route of routes) {
   fs.writeFileSync(out, page)
   count++
 }
-await vite.close()
 console.log(`prerendered ${count} routes`)
+} catch (err) {
+  // Never block a deploy: the app still works as a normal single page app without prerendering.
+  console.warn('Prerender skipped:', err && err.message ? err.message : err)
+}
+finally {
+  if (vite) await vite.close()
+  process.exit(0)
+}
