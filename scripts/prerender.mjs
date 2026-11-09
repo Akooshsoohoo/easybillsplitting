@@ -1,44 +1,55 @@
 // Runs after `vite build`. Writes real HTML for each content page so crawlers
 // (search, AdSense) see the text without running JavaScript. React replaces it on load.
-import { createServer } from 'vite'
+// The app is bundled for Node first (all deps inlined) so this does not depend on the Node version.
+import { build } from 'vite'
 import fs from 'node:fs'
 import path from 'node:path'
+import { pathToFileURL } from 'node:url'
 
 const dist = path.resolve('dist')
-const template = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
+const outDir = path.resolve('.prerender')
 
-const sitemap = fs.readFileSync('public/sitemap.xml', 'utf8')
-const routes = [...sitemap.matchAll(/<loc>https:\/\/www\.easybillsplitting\.com([^<]*)<\/loc>/g)].map((m) => m[1] || '/')
-  .filter((r) => r !== '/history') // history reads localStorage, nothing useful to prerender
-
-let vite
 try {
-vite = await createServer({ server: { middlewareMode: true }, appType: 'custom', logLevel: 'error' })
-const { render } = await vite.ssrLoadModule('/src/prerender-entry.jsx')
+  const template = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
+  const sitemap = fs.readFileSync('public/sitemap.xml', 'utf8')
+  const routes = [...sitemap.matchAll(/<loc>https:\/\/www\.easybillsplitting\.com([^<]*)<\/loc>/g)].map((m) => m[1] || '/')
+    .filter((r) => r !== '/history') // history reads localStorage, nothing useful to prerender
 
-const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
-let count = 0
-for (const route of routes) {
-  const { html, meta } = render(route)
-  let page = template.replace('<div id="root"></div>', `<div id="root">${html}</div>`)
-  if (meta) {
-    page = page.replace(/<title>[^<]*<\/title>/, `<title>${esc(meta.title)}</title>`)
-    if (meta.description) {
-      page = page.replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${esc(meta.description)}">`)
+  await build({
+    logLevel: 'error',
+    ssr: { noExternal: true },
+    build: {
+      ssr: 'src/prerender-entry.jsx',
+      outDir,
+      emptyOutDir: true,
+      copyPublicDir: false,
+      rollupOptions: { output: { format: 'esm', entryFileNames: 'entry.mjs' } },
+    },
+  })
+  const { render } = await import(pathToFileURL(path.join(outDir, 'entry.mjs')).href)
+
+  const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
+  let count = 0
+  for (const route of routes) {
+    const { html, meta } = render(route)
+    let page = template.replace('<div id="root"></div>', `<div id="root">${html}</div>`)
+    if (meta) {
+      page = page.replace(/<title>[^<]*<\/title>/, `<title>${esc(meta.title)}</title>`)
+      if (meta.description) {
+        page = page.replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${esc(meta.description)}">`)
+      }
     }
+    page = page.replace('</head>', `<link rel="canonical" href="https://www.easybillsplitting.com${route}">\n</head>`)
+    const out = route === '/' ? path.join(dist, 'index.html') : path.join(dist, route + '.html')
+    fs.mkdirSync(path.dirname(out), { recursive: true })
+    fs.writeFileSync(out, page)
+    count++
   }
-  page = page.replace('</head>', `<link rel="canonical" href="https://www.easybillsplitting.com${route === '/' ? '/' : route}">\n</head>`)
-  const out = route === '/' ? path.join(dist, 'index.html') : path.join(dist, route + '.html')
-  fs.mkdirSync(path.dirname(out), { recursive: true })
-  fs.writeFileSync(out, page)
-  count++
-}
-console.log(`prerendered ${count} routes`)
+  console.log(`prerendered ${count} routes`)
 } catch (err) {
   // Never block a deploy: the app still works as a normal single page app without prerendering.
   console.warn('Prerender skipped:', err && err.message ? err.message : err)
-}
-finally {
-  if (vite) await vite.close()
+} finally {
+  fs.rmSync(outDir, { recursive: true, force: true })
   process.exit(0)
 }
