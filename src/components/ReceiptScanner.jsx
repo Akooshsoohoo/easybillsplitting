@@ -1,13 +1,20 @@
 import { useRef, useState } from 'react'
 import { parseReceipt } from '../receiptParse.js'
 import { formatMoney, parseNum } from '../utils.js'
+import { isNative } from '../platform.js'
 
 const btn = { height: 40, padding: '0 14px', borderRadius: 8, border: '2px solid #1c1b18', boxShadow: '3px 3px 0 #1c1b18', fontWeight: 600, fontSize: 14, cursor: 'pointer', fontFamily: 'inherit' }
 const field = { height: 38, padding: '0 10px', border: '1px solid #e8e4dc', borderRadius: 8, fontSize: 15, outline: 'none', background: '#fbf9f5', fontFamily: 'inherit' }
 
 // mode "items": review parsed lines, then onItems({ items, tax, tip }).
 // mode "total": review the detected total, then onTotal(string).
-export default function ReceiptScanner({ mode, currency, onItems, onTotal }) {
+// The web OCR engine downloads from a CDN, so it is hidden in the iOS app until native OCR replaces it.
+export default function ReceiptScanner(props) {
+  if (isNative) return null
+  return <WebReceiptScanner {...props} />
+}
+
+function WebReceiptScanner({ mode, currency, onItems, onTotal }) {
   const inputRef = useRef(null)
   const [status, setStatus] = useState('idle') // idle | scanning | review | error
   const [progress, setProgress] = useState(0)

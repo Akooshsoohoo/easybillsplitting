@@ -6,6 +6,7 @@ import { generateShareCard, buildShareText } from '../shareCard.js'
 import { upsertHistoryEntry } from '../history.js'
 import { isNative } from '../platform.js'
 import { shareImageNative } from '../nativeShare.js'
+import { tapSuccess } from '../haptics.js'
 
 export default function ResultsSection({ style, currency, rows, tipEven, onTipModeChange, grandTotal, savings = 0, hasUnassigned, unassignedAmount }) {
   const [sharing, setSharing] = useState(false)
@@ -33,6 +34,7 @@ export default function ResultsSection({ style, currency, rows, tipEven, onTipMo
 
       if (isNative) {
         await shareImageNative(blob, text)
+        tapSuccess()
       } else if (navigator.canShare && navigator.canShare({ files: [file] })) {
         await navigator.share({ files: [file], title: 'Bill split', text })
       } else {

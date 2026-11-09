@@ -4,6 +4,7 @@ import Landing from '../components/Landing.jsx'
 import AdRail from '../components/AdRail.jsx'
 import EvenSplitSection from '../components/EvenSplitSection.jsx'
 import ItemsSection from '../components/ItemsSection.jsx'
+import { tapLight } from '../haptics.js'
 import TaxTipSection from '../components/TaxTipSection.jsx'
 import NamesSection from '../components/NamesSection.jsx'
 import AssignSection from '../components/AssignSection.jsx'
@@ -166,6 +167,7 @@ export default function Home() {
       if (cur.includes(iid)) return a
       return { ...a, [pid]: [...cur, iid] }
     })
+    tapLight()
     setSel(null)
   }
   function unassign(pid, iid) {
