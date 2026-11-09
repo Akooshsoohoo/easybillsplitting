@@ -1,6 +1,10 @@
 import { useEffect } from 'react'
 
 export function usePageMeta(title, description) {
+  // During build-time prerendering there is no document; record the meta for the prerender script.
+  if (typeof document === 'undefined') {
+    globalThis.__pageMeta = { title, description }
+  }
   useEffect(() => {
     document.title = title
     if (!description) return

@@ -10,6 +10,7 @@ export default function SiteFooter() {
         <span style={{ fontSize: 12.5, color: colors.muted3 }}>© {new Date().getFullYear()} EasyBillSplitting</span>
         <nav style={{ display: 'flex', gap: 18, flexWrap: 'wrap' }}>
           <Link className="foot-link" to="/about" style={linkStyle}>About</Link>
+          <Link className="foot-link" to="/guides" style={linkStyle}>Guides</Link>
           <Link className="foot-link" to="/faq" style={linkStyle}>FAQ</Link>
           <Link className="foot-link" to="/how-to-split-a-bill" style={linkStyle}>How to split a bill</Link>
           <Link className="foot-link" to="/history" style={linkStyle}>History</Link>

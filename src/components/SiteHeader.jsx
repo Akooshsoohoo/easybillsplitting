@@ -46,6 +46,7 @@ export default function SiteHeader() {
         <nav style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
           <NavLink className="nav-link" to="/" end style={navLinkStyle}>Split a bill</NavLink>
           <NavLink className="nav-link" to="/how-to-split-a-bill" style={navLinkStyle}>How to split a bill</NavLink>
+          <NavLink className="nav-link" to="/guides" style={navLinkStyle}>Guides</NavLink>
           <NavLink className="nav-link" to="/faq" style={navLinkStyle}>FAQ</NavLink>
           <NavLink className="nav-link" to="/history" style={navLinkStyle}>History</NavLink>
           <NavLink className="nav-link" to="/about" style={navLinkStyle}>About</NavLink>

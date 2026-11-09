@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
     "assets": "capacitor-assets generate --ios",
-    "ios:sync": "npm run build && cap sync ios",
-    "ios:open": "cap open ios"
+    "ios:sync": "npm run build:app && cap sync ios",
+    "ios:open": "cap open ios",
+    "build:app": "vite build"
   },
   "dependencies": {
     "@capacitor/app": "^7.1.2",
