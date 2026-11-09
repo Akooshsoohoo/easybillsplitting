@@ -1,12 +1,14 @@
 import SectionHeading from './SectionHeading.jsx'
 import { formatMoney } from '../utils.js'
 import { stepButtonStyle } from '../theme.js'
+import ReceiptScanner from './ReceiptScanner.jsx'
 
-export default function ItemsSection({ currency, items, onRemoveItem, nName, nPrice, onNNameChange, onNPriceChange, onItemKeyDown, onAddItem, onNext }) {
+export default function ItemsSection({ currency, items, onRemoveItem, nName, nPrice, onNNameChange, onNPriceChange, onItemKeyDown, onAddItem, onNext, onScanned }) {
   const canProceed = items.length > 0
   return (
     <section style={{ padding: '44px 0 0' }}>
       <SectionHeading step={1} title="Items" description="Add each item that was ordered, with its price." />
+      <ReceiptScanner mode="items" currency={currency} onItems={onScanned} />
       <div className="hard-card" style={{ background: '#fff', border: '2px solid #1c1b18', boxShadow: '4px 4px 0 #1c1b18', borderRadius: 10, padding: 8 }}>
         {items.map((it) => (
           <div key={it.id} className="pop-in" style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 12px', borderBottom: '1px solid #efebe3' }}>

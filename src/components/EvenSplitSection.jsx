@@ -4,6 +4,7 @@ import DiscountForm from './DiscountForm.jsx'
 import DiscountList from './DiscountList.jsx'
 import { formatMoney, parseNum, discountAmount } from '../utils.js'
 import { upsertHistoryEntry } from '../history.js'
+import ReceiptScanner from './ReceiptScanner.jsx'
 
 export default function EvenSplitSection({
   currency, total, onTotalChange, headcount, onHeadcountChange, onInc, onDec,
@@ -35,6 +36,7 @@ export default function EvenSplitSection({
   return (
     <section id="sec-even" style={{ padding: '44px 0 0' }}>
       <SectionHeading step={1} title="Even split" description="Enter the total bill and how many people are splitting it. Updates instantly as you type." />
+      <ReceiptScanner mode="total" currency={currency} onTotal={onTotalChange} />
       <div className="hard-card" style={{ background: '#fff', border: '2px solid #1c1b18', boxShadow: '4px 4px 0 #1c1b18', borderRadius: 10, padding: 20 }}>
         <label style={{ display: 'block', fontSize: 12, color: '#7d776b', marginBottom: 7 }}>Total bill</label>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid #e8e4dc', paddingBottom: 12, marginBottom: 20 }}>

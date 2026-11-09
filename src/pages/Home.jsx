@@ -116,6 +116,11 @@ export default function Home() {
     setNName('')
     setNPrice('')
   }
+  function addScanned({ items: found, tax: t, tip: tp }) {
+    setItems((s) => [...s, ...found.map((it) => ({ id: nextId('i'), name: it.name, price: it.price }))])
+    if (t) setTax(t)
+    if (tp) setTip(tp)
+  }
   function removeItem(id) {
     setItems((s) => s.filter((x) => x.id !== id))
   }
@@ -322,6 +327,7 @@ export default function Home() {
                 onNPriceChange={setNPrice}
                 onItemKeyDown={(e) => { if (e.key === 'Enter') addItem() }}
                 onAddItem={addItem}
+                onScanned={addScanned}
                 onNext={confirmItems}
               />
               <TaxTipSection

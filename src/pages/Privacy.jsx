@@ -37,6 +37,15 @@ export default function Privacy() {
         </p>
       </Section>
 
+      <Section title="Receipt scanning">
+        <p>
+          The optional "Scan a receipt" feature reads your photo on your own device using open-source text
+          recognition. The photo is never uploaded to us or anyone else. The first time you scan, your browser
+          downloads the recognition engine and English language data from a public content delivery network
+          (jsDelivr); that download does not include your photo or any of your bill details.
+        </p>
+      </Section>
+
       <Section title="The iOS app">
         <p>
           The EasyBillSplitting iPhone app does not collect, transmit or sell any personal data. It has no
