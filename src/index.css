@@ -6,7 +6,7 @@ body {
   margin: 0;
   background: #f2f7f4;
   color: #12211c;
-  font-family: 'DM Sans', system-ui, sans-serif;
+  font-family: 'Satoshi', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -36,8 +36,8 @@ input:focus-visible {
 }
 .mode-btn:hover {
   transform: translateY(-2px);
-  border-color: #19b083;
-  box-shadow: 0 8px 22px rgba(25, 176, 131, .14);
+  background: #14a37f !important;
+  box-shadow: 0 10px 26px rgba(25, 176, 131, .45) !important;
 }
 
 @media (max-width: 1120px) {

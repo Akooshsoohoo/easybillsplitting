@@ -4,7 +4,7 @@ import DiscountList from './DiscountList.jsx'
 import { formatMoney } from '../utils.js'
 import { stepButtonStyle } from '../theme.js'
 
-const blockLabel = { fontSize: 12, fontWeight: 700, color: '#7b9189', textTransform: 'uppercase', letterSpacing: '0.06em', margin: '0 0 10px' }
+const blockLabel = { fontSize: 12, fontWeight: 700, color: '#7b9189', margin: '0 0 10px' }
 
 export default function DiscountsSection({
   style, currency, persons, discounts, savings,
@@ -65,7 +65,7 @@ export default function DiscountsSection({
 
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px', background: '#e7f4ee', border: '1px solid #b9dcce', borderRadius: 16 }}>
         <span style={{ fontSize: 13, fontWeight: 600, color: '#0e6b4f' }}>You'll save</span>
-        <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 16, fontWeight: 600, color: '#0e6b4f' }}>{formatMoney(savings, currency)}</span>
+        <span style={{ fontFamily: 'inherit', fontVariantNumeric: 'tabular-nums', fontSize: 16, fontWeight: 600, color: '#0e6b4f' }}>{formatMoney(savings, currency)}</span>
       </div>
 
       <button onClick={onConfirm} style={stepButtonStyle(true)}>

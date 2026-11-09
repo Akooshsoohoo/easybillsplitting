@@ -15,7 +15,7 @@ export default function TaxTipSection({ style, currency, tax, tip, onTaxChange, 
               placeholder="0.00"
               value={tax}
               onChange={(e) => onTaxChange(e.target.value)}
-              style={{ width: '100%', minWidth: 0, border: 0, outline: 'none', background: 'transparent', fontSize: 20, fontWeight: 500, fontFamily: "'DM Mono',monospace", color: '#12211c' }}
+              style={{ width: '100%', minWidth: 0, border: 0, outline: 'none', background: 'transparent', fontSize: 20, fontWeight: 500, fontFamily: 'inherit', fontVariantNumeric: 'tabular-nums', color: '#12211c' }}
             />
           </div>
         </div>
@@ -28,7 +28,7 @@ export default function TaxTipSection({ style, currency, tax, tip, onTaxChange, 
               placeholder="0.00"
               value={tip}
               onChange={(e) => onTipChange(e.target.value)}
-              style={{ width: '100%', minWidth: 0, border: 0, outline: 'none', background: 'transparent', fontSize: 20, fontWeight: 500, fontFamily: "'DM Mono',monospace", color: '#12211c' }}
+              style={{ width: '100%', minWidth: 0, border: 0, outline: 'none', background: 'transparent', fontSize: 20, fontWeight: 500, fontFamily: 'inherit', fontVariantNumeric: 'tabular-nums', color: '#12211c' }}
             />
           </div>
         </div>

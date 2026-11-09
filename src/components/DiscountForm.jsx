@@ -43,7 +43,7 @@ export default function DiscountForm({
             value={value}
             onChange={(e) => onValueChange(e.target.value)}
             onKeyDown={onKeyDown}
-            style={{ width: '100%', minWidth: 0, height: 42, border: 0, outline: 'none', background: 'transparent', fontSize: 16, fontFamily: "'DM Mono',monospace", color: '#12211c' }}
+            style={{ width: '100%', minWidth: 0, height: 42, border: 0, outline: 'none', background: 'transparent', fontSize: 16, fontFamily: 'inherit', fontVariantNumeric: 'tabular-nums', color: '#12211c' }}
           />
         </div>
         <button

@@ -18,7 +18,7 @@ function EntryCard({ entry, onRemove }) {
     <div style={{ background: '#fff', border: `1px solid ${colors.borderMed}`, borderRadius: 16, padding: '16px 18px', marginBottom: 14 }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
         <div>
-          <div style={{ fontSize: 12.5, fontWeight: 600, color: colors.greenDark, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+          <div style={{ fontSize: 12.5, fontWeight: 600, color: colors.greenDark,  }}>
             {entry.mode === 'even' ? 'Split evenly' : 'Split by item'}
           </div>
           <div style={{ fontSize: 12, color: colors.muted3, marginTop: 2 }}>{formatDate(entry.createdAt)}</div>

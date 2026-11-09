@@ -86,7 +86,7 @@ export default function ResultsSection({ style, currency, rows, tipEven, onTipMo
                 </div>
               </div>
             </div>
-            <div style={{ fontFamily: "'DM Mono',monospace", fontSize: 21, fontWeight: 600, letterSpacing: '-0.02em', color: '#0e6b4f' }}>
+            <div style={{ fontFamily: 'inherit', fontVariantNumeric: 'tabular-nums', fontSize: 21, fontWeight: 600, letterSpacing: '-0.02em', color: '#0e6b4f' }}>
               {formatMoney(r.total, currency)}
             </div>
           </div>
@@ -95,12 +95,12 @@ export default function ResultsSection({ style, currency, rows, tipEven, onTipMo
         {hasSavings && (
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 20px', borderTop: '1px solid #eaf5f0', color: '#19b083' }}>
             <span style={{ fontSize: 13, fontWeight: 600 }}>You saved</span>
-            <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 14, fontWeight: 600 }}>{formatMoney(savings, currency)}</span>
+            <span style={{ fontFamily: 'inherit', fontVariantNumeric: 'tabular-nums', fontSize: 14, fontWeight: 600 }}>{formatMoney(savings, currency)}</span>
           </div>
         )}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', background: '#e7f4ee', borderTop: '1px solid #b9dcce' }}>
           <span style={{ fontSize: 13, fontWeight: 600, color: '#0e6b4f' }}>Bill total</span>
-          <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 16, fontWeight: 600, color: '#0e6b4f' }}>{formatMoney(grandTotal, currency)}</span>
+          <span style={{ fontFamily: 'inherit', fontVariantNumeric: 'tabular-nums', fontSize: 16, fontWeight: 600, color: '#0e6b4f' }}>{formatMoney(grandTotal, currency)}</span>
         </div>
       </div>
       {hasUnassigned && (

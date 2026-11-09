@@ -14,6 +14,8 @@ const COLORS = {
   warnText: '#8a6a3a',
 }
 
+export const SITE_URL = 'easybillsplitting.com'
+
 function roundRectPath(ctx, x, y, w, h, r) {
   ctx.beginPath()
   ctx.moveTo(x + r, y)
@@ -32,9 +34,9 @@ export async function generateShareCard({ rows, grandTotal, currency, savings = 
   const hasSavings = savings > 0.005
   if (document.fonts?.load) {
     await Promise.all([
-      document.fonts.load('700 18px "DM Sans"'),
-      document.fonts.load('400 13px "DM Sans"'),
-      document.fonts.load('500 18px "DM Mono"'),
+      document.fonts.load('700 18px "Satoshi"'),
+      document.fonts.load('500 18px "Satoshi"'),
+      document.fonts.load('400 13px "Satoshi"'),
     ]).catch(() => {})
   }
 
@@ -46,8 +48,9 @@ export async function generateShareCard({ rows, grandTotal, currency, savings = 
   const totalH = 64
   const savingsH = hasSavings ? 44 : 0
   const warnH = hasUnassigned ? 56 : 0
+  const linkH = 48
   const cardW = W - PAD * 2
-  const cardH = headerH + rows.length * rowH + totalH + savingsH + warnH
+  const cardH = headerH + rows.length * rowH + totalH + savingsH + warnH + linkH
   const H = cardH + PAD * 2
 
   const dpr = Math.min(window.devicePixelRatio || 1, 3)
@@ -83,11 +86,11 @@ export async function generateShareCard({ rows, grandTotal, currency, savings = 
   roundRectPath(ctx, cardX + innerX, y + 26, 14, 14, 4)
   ctx.fill()
   ctx.fillStyle = COLORS.text
-  ctx.font = '700 18px "DM Sans"'
+  ctx.font = '700 18px "Satoshi"'
   ctx.fillText('EasyBillSplitting', cardX + innerX + 24, y + 33)
 
   ctx.fillStyle = COLORS.muted
-  ctx.font = '400 13px "DM Sans"'
+  ctx.font = '400 13px "Satoshi"'
   const dateStr = new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
   ctx.fillText(`Bill split · ${dateStr}`, cardX + innerX, y + 60)
 
@@ -116,25 +119,25 @@ export async function generateShareCard({ rows, grandTotal, currency, savings = 
     ctx.fillStyle = grad
     ctx.fill()
     ctx.fillStyle = '#fff'
-    ctx.font = '700 18px "DM Sans"'
+    ctx.font = '700 18px "Satoshi"'
     ctx.textAlign = 'center'
     ctx.fillText((r.name.trim().charAt(0) || '?').toUpperCase(), avatarCx, avatarCy + 1)
     ctx.textAlign = 'left'
 
     const textX = avatarCx + avatarR + 14
     ctx.fillStyle = COLORS.text
-    ctx.font = '700 17px "DM Sans"'
+    ctx.font = '700 17px "Satoshi"'
     ctx.fillText(r.name, textX, rowCenterY - 12)
 
     ctx.fillStyle = COLORS.muted
-    ctx.font = '400 13px "DM Sans"'
+    ctx.font = '400 13px "Satoshi"'
     ctx.fillText(
       `${formatMoney(r.sub, currency)} items · ${formatMoney(r.tax, currency)} tax · ${formatMoney(r.tip, currency)} tip`,
       textX, rowCenterY + 12
     )
 
     ctx.fillStyle = COLORS.greenDark
-    ctx.font = '500 22px "DM Mono"'
+    ctx.font = '500 22px "Satoshi"'
     ctx.textAlign = 'right'
     ctx.fillText(formatMoney(r.total, currency), cardX + cardW - innerX, rowCenterY + 1)
     ctx.textAlign = 'left'
@@ -157,9 +160,9 @@ export async function generateShareCard({ rows, grandTotal, currency, savings = 
   ctx.stroke()
 
   ctx.fillStyle = COLORS.greenDark
-  ctx.font = '700 15px "DM Sans"'
+  ctx.font = '700 15px "Satoshi"'
   ctx.fillText('Bill total', cardX + innerX, y + totalH / 2)
-  ctx.font = '500 18px "DM Mono"'
+  ctx.font = '500 18px "Satoshi"'
   ctx.textAlign = 'right'
   ctx.fillText(formatMoney(grandTotal, currency), cardX + cardW - innerX, y + totalH / 2 + 1)
   ctx.textAlign = 'left'
@@ -175,9 +178,9 @@ export async function generateShareCard({ rows, grandTotal, currency, savings = 
     ctx.lineTo(cardX + cardW, y)
     ctx.stroke()
     ctx.fillStyle = COLORS.green
-    ctx.font = '700 14px "DM Sans"'
+    ctx.font = '700 14px "Satoshi"'
     ctx.fillText('You saved', cardX + innerX, y + savingsH / 2)
-    ctx.font = '500 16px "DM Mono"'
+    ctx.font = '500 16px "Satoshi"'
     ctx.textAlign = 'right'
     ctx.fillText(formatMoney(savings, currency), cardX + cardW - innerX, y + savingsH / 2 + 1)
     ctx.textAlign = 'left'
@@ -188,9 +191,16 @@ export async function generateShareCard({ rows, grandTotal, currency, savings = 
     ctx.fillStyle = COLORS.warnBg
     ctx.fillRect(cardX, y, cardW, warnH)
     ctx.fillStyle = COLORS.warnText
-    ctx.font = '400 13px "DM Sans"'
+    ctx.font = '400 13px "Satoshi"'
     ctx.fillText(`${formatMoney(unassignedAmount, currency)} of items isn't assigned to anyone yet.`, cardX + innerX, y + warnH / 2)
+    y += warnH
   }
+
+  ctx.fillStyle = COLORS.muted
+  ctx.font = '500 14px "Satoshi"'
+  ctx.textAlign = 'center'
+  ctx.fillText(SITE_URL, cardX + cardW / 2, y + linkH / 2)
+  ctx.textAlign = 'left'
 
   ctx.restore()
 

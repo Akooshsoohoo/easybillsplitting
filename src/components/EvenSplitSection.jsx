@@ -90,11 +90,11 @@ export default function EvenSplitSection({
           <div style={{ fontSize: 12, opacity: 0.82, marginBottom: 4 }}>Each person pays</div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
             {hasDisc && (
-              <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 18, opacity: 0.7, textDecoration: 'line-through' }}>
+              <span style={{ fontFamily: 'inherit', fontVariantNumeric: 'tabular-nums', fontSize: 18, opacity: 0.7, textDecoration: 'line-through' }}>
                 {formatMoney(isFinite(rawPer) ? rawPer : 0, currency)}
               </span>
             )}
-            <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 36, fontWeight: 500, letterSpacing: '-0.03em' }}>{formatMoney(isFinite(per) ? per : 0, currency)}</span>
+            <span style={{ fontFamily: 'inherit', fontVariantNumeric: 'tabular-nums', fontSize: 36, fontWeight: 500, letterSpacing: '-0.03em' }}>{formatMoney(isFinite(per) ? per : 0, currency)}</span>
           </div>
           {hasDisc && <div style={{ fontSize: 12, opacity: 0.82, marginTop: 6 }}>You saved {formatMoney(discTotal, currency)}</div>}
         </div>

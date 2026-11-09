@@ -64,7 +64,7 @@ export default function AssignSection({
             >
               <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 10 }}>
                 <span style={{ fontSize: 15, fontWeight: 500, letterSpacing: '-0.01em' }}>{p.name}</span>
-                <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 13, color: '#7b9189' }}>{formatMoney(row ? row.sub : 0, currency)}</span>
+                <span style={{ fontFamily: 'inherit', fontVariantNumeric: 'tabular-nums', fontSize: 13, color: '#7b9189' }}>{formatMoney(row ? row.sub : 0, currency)}</span>
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7 }}>
                 {ids.map((iid) => {

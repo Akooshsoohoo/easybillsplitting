@@ -11,7 +11,7 @@ export default function ItemsSection({ currency, items, onRemoveItem, nName, nPr
         {items.map((it) => (
           <div key={it.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 12px', borderBottom: '1px solid #f0f6f3' }}>
             <span style={{ flex: 1, fontSize: 15 }}>{it.name}</span>
-            <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 14, color: '#3f5a51' }}>{formatMoney(it.price, currency)}</span>
+            <span style={{ fontFamily: 'inherit', fontVariantNumeric: 'tabular-nums', fontSize: 14, color: '#3f5a51' }}>{formatMoney(it.price, currency)}</span>
             <button onClick={() => onRemoveItem(it.id)} style={{ width: 26, height: 26, borderRadius: 8, border: 0, background: '#f2f7f4', color: '#8ba49b', cursor: 'pointer', fontSize: 15, lineHeight: 1, fontFamily: 'inherit' }}>&times;</button>
           </div>
         ))}
@@ -29,7 +29,7 @@ export default function ItemsSection({ currency, items, onRemoveItem, nName, nPr
             value={nPrice}
             onChange={(e) => onNPriceChange(e.target.value)}
             onKeyDown={onItemKeyDown}
-            style={{ width: 88, height: 42, padding: '0 12px', border: '1px solid #e4efea', borderRadius: 12, fontSize: 16, outline: 'none', background: '#f9fcfb', fontFamily: "'DM Mono',monospace" }}
+            style={{ width: 88, height: 42, padding: '0 12px', border: '1px solid #e4efea', borderRadius: 12, fontSize: 16, outline: 'none', background: '#f9fcfb', fontFamily: 'inherit', fontVariantNumeric: 'tabular-nums' }}
           />
           <button onClick={onAddItem} style={{ width: 42, height: 42, borderRadius: 12, border: 0, background: '#19b083', color: '#fff', fontSize: 20, cursor: 'pointer', fontFamily: 'inherit' }}>+</button>
         </div>

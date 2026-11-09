@@ -35,7 +35,6 @@ export default function SiteHeader() {
     <header style={{ borderBottom: `1px solid ${colors.divider}` }}>
       <div style={{ maxWidth: 1240, margin: '0 auto', padding: '18px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 9, textDecoration: 'none', color: 'inherit' }}>
-          <div style={{ width: 13, height: 13, borderRadius: 4, background: colors.green }} />
           <span style={{ fontSize: 14, fontWeight: 500, letterSpacing: '-0.01em' }}>EasyBillSplitting</span>
         </Link>
         <nav style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
