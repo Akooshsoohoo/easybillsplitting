@@ -7,7 +7,7 @@ import { isNative } from '../platform.js'
 
 export default function Layout() {
   return (
-    <div className={isNative ? 'native-app' : undefined} style={{ minHeight: '100vh', backgroundColor: colors.bg, backgroundImage: isNative ? undefined : wallpaper, color: colors.text, fontFamily: "'General Sans',system-ui,sans-serif", display: 'flex', flexDirection: 'column' }}>
+    <div className={isNative ? 'native-app' : undefined} style={{ minHeight: '100vh', backgroundColor: colors.bg, backgroundImage: wallpaper, color: colors.text, fontFamily: "'General Sans',system-ui,sans-serif", display: 'flex', flexDirection: 'column' }}>
       {!isNative && <SiteHeader />}
       <main style={{ flex: 1 }}>
         <Outlet />
