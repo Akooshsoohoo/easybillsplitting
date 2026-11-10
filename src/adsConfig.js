@@ -8,7 +8,7 @@ export const ADS_CLIENT = 'ca-pub-7614951676615021'
 // Paste the numeric ad unit ids from AdSense (Ads > By ad unit) here.
 export const AD_SLOTS = {
   rail: '',       // Home, desktop side rails, 160x600 (hidden below 1120px)
-  homeBelow: '',  // Home, between "How it works" and "Why use it"
+  homeBelow: '1062971000',  // Home, between "How it works" and "Why use it"
   contentEnd: '', // Guides, FAQ, About, How-to: after the main text
   guideMid: '',   // Guides only: between sections, long articles
 }
