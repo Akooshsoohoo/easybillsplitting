@@ -181,3 +181,7 @@ input:focus-visible {
 .tab-item.tab-active { background: #19b083; border-color: #1c1b18; box-shadow: 2px 2px 0 #1c1b18; }
 .info-row:active { background: #efebe3; }
 html:has(.native-app) { overscroll-behavior: none; }
+
+/* iOS first screen: exactly one screen tall, no scrolling or rubber-banding. */
+.native-lock { height: calc(100dvh - 64px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); overflow: hidden; box-sizing: border-box; touch-action: none; }
+html:has(.native-lock), html:has(.native-lock) body { overflow: hidden; height: 100%; }
