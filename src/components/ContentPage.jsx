@@ -3,10 +3,10 @@ import { colors } from '../theme.js'
 import { isNative } from '../platform.js'
 import AdSlot from './AdSlot.jsx'
 
-export default function ContentPage({ title, subtitle, children, hideBack, ads }) {
+export default function ContentPage({ title, subtitle, children, hideBack, ads, fit }) {
   const navigate = useNavigate()
   return (
-    <div className="rise" style={{ maxWidth: 680, width: '100%', margin: '0 auto', padding: '48px 20px 80px' }}>
+    <div className={isNative && fit ? 'rise native-fit' : 'rise'} style={{ maxWidth: 680, width: '100%', margin: '0 auto', padding: '48px 20px 80px' }}>
       {isNative && !hideBack && (
         <button
           type="button"

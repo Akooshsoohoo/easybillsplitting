@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Landing from '../components/Landing.jsx'
+import NativeLanding from '../components/NativeLanding.jsx'
 import AdRail from '../components/AdRail.jsx'
 import AdSlot from '../components/AdSlot.jsx'
 import EvenSplitSection from '../components/EvenSplitSection.jsx'
@@ -291,13 +292,26 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  if (isNative && mode === null) {
+    return <NativeLanding onPickEven={() => pick('even', 'sec-even')} onPickItem={() => pick('item', 'sec-item')} />
+  }
+
   return (
     <div style={{ padding: '0 0 80px' }}>
       <div style={{ display: 'flex', justifyContent: 'center', gap: 20, maxWidth: 1240, margin: '0 auto' }}>
         <AdRail />
 
         <div style={{ maxWidth: 560, width: '100%', margin: '0 auto', padding: '0 20px' }}>
-          <Landing onPickEven={() => pick('even', 'sec-even')} onPickItem={() => pick('item', 'sec-item')} />
+          {isNative ? (
+            <button
+              onClick={reset}
+              style={{ margin: '14px 0 0 -8px', padding: '10px 8px', minHeight: 44, border: 'none', background: 'transparent', fontFamily: 'inherit', fontSize: 15, fontWeight: 600, color: colors.greenDark, cursor: 'pointer' }}
+            >
+              &lsaquo; Back
+            </button>
+          ) : (
+            <Landing onPickEven={() => pick('even', 'sec-even')} onPickItem={() => pick('item', 'sec-item')} />
+          )}
 
           {mode === 'even' && (
             <EvenSplitSection
