@@ -188,3 +188,14 @@ html:has(.native-lock), html:has(.native-lock) body { overflow: hidden; height: 
 /* iOS short screens (Info, empty History): fit one screen, scroll only if a small phone cannot fit them. */
 .native-fit { height: calc(100dvh - 64px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); overflow-y: auto; overscroll-behavior: none; box-sizing: border-box; padding-bottom: 24px !important; }
 html:has(.native-fit), html:has(.native-fit) body { overflow: hidden; height: 100%; }
+
+/* Tea scene steam: slow drift, off when the user prefers reduced motion. */
+.tea-steam { animation: tea-steam 3.6s ease-in-out infinite; }
+@keyframes tea-steam { 0%, 100% { opacity: .35; } 50% { opacity: .9; } }
+@media (prefers-reduced-motion: reduce) { .tea-steam { animation: none; opacity: .6; } }
+
+/* iOS first-launch intro */
+.onb { position: fixed; inset: 0; z-index: 200; display: flex; flex-direction: column; background-color: #f6f3ee; touch-action: pan-y; padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom); }
+.onb-track { flex: 1; display: flex; width: 400%; transition: transform .35s ease; min-height: 0; }
+.onb-page { width: 25%; padding: 28px 24px 0; display: flex; flex-direction: column; box-sizing: border-box; }
+.onb-art { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; }

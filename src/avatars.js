@@ -80,7 +80,7 @@ export const ANIMALS = {
 }
 
 // Accessories are drawn around the origin and moved into place.
-const ACCESSORIES = {
+export const ACCESSORIES = {
   tophat: `<ellipse cx="0" cy="0" rx="14" ry="2.7" fill="#1f2430"/><rect x="-9" y="-14" width="18" height="14" rx="1.6" fill="#1f2430"/><rect x="-9" y="-5" width="18" height="3.6" fill="#c4513b"/>`,
   bowler: `<path d="M-11 0 C-11 -11 11 -11 11 0Z" fill="#6a4a3a"/><ellipse cx="0" cy="0" rx="15" ry="2.4" fill="#5a3d2f"/><rect x="-11" y="-3.6" width="22" height="3" fill="#2b2118"/>`,
   crown: `<path d="M-10 0 L-12 -12 L-6 -7 L0 -14 L6 -7 L12 -12 L10 0Z" fill="#f2b632"/><circle cx="0" cy="-4.5" r="1.5" fill="#d9483b"/><circle cx="-6" cy="-3" r="1.1" fill="#3f7fae"/><circle cx="6" cy="-3" r="1.1" fill="#3f7fae"/>`,
@@ -93,9 +93,9 @@ const ACCESSORIES = {
 
 export const BACKGROUNDS = ['#d7efe4', '#f8e7b4', '#f7d3d0', '#cfe3f4', '#e0d6f1', '#fbdcc2', '#dbe5c7', '#efe4d0']
 
-const HATS = ['tophat', 'bowler', 'crown', null, 'tophat']
-const FACES = ['monocle', 'glasses', 'mustache', null, 'monocle']
-const NECKS = ['bowtie', 'scarf', null, null]
+export const HATS = ['tophat', 'bowler', 'crown', null, 'tophat']
+export const FACES = ['monocle', 'glasses', 'mustache', null, 'monocle']
+export const NECKS = ['bowtie', 'scarf', null, null]
 const animalIds = Object.keys(ANIMALS)
 
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)]
