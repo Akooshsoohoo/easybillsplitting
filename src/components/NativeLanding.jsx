@@ -22,7 +22,7 @@ export default function NativeLanding({ onPickEven, onPickItem }) {
       : `${(last.people || []).length} people, ${formatMoney(last.grandTotal || 0, last.currency || '$')} total`
     : null
   return (
-    <div className="native-lock" style={{ padding: '0 20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+    <div className="native-lock" style={{ padding: '0 20px', display: 'flex', flexDirection: 'column' }}>
       <div style={{ paddingTop: 20 }}>
         <div className="rise" style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.04em', color: colors.greenDark }}>EasyBillSplitting</div>
         <h1 className="rise" style={{ animationDelay: '60ms', margin: '10px 0 0', fontSize: 40, lineHeight: 1.04, fontWeight: 700, letterSpacing: '-0.035em' }}>
@@ -30,7 +30,7 @@ export default function NativeLanding({ onPickEven, onPickItem }) {
         </h1>
       </div>
 
-      <div className="rise" style={{ animationDelay: '120ms', margin: '0 -6px' }} dangerouslySetInnerHTML={{ __html: scene }} />
+      <div className="rise tea-wrap" style={{ animationDelay: '120ms' }} dangerouslySetInnerHTML={{ __html: scene }} />
 
       <div style={{ paddingBottom: 16 }}>
         <div className="rise" style={{ animationDelay: '180ms', display: 'grid', gap: 14 }}>

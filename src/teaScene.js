@@ -65,8 +65,7 @@ function seated(a) {
 ${a.head(a)}
 <path d="M50 70 Q64 84 80 79" stroke="${a.body}" stroke-width="9" fill="none" stroke-linecap="round"/>
 <circle cx="81" cy="79" r="4.6" fill="${a.hand}"/>
-<g><path d="M79 70 h12 v10 a3 3 0 0 1 -3 3 h-6 a3 3 0 0 1 -3 -3z" fill="#f6efe3" stroke="${INK}" stroke-width="1.3"/>
-<path d="M91 73 q4 0 4 3.5 t-4 3.5" fill="none" stroke="${INK}" stroke-width="1.3"/></g>
+<g><path d="M79 70 h12 v10 a3 3 0 0 1 -3 3 h-6 a3 3 0 0 1 -3 -3z" fill="#f6efe3" stroke="${INK}" stroke-width="1.3"/></g>
 ${steam()}`
 }
 
