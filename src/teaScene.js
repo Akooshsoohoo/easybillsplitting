@@ -3,6 +3,7 @@
 // right; the right one is the same drawing mirrored.
 
 import { ACCESSORIES, HATS, FACES, NECKS } from './avatars.js'
+import { PLACEMENT } from './teaPlacement.js'
 
 const INK = '#1c1b18'
 
@@ -86,15 +87,6 @@ export const THINGS = {
 const RECEIPT = `<path d="M-14 0 l3 -4 h24 l3 4z" fill="#fffdf8" stroke="${INK}" stroke-width="1.1"/>
 <path d="M-8 -1.6 h16 M-5 -2.8 h10" stroke="#a29c90" stroke-width="0.9"/>`
 
-// Where accessories go on each animal (side view). eye and neck are [x, y]; hx/top/tilt place the hat.
-export const ANCHORS = {
-  fox: { eye: [60, 42], top: 36, hx: 49, tilt: 9, neck: [50, 61] },
-  frog: { eye: [59.5, 37.4], top: 45, hx: 41, tilt: -8, neck: [50, 62] },
-  sloth: { eye: [61.5, 43], top: 34.5, hx: 52, tilt: 6, neck: [50, 60] },
-  penguin: { eye: [60, 42], top: 33, hx: 52, tilt: 11, neck: [50, 58] },
-  capybara: { eye: [62, 41], top: 36.5, hx: 50, tilt: 9, neck: [50, 60] },
-}
-
 // Side-view versions of the accessories that look wrong from the side.
 const SIDE = {
   glasses: '<circle cx="0" cy="0" r="5.4" fill="#fff" fill-opacity="0.25" stroke="#2b2118" stroke-width="1.6"/><path d="M-5 -1 L-14 -3" stroke="#2b2118" stroke-width="1.4" fill="none" stroke-linecap="round"/>',
@@ -102,15 +94,18 @@ const SIDE = {
   scarf: '<path d="M-12 -3 C-4 2 8 2 14 -3 L14 3 C8 8 -4 8 -12 3Z" fill="#3f7fae"/><path d="M-6 4 L-12 4 L-14 18 L-8 18Z" fill="#336a93"/><rect x="-12.4" y="10" width="5" height="2" fill="#f6f1e8"/>',
 }
 
+// Draws one accessory at its hand-tuned spot for this animal. Order: neck, face, hat.
 function dress(name, acc) {
-  const k = ANCHORS[name]
-  const at = (x, y, inner) => `<g transform="translate(${x} ${y})">${inner}</g>`
+  if (!acc) return ''
+  const part = (item, art) => {
+    const p = PLACEMENT[name][item]
+    return `<g transform="translate(${p.x} ${p.y}) rotate(${p.tilt})">${art}</g>`
+  }
   let out = ''
-  if (!acc) return out
-  if (acc.neck) out += at(k.neck[0], k.neck[1], SIDE[acc.neck])
-  if (acc.face === 'monocle') out += at(k.eye[0], k.eye[1], ACCESSORIES.monocle)
-  else if (acc.face === 'glasses') out += at(k.eye[0], k.eye[1], SIDE.glasses)
-  if (acc.hat) out += `<g transform="translate(${k.hx} ${k.top}) rotate(${k.tilt})">${ACCESSORIES[acc.hat]}</g>`
+  if (acc.neck) out += part(acc.neck, SIDE[acc.neck])
+  if (acc.face === 'monocle') out += part('monocle', ACCESSORIES.monocle)
+  else if (acc.face === 'glasses') out += part('glasses', SIDE.glasses)
+  if (acc.hat) out += part(acc.hat, ACCESSORIES[acc.hat])
   return out
 }
 
