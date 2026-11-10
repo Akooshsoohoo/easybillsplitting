@@ -1,6 +1,17 @@
-# EasyBillSplitting: status (10 Nov 2026)
+# EasyBillSplitting: status (10 Nov 2026, evening)
 
 Repo: https://github.com/Akooshsoohoo/easybillsplitting. `main` and `ios-release` are identical at f3fd556. Pushing `main` deploys the website to https://www.easybillsplitting.com through Vercel, so ask the owner before merging or pushing it.
+
+## Where we stopped (10 Nov 2026, evening). Pick up here.
+- `main` is 866825c: live website and the new iOS look (stripe wallpaper, locked start page with a drawn tea scene, 4-screen intro, short screens fit, hand-tuned accessories in `src/teaPlacement.js`). Build 3 (1.0.0 (3), from 866825c, NO ads) is uploaded to App Store Connect. Build 2 is still the attached build on the draft. Nothing is submitted.
+- The owner decided to put ads in the iOS app first, using Google AdMob (AdSense is not allowed in apps), and to hold Submit for Review until then. Submit still needs the owner's yes in one line.
+- Branch `admob` (3f7033e, pushed, NOT merged): `@capacitor-community/admob` 8.3.0, Info.plist keys (test app id, tracking text, 50 SKAdNetwork ids), `src/components/AdBanner.jsx` (consent, then ATT, then banner above the tab bar; never on the start page, intro or Info), `src/adMobConfig.js` (TEST ids and `BANNER_BOTTOM_MARGIN`), `src/adGate.js`, updated `APP_STORE.md`. Only smoke-tested in a browser frame. The Mac session `easybill` was sent the steps but has not reported back.
+- Waiting on the owner: create the AdMob account and an iOS app entry for com.easybillsplitting.app, a Banner ad unit, then send the app id, the unit id and the `app-ads.txt` line.
+- Then, in order: put the real app id in `ios/App/App/Info.plist` (GADApplicationIdentifier) and the unit id in `src/adMobConfig.js` (REAL_BANNER_ID, USE_TEST_ADS = false); add the `app-ads.txt` line to `public/ads.txt`-style file for the website; ask the owner, then merge `admob` to main; Mac session builds N (4 or higher) from it and checks the banner on the simulator (does it overlap the tab bar? tune `BANNER_BOTTOM_MARGIN`); App Store Connect: privacy answers (no longer "Data Not Collected", tracking Yes), Advertising age question, description and review notes from `APP_STORE.md`; retake the 5 screenshots with the banner; owner's yes; submit.
+- Fallback if ads are dropped: submit build 3 as is. Its screenshots (no banner) are on branch `store-shots-b3`, `store-screenshots/b3/`.
+- Website AdSense: review pending since 9 Nov, do not re-request. Auto ads is ON (owner chose to keep it). Slot `homeBelow` has its unit id (1062971000); `contentEnd`, `guideMid` and `rail` in `src/adsConfig.js` are still empty, waiting for the owner to create `ebs-content-end`, `ebs-guide-mid` and `ebs-rail` (160x600) in AdSense.
+- Receipt scanner: web only (Items step). It is hidden in the iOS app on purpose (`src/components/ReceiptScanner.jsx` returns null when `isNative`) because Tesseract.js downloads its engine online. The native upgrade plan (Apple Vision plus the Camera plugin) is in `IOS_RUNBOOK.md`.
+- Small loose ends: the owner should revoke the app-specific password at appleid.apple.com; merged local branches (ads-slots, ios-landing, onboarding, hat-fit, placement, fit-fix) can be deleted.
 
 ## What exists
 - Website (Vite + React, no backend): split evenly, split by item (drag and drop, tax, tip, discounts), receipt scanner (Tesseract.js, `src/components/ReceiptScanner.jsx`, `src/receiptParse.js`), History in localStorage, 9 guide articles (`src/guides.js`), flat animal avatars (`src/avatars.js`), share image (`src/shareCard.js`).
