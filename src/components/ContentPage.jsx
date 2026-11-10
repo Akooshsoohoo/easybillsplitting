@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 import { colors } from '../theme.js'
 import { isNative } from '../platform.js'
+import AdSlot from './AdSlot.jsx'
 
-export default function ContentPage({ title, subtitle, children, hideBack }) {
+export default function ContentPage({ title, subtitle, children, hideBack, ads }) {
   const navigate = useNavigate()
   return (
     <div className="rise" style={{ maxWidth: 680, width: '100%', margin: '0 auto', padding: '48px 20px 80px' }}>
@@ -22,6 +23,7 @@ export default function ContentPage({ title, subtitle, children, hideBack }) {
       <div style={{ marginTop: 32, fontSize: 15, lineHeight: 1.7, color: colors.text }}>
         {children}
       </div>
+      {!isNative && ads && <AdSlot slot="contentEnd" label="Ad, end of page" />}
     </div>
   )
 }

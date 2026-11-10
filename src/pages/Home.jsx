@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Landing from '../components/Landing.jsx'
 import AdRail from '../components/AdRail.jsx'
+import AdSlot from '../components/AdSlot.jsx'
 import EvenSplitSection from '../components/EvenSplitSection.jsx'
 import ItemsSection from '../components/ItemsSection.jsx'
 import { tapLight } from '../haptics.js'
@@ -18,7 +19,6 @@ import { isNative } from '../platform.js'
 
 const CURRENCY = '$'
 const DEFAULT_TIP_EVEN = false
-const SHOW_AD_SLOT = false
 
 function scrollToId(id) {
   requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -294,7 +294,7 @@ export default function Home() {
   return (
     <div style={{ padding: '0 0 80px' }}>
       <div style={{ display: 'flex', justifyContent: 'center', gap: 20, maxWidth: 1240, margin: '0 auto' }}>
-        {SHOW_AD_SLOT && <AdRail />}
+        <AdRail />
 
         <div style={{ maxWidth: 560, width: '100%', margin: '0 auto', padding: '0 20px' }}>
           <Landing onPickEven={() => pick('even', 'sec-even')} onPickItem={() => pick('item', 'sec-item')} />
@@ -413,7 +413,7 @@ export default function Home() {
           {!isNative && <HomeContent />}
         </div>
 
-        {SHOW_AD_SLOT && <AdRail />}
+        <AdRail />
       </div>
 
       {drag && (
@@ -452,6 +452,8 @@ function HomeContent() {
           <Link to="/how-to-split-a-bill" style={{ color: colors.greenDark }}>Read the full guide</Link>.
         </p>
       </section>
+
+      <AdSlot slot="homeBelow" label="Ad, between sections" />
 
       <section style={{ marginTop: 32 }}>
         <h2 style={{ fontSize: 20, fontWeight: 500, letterSpacing: '-0.02em', margin: '0 0 10px' }}>Why use it</h2>

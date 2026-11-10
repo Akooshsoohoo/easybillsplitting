@@ -10,7 +10,7 @@ export default function About() {
   )
 
   return (
-    <ContentPage
+    <ContentPage ads
       title="About EasyBillSplitting"
       subtitle="A free, no-signup bill splitter for figuring out who owes what after a shared meal."
     >
