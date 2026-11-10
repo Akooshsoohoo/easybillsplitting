@@ -37,10 +37,10 @@ public class ReceiptOcrPlugin: CAPPlugin, CAPBridgedPlugin {
                     var line = JSObject()
                     line["text"] = top.string
                     line["confidence"] = top.confidence
-                    line["x"] = obs.boundingBox.origin.x
-                    line["y"] = obs.boundingBox.origin.y
-                    line["w"] = obs.boundingBox.size.width
-                    line["h"] = obs.boundingBox.size.height
+                    line["x"] = Double(obs.boundingBox.origin.x)
+                    line["y"] = Double(obs.boundingBox.origin.y)
+                    line["w"] = Double(obs.boundingBox.size.width)
+                    line["h"] = Double(obs.boundingBox.size.height)
                     lines.append(line)
                 }
                 call.resolve(["lines": lines])
