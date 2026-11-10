@@ -230,9 +230,8 @@ export async function generateShareCard({ rows, grandTotal, currency, savings = 
   return new Promise((resolve) => canvas.toBlob(resolve, 'image/png', 1))
 }
 
-// The message that travels with the image. The link is a full URL so Messages and other apps make it tappable.
-export function buildShareText({ rows, grandTotal, currency, savings = 0 }) {
-  const lines = rows.map((r) => `${r.name}: ${formatMoney(r.total, currency)}`)
-  const saved = savings > 0.005 ? `\nSaved ${formatMoney(savings, currency)}` : ''
-  return `Bill split, total ${formatMoney(grandTotal, currency)}\n${lines.join('\n')}${saved}\n\nSplit yours: ${SITE_LINK}`
+// The message that travels with the image: just the link, as a full URL so apps make it tappable.
+// The bill itself is already in the image, so no text copy of it.
+export function buildShareText() {
+  return SITE_LINK
 }

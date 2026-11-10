@@ -31,7 +31,7 @@ export default function ResultsSection({ style, currency, rows, tipEven, onTipMo
     try {
       const blob = await generateShareCard({ rows, grandTotal, currency, savings, hasUnassigned, unassignedAmount })
       const file = new File([blob], 'bill-split.png', { type: 'image/png' })
-      const text = buildShareText({ rows, grandTotal, currency, savings })
+      const text = buildShareText()
 
       if (isNative) {
         await shareImageNative(blob, text)
