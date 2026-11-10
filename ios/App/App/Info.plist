@@ -66,7 +66,7 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Used to read the total and items from a receipt photo. Photos stay on your device.</string>
 	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-3940256099942544~1458002511</string>
+	<string>ca-app-pub-7614951676615021~6169093496</string>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>We use this to show ads that fit you better. You can say no and the app works the same.</string>
 	<key>SKAdNetworkItems</key>
