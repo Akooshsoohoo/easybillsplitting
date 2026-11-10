@@ -1,0 +1,120 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>og-image generator</title>
+<style>
+@font-face { font-family: 'General Sans'; src: url('/public/fonts/general-sans-400.woff2') format('woff2'); font-weight: 400; }
+@font-face { font-family: 'General Sans'; src: url('/public/fonts/general-sans-500.woff2') format('woff2'); font-weight: 500; }
+@font-face { font-family: 'General Sans'; src: url('/public/fonts/general-sans-600.woff2') format('woff2'); font-weight: 600; }
+@font-face { font-family: 'General Sans'; src: url('/public/fonts/general-sans-700.woff2') format('woff2'); font-weight: 700; }
+body { margin: 0; background: #ddd; }
+canvas { width: 1200px; height: 630px; display: block; }
+</style></head>
+<body>
+<canvas id="c" width="1200" height="630"></canvas>
+<script type="module">
+// Draws the 1200x630 link preview in the same style as src/shareCard.js.
+// Run from the project root with a static server (see scripts/og-card.md note in STATUS.md), open /scripts/og-card.html.
+import { COLORS, FONT, roundRectPath, drawLogo } from '/src/shareCard.js'
+import { avatarImage } from '/src/avatars.js'
+
+const people = [
+  { name: 'Maya', note: '3 items', amount: '$31.40', av: { animal: 'fox', hat: 'bowler', face: null, neck: 'scarf', bg: '#f8e7b4' } },
+  { name: 'Sam', note: '2 items', amount: '$24.10', av: { animal: 'sloth', hat: null, face: 'glasses', neck: null, bg: '#d7efe4' } },
+  { name: 'Leo', note: '2 items', amount: '$19.80', av: { animal: 'frog', hat: 'crown', face: null, neck: 'bowtie', bg: '#cfe3f4' } },
+  { name: 'Priya', note: '1 item', amount: '$14.70', av: { animal: 'pigeon', hat: 'tophat', face: 'monocle', neck: null, bg: '#f7d3d0' } },
+]
+
+await Promise.all([700, 600, 500, 400].map((w) => document.fonts.load(`${w} 20px "General Sans"`)))
+
+const W = 1200, H = 630
+const ctx = document.getElementById('c').getContext('2d')
+ctx.textBaseline = 'middle'
+ctx.fillStyle = COLORS.bg
+ctx.fillRect(0, 0, W, H)
+
+// Left: brand, headline, sub line
+drawLogo(ctx, 72, 60, 56)
+ctx.fillStyle = COLORS.ink
+ctx.font = `700 32px ${FONT}`
+ctx.fillText('EasyBillSplitting', 72 + 56 + 18, 88)
+
+ctx.font = `700 92px ${FONT}`
+ctx.fillText('Split any bill', 72, 250)
+ctx.fillText('in seconds', 72, 350)
+
+ctx.fillStyle = COLORS.muted
+ctx.font = `500 34px ${FONT}`
+ctx.fillText('No accounts, no math.', 72, 456)
+ctx.fillText('Split evenly or by item.', 72, 502)
+
+// Right: receipt card
+const SH = 10, B = 3, R = 18
+const cx = 662, cw = 466
+const headerH = 84, rowH = 78, totalH = 80
+const ch = headerH + people.length * rowH + totalH
+const cy = Math.round((H - ch - SH) / 2)
+
+ctx.fillStyle = COLORS.ink
+roundRectPath(ctx, cx + SH, cy + SH, cw, ch, R); ctx.fill()
+ctx.fillStyle = COLORS.card
+roundRectPath(ctx, cx, cy, cw, ch, R); ctx.fill()
+
+ctx.save()
+roundRectPath(ctx, cx, cy, cw, ch, R); ctx.clip()
+const rule = (yy) => { ctx.fillStyle = COLORS.ink; ctx.fillRect(cx, yy - B / 2, cw, B) }
+
+let y = cy
+ctx.fillStyle = COLORS.green
+ctx.fillRect(cx, y, cw, headerH)
+drawLogo(ctx, cx + 26, y + (headerH - 44) / 2, 44)
+ctx.fillStyle = COLORS.ink
+ctx.font = `700 25px ${FONT}`
+ctx.fillText('Dinner for four', cx + 26 + 44 + 16, y + headerH / 2 - 10)
+ctx.font = `500 15px ${FONT}`
+ctx.fillText('Bill split by item', cx + 26 + 44 + 16, y + headerH / 2 + 15)
+y += headerH
+rule(y)
+
+const imgs = await Promise.all(people.map((p) => avatarImage(p.av, 224)))
+people.forEach((p, i) => {
+  const mid = y + rowH / 2, r = 27, ax = cx + 26 + r
+  ctx.save()
+  ctx.beginPath(); ctx.arc(ax, mid, r, 0, Math.PI * 2); ctx.clip()
+  if (imgs[i]) ctx.drawImage(imgs[i], ax - r, mid - r, r * 2, r * 2)
+  ctx.restore()
+  ctx.beginPath(); ctx.arc(ax, mid, r, 0, Math.PI * 2)
+  ctx.lineWidth = 2.5; ctx.strokeStyle = COLORS.ink; ctx.stroke()
+
+  ctx.fillStyle = COLORS.ink
+  ctx.font = `700 22px ${FONT}`
+  ctx.fillText(p.name, ax + r + 16, mid - 11)
+  ctx.fillStyle = COLORS.muted
+  ctx.font = `400 15px ${FONT}`
+  ctx.fillText(p.note, ax + r + 16, mid + 14)
+  ctx.fillStyle = COLORS.greenDark
+  ctx.font = `700 30px ${FONT}`
+  ctx.textAlign = 'right'
+  ctx.fillText(p.amount, cx + cw - 26, mid + 1)
+  ctx.textAlign = 'left'
+
+  y += rowH
+  ctx.fillStyle = COLORS.divider
+  if (i < people.length - 1) ctx.fillRect(cx, y - 1.5, cw, 1.5)
+})
+
+ctx.fillStyle = COLORS.ink
+ctx.fillRect(cx, y, cw, totalH)
+ctx.fillStyle = '#faf8f4'
+ctx.font = `700 22px ${FONT}`
+ctx.fillText('Bill total', cx + 26, y + totalH / 2 + 1)
+ctx.fillStyle = COLORS.green
+ctx.font = `700 38px ${FONT}`
+ctx.textAlign = 'right'
+ctx.fillText('$90.00', cx + cw - 26, y + totalH / 2 + 2)
+ctx.textAlign = 'left'
+ctx.restore()
+
+ctx.lineWidth = B; ctx.strokeStyle = COLORS.ink
+roundRectPath(ctx, cx, cy, cw, ch, R); ctx.stroke()
+
+window.__ogReady = true
+</script></body></html>

@@ -83,7 +83,7 @@ export default function History() {
   }
 
   return (
-    <ContentPage
+    <ContentPage hideBack
       title="History"
       subtitle="Splits you have calculated. This list is saved automatically, stored only on this device, and is never sent anywhere."
     >

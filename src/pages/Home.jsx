@@ -14,6 +14,7 @@ import ResultsSection from '../components/ResultsSection.jsx'
 import { parseNum, discountAmount } from '../utils.js'
 import { sectionStyle, colors } from '../theme.js'
 import { usePageMeta } from '../usePageMeta.js'
+import { isNative } from '../platform.js'
 
 const CURRENCY = '$'
 const DEFAULT_TIP_EVEN = false
@@ -409,7 +410,7 @@ export default function Home() {
             </button>
           )}
 
-          <HomeContent />
+          {!isNative && <HomeContent />}
         </div>
 
         {SHOW_AD_SLOT && <AdRail />}

@@ -171,3 +171,13 @@ input:focus-visible {
   .site-foot-copy { width: 100%; text-align: center; order: 2; }
   footer > div { flex-direction: column; }
 }
+
+/* iOS app only (Layout adds .native-app): bottom tab bar and app-like touch behaviour */
+.native-app { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; padding-top: env(safe-area-inset-top); padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+.native-app input, .native-app textarea { -webkit-user-select: text; user-select: text; }
+.native-app .hard-card:hover, .native-app .chip:hover, .native-app .nav-link:hover { transform: none; box-shadow: inherit; }
+.tab-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 8px 12px calc(8px + env(safe-area-inset-bottom)); background: #f6f3ee; border-top: 2px solid #1c1b18; }
+.tab-item { display: flex; align-items: center; justify-content: center; min-height: 44px; font-size: 14px; font-weight: 600; color: #1c1b18; text-decoration: none; border: 2px solid transparent; border-radius: 8px; }
+.tab-item.tab-active { background: #19b083; border-color: #1c1b18; box-shadow: 2px 2px 0 #1c1b18; }
+.info-row:active { background: #efebe3; }
+html:has(.native-app) { overscroll-behavior: none; }

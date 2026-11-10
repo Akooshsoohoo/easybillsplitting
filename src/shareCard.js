@@ -1,7 +1,7 @@
 import { formatMoney, breakdownText } from './utils.js'
 import { avatarImage } from './avatars.js'
 
-const COLORS = {
+export const COLORS = {
   bg: '#f6f3ee',
   card: '#ffffff',
   ink: '#1c1b18',
@@ -18,9 +18,9 @@ const COLORS = {
 export const SITE_URL = 'easybillsplitting.com'
 export const SITE_LINK = 'https://www.easybillsplitting.com'
 
-const FONT = '"General Sans", system-ui, sans-serif'
+export const FONT = '"General Sans", system-ui, sans-serif'
 
-function roundRectPath(ctx, x, y, w, h, r) {
+export function roundRectPath(ctx, x, y, w, h, r) {
   ctx.beginPath()
   ctx.moveTo(x + r, y)
   ctx.lineTo(x + w - r, y)
@@ -35,7 +35,7 @@ function roundRectPath(ctx, x, y, w, h, r) {
 }
 
 // The site mark: a rounded square holding two dots and a bar, like the favicon.
-function drawLogo(ctx, x, y, s) {
+export function drawLogo(ctx, x, y, s) {
   const k = s / 64
   ctx.fillStyle = COLORS.card
   roundRectPath(ctx, x, y, s, s, s * 0.26)
