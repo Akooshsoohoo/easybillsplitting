@@ -63,6 +63,8 @@
 	<false/>
 	<key>NSCameraUsageDescription</key>
 	<string>Used to read the total and items from a receipt photo. Photos stay on your device.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Receipt photos are never saved to your library. This is only here because the camera component requires it.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Used to read the total and items from a receipt photo. Photos stay on your device.</string>
 	<key>GADApplicationIdentifier</key>

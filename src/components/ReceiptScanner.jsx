@@ -47,8 +47,12 @@ function Scanner({ mode, currency, onItems, onTotal }) {
       const { Camera, CameraResultType, CameraSource } = await import('@capacitor/camera')
       const photo = await Camera.getPhoto({ resultType: CameraResultType.Uri, source: CameraSource.Prompt, quality: 90, correctOrientation: true, promptLabelHeader: 'Receipt', promptLabelPhoto: 'Choose from Photos', promptLabelPicture: 'Take Photo' })
       path = photo.path
-    } catch {
-      return // the person closed the picker or denied access: stay where we are
+    } catch (err) {
+      const msg = String((err && err.message) || err || '')
+      if (/cancel/i.test(msg)) return // the person closed the picker: stay where we are
+      console.error(err)
+      setStatus('error') // denied access or a real failure: say so instead of doing nothing
+      return
     }
     if (!path) { setStatus('error'); return }
     setStatus('scanning')
