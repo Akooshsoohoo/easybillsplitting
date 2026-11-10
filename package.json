@@ -15,6 +15,7 @@
   "dependencies": {
     "@capacitor-community/admob": "^8.3.0",
     "@capacitor/app": "^8.1.2",
+    "@capacitor/camera": "^8.2.6",
     "@capacitor/core": "^8.6.0",
     "@capacitor/filesystem": "^8.1.5",
     "@capacitor/haptics": "^8.0.2",
@@ -24,6 +25,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.18.3",
+    "receipt-ocr": "file:plugins/receipt-ocr",
     "tesseract.js": "^5.1.1"
   },
   "devDependencies": {
