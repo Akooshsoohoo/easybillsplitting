@@ -87,12 +87,12 @@ const RECEIPT = `<path d="M-14 0 l3 -4 h24 l3 4z" fill="#fffdf8" stroke="${INK}"
 <path d="M-8 -1.6 h16 M-5 -2.8 h10" stroke="#a29c90" stroke-width="0.9"/>`
 
 // Where accessories go on each animal (side view). eye and neck are [x, y]; hx/top/tilt place the hat.
-const ANCHORS = {
-  fox: { eye: [60, 42], top: 35, hx: 52, tilt: 10, neck: [50, 61] },
-  frog: { eye: [59.5, 37.4], top: 36, hx: 50, tilt: 16, neck: [50, 62] },
-  sloth: { eye: [61.5, 43], top: 33, hx: 52, tilt: 9, neck: [50, 60] },
-  penguin: { eye: [60, 42], top: 32, hx: 52, tilt: 12, neck: [50, 58] },
-  capybara: { eye: [62, 41], top: 35, hx: 52, tilt: 11, neck: [50, 60] },
+export const ANCHORS = {
+  fox: { eye: [60, 42], top: 36, hx: 49, tilt: 9, neck: [50, 61] },
+  frog: { eye: [59.5, 37.4], top: 45, hx: 41, tilt: -8, neck: [50, 62] },
+  sloth: { eye: [61.5, 43], top: 34.5, hx: 52, tilt: 6, neck: [50, 60] },
+  penguin: { eye: [60, 42], top: 33, hx: 52, tilt: 11, neck: [50, 58] },
+  capybara: { eye: [62, 41], top: 36.5, hx: 50, tilt: 9, neck: [50, 60] },
 }
 
 // Side-view versions of the accessories that look wrong from the side.
