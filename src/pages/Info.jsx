@@ -16,7 +16,7 @@ export default function Info() {
   usePageMeta('Info | EasyBillSplitting', 'Guides, FAQ, about and legal pages for EasyBillSplitting.')
 
   return (
-    <ContentPage title="Info" hideBack>
+    <ContentPage title="Info" hideBack fit>
       <div style={{ border: '2px solid #1c1b18', borderRadius: 10, boxShadow: '4px 4px 0 #1c1b18', background: '#fff', overflow: 'hidden' }}>
         {ROWS.map((r, i) => (
           <Link

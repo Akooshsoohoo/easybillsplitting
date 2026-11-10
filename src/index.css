@@ -2,28 +2,28 @@
   font-family: 'General Sans';
   src: url('/fonts/general-sans-400.woff2') format('woff2');
   font-weight: 400;
-  font-display: swap;
+  font-display: block;
   font-style: normal;
 }
 @font-face {
   font-family: 'General Sans';
   src: url('/fonts/general-sans-500.woff2') format('woff2');
   font-weight: 500;
-  font-display: swap;
+  font-display: block;
   font-style: normal;
 }
 @font-face {
   font-family: 'General Sans';
   src: url('/fonts/general-sans-600.woff2') format('woff2');
   font-weight: 600;
-  font-display: swap;
+  font-display: block;
   font-style: normal;
 }
 @font-face {
   font-family: 'General Sans';
   src: url('/fonts/general-sans-700.woff2') format('woff2');
   font-weight: 700;
-  font-display: swap;
+  font-display: block;
   font-style: normal;
 }
 
@@ -185,3 +185,6 @@ html:has(.native-app) { overscroll-behavior: none; }
 /* iOS first screen: exactly one screen tall, no scrolling or rubber-banding. */
 .native-lock { height: calc(100dvh - 64px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); overflow: hidden; box-sizing: border-box; touch-action: none; }
 html:has(.native-lock), html:has(.native-lock) body { overflow: hidden; height: 100%; }
+/* iOS short screens (Info, empty History): fit one screen, scroll only if a small phone cannot fit them. */
+.native-fit { height: calc(100dvh - 64px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); overflow-y: auto; overscroll-behavior: none; box-sizing: border-box; padding-bottom: 24px !important; }
+html:has(.native-fit), html:has(.native-fit) body { overflow: hidden; height: 100%; }
