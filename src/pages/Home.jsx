@@ -17,6 +17,7 @@ import { parseNum, discountAmount } from '../utils.js'
 import { sectionStyle, colors } from '../theme.js'
 import { usePageMeta } from '../usePageMeta.js'
 import { isNative } from '../platform.js'
+import { setGate } from '../adGate.js'
 
 const CURRENCY = '$'
 const DEFAULT_TIP_EVEN = false
@@ -83,6 +84,13 @@ export default function Home() {
     if (dragHandlers.current.onMove) window.removeEventListener('pointermove', dragHandlers.current.onMove)
     if (dragHandlers.current.onUp) window.removeEventListener('pointerup', dragHandlers.current.onUp)
   }, [])
+
+  // The start page is a locked one-screen layout, so no banner there.
+  useEffect(() => {
+    if (!isNative) return
+    setGate('start', mode === null)
+    return () => setGate('start', false)
+  }, [mode])
 
   function pick(m, id) {
     setMode(m)

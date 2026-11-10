@@ -2,19 +2,20 @@ import { useRef, useState } from 'react'
 import { parseReceipt } from '../receiptParse.js'
 import { formatMoney, parseNum } from '../utils.js'
 import { isNative } from '../platform.js'
+import { linesToText } from '../ocrLines.js'
 
 const btn = { height: 40, padding: '0 14px', borderRadius: 8, border: '2px solid #1c1b18', boxShadow: '3px 3px 0 #1c1b18', fontWeight: 600, fontSize: 14, cursor: 'pointer', fontFamily: 'inherit' }
 const field = { height: 38, padding: '0 10px', border: '1px solid #e8e4dc', borderRadius: 8, fontSize: 15, outline: 'none', background: '#fbf9f5', fontFamily: 'inherit' }
 
 // mode "items": review parsed lines, then onItems({ items, tax, tip }).
 // mode "total": review the detected total, then onTotal(string).
-// The web OCR engine downloads from a CDN, so it is hidden in the iOS app until native OCR replaces it.
+// Website: Tesseract.js (downloads its engine on first use). iOS app: the camera or photo library
+// plus Apple Vision, fully on the device. Both feed the same parser and the same review screen.
 export default function ReceiptScanner(props) {
-  if (isNative) return null
-  return <WebReceiptScanner {...props} />
+  return <Scanner {...props} />
 }
 
-function WebReceiptScanner({ mode, currency, onItems, onTotal }) {
+function Scanner({ mode, currency, onItems, onTotal }) {
   const inputRef = useRef(null)
   const uploadRef = useRef(null)
   const [touch] = useState(() => typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia('(pointer: coarse)').matches)
@@ -39,6 +40,40 @@ function WebReceiptScanner({ mode, currency, onItems, onTotal }) {
     else setStatus('error')
   }
 
+  // iOS app: ask for a camera shot or a library photo, then read it with Apple Vision.
+  async function scanNative() {
+    let path
+    try {
+      const { Camera, CameraResultType, CameraSource } = await import('@capacitor/camera')
+      const photo = await Camera.getPhoto({ resultType: CameraResultType.Uri, source: CameraSource.Prompt, quality: 90, correctOrientation: true, promptLabelHeader: 'Receipt', promptLabelPhoto: 'Choose from Photos', promptLabelPicture: 'Take Photo' })
+      path = photo.path
+    } catch {
+      return // the person closed the picker or denied access: stay where we are
+    }
+    if (!path) { setStatus('error'); return }
+    setStatus('scanning')
+    setProgress(0)
+    try {
+      const { ReceiptOcr } = await import('receipt-ocr')
+      const { lines } = await ReceiptOcr.recognize({ path })
+      showParsed(parseReceipt(linesToText(lines)))
+    } catch (err) {
+      console.error(err)
+      setStatus('error')
+    }
+  }
+
+  function showParsed(parsed) {
+    setRows(parsed.items.map((it, i) => ({ id: i, name: it.name, price: it.price.toFixed(2) })))
+    setExtra({
+      tax: parsed.tax != null ? parsed.tax.toFixed(2) : '',
+      tip: parsed.tip != null ? parsed.tip.toFixed(2) : '',
+      total: parsed.total != null ? parsed.total.toFixed(2) : '',
+    })
+    if (mode === 'items' ? parsed.items.length === 0 : parsed.total == null) { setStatus('error'); return }
+    setStatus('review')
+  }
+
   async function scan(file) {
     setStatus('scanning')
     setProgress(0)
@@ -49,15 +84,7 @@ function WebReceiptScanner({ mode, currency, onItems, onTotal }) {
       })
       const { data } = await worker.recognize(file)
       await worker.terminate()
-      const parsed = parseReceipt(data.text)
-      setRows(parsed.items.map((it, i) => ({ id: i, name: it.name, price: it.price.toFixed(2) })))
-      setExtra({
-        tax: parsed.tax != null ? parsed.tax.toFixed(2) : '',
-        tip: parsed.tip != null ? parsed.tip.toFixed(2) : '',
-        total: parsed.total != null ? parsed.total.toFixed(2) : '',
-      })
-      if (mode === 'items' ? parsed.items.length === 0 : parsed.total == null) { setStatus('error'); return }
-      setStatus('review')
+      showParsed(parseReceipt(data.text))
     } catch (err) {
       console.error(err)
       setStatus('error')
@@ -89,14 +116,19 @@ function WebReceiptScanner({ mode, currency, onItems, onTotal }) {
       {(status === 'idle' || status === 'error') && (
         <>
           <div style={{ display: 'flex', gap: 10 }}>
-            {touch && (
+            {isNative && (
+              <button type="button" className="hard-btn" onClick={scanNative} style={{ ...btn, flex: 1, background: '#fff', color: '#1c1b18' }}>
+                Scan a receipt
+              </button>
+            )}
+            {!isNative && touch && (
               <button type="button" className="hard-btn" onClick={() => inputRef.current && inputRef.current.click()} style={{ ...btn, flex: 1, background: '#fff', color: '#1c1b18' }}>
                 Take photo
               </button>
             )}
-            <button type="button" className="hard-btn" onClick={() => uploadRef.current && uploadRef.current.click()} style={{ ...btn, flex: touch ? 1 : 'none', background: '#fff', color: '#1c1b18' }}>
+            {!isNative && <button type="button" className="hard-btn" onClick={() => uploadRef.current && uploadRef.current.click()} style={{ ...btn, flex: touch ? 1 : 'none', background: '#fff', color: '#1c1b18' }}>
               {touch ? 'Upload' : 'Upload a receipt'}
-            </button>
+            </button>}
           </div>
           {status === 'error' && (
             <div role="alert" style={{ marginTop: 8, fontSize: 13, color: '#8a6a3a' }}>

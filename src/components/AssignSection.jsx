@@ -12,7 +12,7 @@ export default function AssignSection({
 
   return (
     <section id="sec-assign" style={style}>
-      <SectionHeading step={4} title="Assign" description="Drag each item onto who ordered it, or tap an item and then a person. Shared a plate? Add it to more than one person." />
+      <SectionHeading step={4} title="Assign" />
       <p style={{ margin: '-4px 0 16px', fontSize: 13, color: '#7d776b', lineHeight: 1.5 }}>
         Drag an item onto a person, or tap an item, then tap everyone sharing it.
       </p>
