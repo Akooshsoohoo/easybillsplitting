@@ -1,18 +1,11 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Avatar from './Avatar.jsx'
 import { colors, wallpaper } from '../theme.js'
 import { tapLight } from '../haptics.js'
+import { setGate, introSeen, markIntroSeen } from '../adGate.js'
 
-const KEY = 'ebs_onboarded_v1'
 const SAM = { animal: 'fox', hat: 'tophat', face: null, neck: null, bg: '#fbdcc2' }
 const ALEX = { animal: 'frog', hat: null, face: 'monocle', neck: 'bowtie', bg: '#d7efe4' }
-
-function seen() {
-  try { return localStorage.getItem(KEY) === '1' } catch { return false }
-}
-function markSeen() {
-  try { localStorage.setItem(KEY, '1') } catch { /* storage unavailable, show again next launch */ }
-}
 
 const card = { background: '#fff', border: '2px solid #1c1b18', borderRadius: 12, boxShadow: '4px 4px 0 #1c1b18' }
 const h = { margin: '0', fontSize: 32, lineHeight: 1.08, fontWeight: 700, letterSpacing: '-0.03em' }
@@ -113,15 +106,16 @@ const PAGES = [
 
 // First-launch intro for the iOS app: four screens, no skip, shown once.
 export default function Onboarding() {
-  const [open, setOpen] = useState(() => !seen())
+  const [open, setOpen] = useState(() => !introSeen())
   const [i, setI] = useState(0)
   const startX = useRef(null)
+  useEffect(() => { setGate('intro', open); return () => setGate('intro', false) }, [open])
   if (!open) return null
 
   const last = i === PAGES.length - 1
   const go = (n) => { setI(Math.max(0, Math.min(PAGES.length - 1, n))); tapLight() }
   const next = () => {
-    if (last) { markSeen(); setOpen(false); tapLight() } else go(i + 1)
+    if (last) { markIntroSeen(); setOpen(false); tapLight() } else go(i + 1)
   }
   const onTouchStart = (e) => { startX.current = e.touches[0].clientX }
   const onTouchEnd = (e) => {

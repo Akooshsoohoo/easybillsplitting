@@ -173,7 +173,7 @@ input:focus-visible {
 }
 
 /* iOS app only (Layout adds .native-app): bottom tab bar and app-like touch behaviour */
-.native-app { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; padding-top: env(safe-area-inset-top); padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+.native-app { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; padding-top: env(safe-area-inset-top); padding-bottom: calc(64px + env(safe-area-inset-bottom) + var(--ad-h, 0px)); }
 .native-app input, .native-app textarea { -webkit-user-select: text; user-select: text; }
 .native-app .hard-card:hover, .native-app .chip:hover, .native-app .nav-link:hover { transform: none; box-shadow: inherit; }
 .tab-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 8px 12px calc(8px + env(safe-area-inset-bottom)); background: #f6f3ee; border-top: 2px solid #1c1b18; }
@@ -184,12 +184,12 @@ html:has(.native-app) { overscroll-behavior: none; }
 
 /* iOS first screen: exactly one screen tall, no scrolling or rubber-banding. */
 /* Pinned between the top safe area and the tab bar, so it can never run under the bar. */
-.native-lock { position: fixed; left: 0; right: 0; top: env(safe-area-inset-top); bottom: calc(66px + env(safe-area-inset-bottom)); overflow: hidden; box-sizing: border-box; touch-action: none; }
+.native-lock { position: fixed; left: 0; right: 0; top: env(safe-area-inset-top); bottom: calc(66px + env(safe-area-inset-bottom) + var(--ad-h, 0px)); overflow: hidden; box-sizing: border-box; touch-action: none; }
 .tea-wrap { flex: 1 1 0; min-height: 0; display: flex; align-items: center; justify-content: center; margin: 6px -6px; }
 .tea-wrap svg { width: 100%; height: 100%; max-width: 440px; }
 html:has(.native-lock), html:has(.native-lock) body { overflow: hidden; height: 100%; }
 /* iOS short screens (Info, empty History): fit one screen, scroll only if a small phone cannot fit them. */
-.native-fit { position: fixed; left: 0; right: 0; top: env(safe-area-inset-top); bottom: calc(66px + env(safe-area-inset-bottom)); overflow-y: auto; overscroll-behavior: none; box-sizing: border-box; padding-bottom: 24px !important; }
+.native-fit { position: fixed; left: 0; right: 0; top: env(safe-area-inset-top); bottom: calc(66px + env(safe-area-inset-bottom) + var(--ad-h, 0px)); overflow-y: auto; overscroll-behavior: none; box-sizing: border-box; padding-bottom: 24px !important; }
 html:has(.native-fit), html:has(.native-fit) body { overflow: hidden; height: 100%; }
 
 /* Tea scene steam: slow drift, off when the user prefers reduced motion. */

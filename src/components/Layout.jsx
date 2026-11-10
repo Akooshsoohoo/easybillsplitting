@@ -3,6 +3,7 @@ import SiteHeader from './SiteHeader.jsx'
 import SiteFooter from './SiteFooter.jsx'
 import TabBar from './TabBar.jsx'
 import Onboarding from './Onboarding.jsx'
+import AdBanner from './AdBanner.jsx'
 import { colors, wallpaper } from '../theme.js'
 import { isNative } from '../platform.js'
 
@@ -15,6 +16,7 @@ export default function Layout() {
       </main>
       {isNative ? <TabBar /> : <SiteFooter />}
       {isNative && <Onboarding />}
+      {isNative && <AdBanner />}
     </div>
   )
 }
