@@ -48,3 +48,6 @@ export function stepButtonStyle(enabled) {
     transition: 'transform .12s ease, box-shadow .12s ease, background .15s ease',
   };
 }
+
+// Website wallpaper: faint diagonal stripes with the slightest green tinge. Shared by the website and the iOS app.
+export const wallpaper = 'repeating-linear-gradient(45deg, transparent 0 10px, rgba(25,176,131,.06) 10px 11.5px)'

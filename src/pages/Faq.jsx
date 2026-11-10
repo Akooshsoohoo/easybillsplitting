@@ -57,7 +57,7 @@ export default function Faq() {
   )
 
   return (
-    <ContentPage
+    <ContentPage ads
       title="Frequently asked questions"
       subtitle="Everything about how the calculator handles shared items, tax, tip, discounts, and your data."
     >

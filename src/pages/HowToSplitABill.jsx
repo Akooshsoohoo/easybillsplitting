@@ -19,7 +19,7 @@ export default function HowToSplitABill() {
   )
 
   return (
-    <ContentPage
+    <ContentPage ads
       title="How to split a bill fairly"
       subtitle="A short guide to the two common ways a group splits a check, and how to keep tax and tip fair when everyone ordered something different."
     >
