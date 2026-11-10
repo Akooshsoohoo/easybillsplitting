@@ -4,18 +4,21 @@ import { avatarImage } from './avatars.js'
 const COLORS = {
   bg: '#f6f3ee',
   card: '#ffffff',
-  border: '#b9dcce',
-  divider: '#efebe3',
-  text: '#1c1b18',
-  muted: '#8d877b',
+  ink: '#1c1b18',
+  soft: '#faf8f4',
+  divider: '#e8e4dc',
+  muted: '#6f6a60',
   green: '#19b083',
   greenDark: '#0e6b4f',
-  totalBg: '#e7f4ee',
+  totalTint: '#e7f4ee',
   warnBg: '#fff5e8',
   warnText: '#8a6a3a',
 }
 
 export const SITE_URL = 'easybillsplitting.com'
+export const SITE_LINK = 'https://www.easybillsplitting.com'
+
+const FONT = '"General Sans", system-ui, sans-serif'
 
 function roundRectPath(ctx, x, y, w, h, r) {
   ctx.beginPath()
@@ -31,28 +34,46 @@ function roundRectPath(ctx, x, y, w, h, r) {
   ctx.closePath()
 }
 
+// The site mark: a rounded square holding two dots and a bar, like the favicon.
+function drawLogo(ctx, x, y, s) {
+  const k = s / 64
+  ctx.fillStyle = COLORS.card
+  roundRectPath(ctx, x, y, s, s, s * 0.26)
+  ctx.fill()
+  ctx.lineWidth = 2.5
+  ctx.strokeStyle = COLORS.ink
+  ctx.stroke()
+  ctx.fillStyle = COLORS.green
+  ctx.beginPath(); ctx.arc(x + 32 * k, y + 18 * k, 6 * k, 0, Math.PI * 2); ctx.fill()
+  roundRectPath(ctx, x + 14 * k, y + 29 * k, 36 * k, 6 * k, 3 * k); ctx.fill()
+  ctx.beginPath(); ctx.arc(x + 32 * k, y + 46 * k, 6 * k, 0, Math.PI * 2); ctx.fill()
+}
+
 export async function generateShareCard({ rows, grandTotal, currency, savings = 0, hasUnassigned, unassignedAmount }) {
   const hasSavings = savings > 0.005
   if (document.fonts?.load) {
     await Promise.all([
-      document.fonts.load('700 18px "General Sans"'),
-      document.fonts.load('500 18px "General Sans"'),
-      document.fonts.load('400 13px "General Sans"'),
+      document.fonts.load('700 20px "General Sans"'),
+      document.fonts.load('600 16px "General Sans"'),
+      document.fonts.load('500 14px "General Sans"'),
+      document.fonts.load('400 14px "General Sans"'),
     ]).catch(() => {})
   }
 
-  const W = 640
-  const PAD = 24
-  const innerX = 24
-  const headerH = 84
-  const rowH = 92
-  const totalH = 64
-  const savingsH = hasSavings ? 44 : 0
-  const warnH = hasUnassigned ? 56 : 0
-  const linkH = 48
-  const cardW = W - PAD * 2
-  const cardH = headerH + rows.length * rowH + totalH + savingsH + warnH + linkH
-  const H = cardH + PAD * 2
+  const W = 680
+  const PAD = 28
+  const SHADOW = 7
+  const BORDER = 2.5
+  const innerX = 26
+  const headerH = 96
+  const rowH = 100
+  const totalH = 88
+  const savingsH = hasSavings ? 54 : 0
+  const warnH = hasUnassigned ? 58 : 0
+  const footerH = 64
+  const cardW = W - PAD * 2 - SHADOW
+  const cardH = headerH + rows.length * rowH + totalH + savingsH + warnH + footerH
+  const H = cardH + PAD * 2 + SHADOW
 
   const dpr = Math.min(window.devicePixelRatio || 1, 3)
   const canvas = document.createElement('canvas')
@@ -67,133 +88,112 @@ export async function generateShareCard({ rows, grandTotal, currency, savings = 
 
   const cardX = PAD
   const cardY = PAD
+  const R = 14
 
-  ctx.save()
-  ctx.shadowColor = 'rgba(25,176,131,0.18)'
-  ctx.shadowBlur = 24
-  ctx.shadowOffsetY = 10
-  ctx.fillStyle = COLORS.card
-  roundRectPath(ctx, cardX, cardY, cardW, cardH, 24)
+  // Hard offset shadow, like the cards in the app.
+  ctx.fillStyle = COLORS.ink
+  roundRectPath(ctx, cardX + SHADOW, cardY + SHADOW, cardW, cardH, R)
   ctx.fill()
-  ctx.restore()
+
+  ctx.fillStyle = COLORS.card
+  roundRectPath(ctx, cardX, cardY, cardW, cardH, R)
+  ctx.fill()
 
   ctx.save()
-  roundRectPath(ctx, cardX, cardY, cardW, cardH, 24)
+  roundRectPath(ctx, cardX, cardY, cardW, cardH, R)
   ctx.clip()
+
+  const rule = (yy) => {
+    ctx.fillStyle = COLORS.ink
+    ctx.fillRect(cardX, yy - BORDER / 2, cardW, BORDER)
+  }
 
   let y = cardY
 
+  // Header band
   ctx.fillStyle = COLORS.green
-  roundRectPath(ctx, cardX + innerX, y + 26, 14, 14, 4)
-  ctx.fill()
-  ctx.fillStyle = COLORS.text
-  ctx.font = '700 18px "General Sans"'
-  ctx.fillText('EasyBillSplitting', cardX + innerX + 24, y + 33)
-
-  ctx.fillStyle = COLORS.muted
-  ctx.font = '400 13px "General Sans"'
+  ctx.fillRect(cardX, y, cardW, headerH)
+  drawLogo(ctx, cardX + innerX, y + (headerH - 44) / 2, 44)
+  ctx.fillStyle = COLORS.ink
+  ctx.font = `700 25px ${FONT}`
+  ctx.fillText('EasyBillSplitting', cardX + innerX + 44 + 16, y + headerH / 2 - 11)
+  ctx.font = `500 15px ${FONT}`
   const dateStr = new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
-  ctx.fillText(`Bill split · ${dateStr}`, cardX + innerX, y + 60)
-
-  ctx.strokeStyle = COLORS.divider
-  ctx.lineWidth = 1
-  ctx.beginPath()
-  ctx.moveTo(cardX, y + headerH)
-  ctx.lineTo(cardX + cardW, y + headerH)
-  ctx.stroke()
-
+  ctx.fillText(`Bill split · ${dateStr}`, cardX + innerX + 44 + 16, y + headerH / 2 + 15)
   y += headerH
+  rule(y)
 
-  const avatarImgs = await Promise.all(rows.map((r) => avatarImage(r.avatar, 192)))
+  const avatarImgs = await Promise.all(rows.map((r) => avatarImage(r.avatar, 224)))
 
   rows.forEach((r, idx) => {
-    ctx.fillStyle = COLORS.green
-    ctx.fillRect(cardX, y, 4, rowH)
-
     const rowCenterY = y + rowH / 2
-    const avatarR = 24
+    const avatarR = 29
     const avatarCx = cardX + innerX + avatarR
     const avatarCy = rowCenterY
     const avImg = avatarImgs[idx]
+
+    ctx.save()
+    ctx.beginPath()
+    ctx.arc(avatarCx, avatarCy, avatarR, 0, Math.PI * 2)
+    ctx.clip()
     if (avImg) {
-      ctx.save()
-      ctx.beginPath()
-      ctx.arc(avatarCx, avatarCy, avatarR, 0, Math.PI * 2)
-      ctx.clip()
       ctx.drawImage(avImg, avatarCx - avatarR, avatarCy - avatarR, avatarR * 2, avatarR * 2)
-      ctx.restore()
     } else {
-      const grad = ctx.createLinearGradient(avatarCx - avatarR, avatarCy - avatarR, avatarCx + avatarR, avatarCy + avatarR)
-      grad.addColorStop(0, COLORS.green)
-      grad.addColorStop(1, COLORS.greenDark)
-      ctx.beginPath()
-      ctx.arc(avatarCx, avatarCy, avatarR, 0, Math.PI * 2)
-      ctx.fillStyle = grad
+      ctx.fillStyle = COLORS.green
       ctx.fill()
       ctx.fillStyle = '#fff'
-      ctx.font = '700 18px "General Sans"'
+      ctx.font = `700 22px ${FONT}`
       ctx.textAlign = 'center'
       ctx.fillText((r.name.trim().charAt(0) || '?').toUpperCase(), avatarCx, avatarCy + 1)
       ctx.textAlign = 'left'
     }
+    ctx.restore()
+    ctx.beginPath()
+    ctx.arc(avatarCx, avatarCy, avatarR, 0, Math.PI * 2)
+    ctx.lineWidth = 2.5
+    ctx.strokeStyle = COLORS.ink
+    ctx.stroke()
 
-    const textX = avatarCx + avatarR + 14
-    ctx.fillStyle = COLORS.text
-    ctx.font = '700 17px "General Sans"'
-    ctx.fillText(r.name, textX, rowCenterY - 12)
+    const textX = avatarCx + avatarR + 18
+    ctx.fillStyle = COLORS.ink
+    ctx.font = `700 21px ${FONT}`
+    ctx.fillText(r.name, textX, rowCenterY - 13)
 
     ctx.fillStyle = COLORS.muted
-    ctx.font = '400 13px "General Sans"'
-    ctx.fillText(
-      breakdownText(r, currency),
-      textX, rowCenterY + 12
-    )
+    ctx.font = `400 14px ${FONT}`
+    ctx.fillText(breakdownText(r, currency), textX, rowCenterY + 15)
 
     ctx.fillStyle = COLORS.greenDark
-    ctx.font = '500 22px "General Sans"'
+    ctx.font = `700 28px ${FONT}`
     ctx.textAlign = 'right'
     ctx.fillText(formatMoney(r.total, currency), cardX + cardW - innerX, rowCenterY + 1)
     ctx.textAlign = 'left'
 
-    ctx.strokeStyle = COLORS.divider
-    ctx.beginPath()
-    ctx.moveTo(cardX, y + rowH)
-    ctx.lineTo(cardX + cardW, y + rowH)
-    ctx.stroke()
-
     y += rowH
+    ctx.fillStyle = COLORS.divider
+    ctx.fillRect(cardX, y - 1.5, cardW, 1.5)
   })
 
-  ctx.fillStyle = COLORS.totalBg
+  // Total bar
+  ctx.fillStyle = COLORS.ink
   ctx.fillRect(cardX, y, cardW, totalH)
-  ctx.strokeStyle = COLORS.border
-  ctx.beginPath()
-  ctx.moveTo(cardX, y)
-  ctx.lineTo(cardX + cardW, y)
-  ctx.stroke()
-
-  ctx.fillStyle = COLORS.greenDark
-  ctx.font = '700 15px "General Sans"'
-  ctx.fillText('Bill total', cardX + innerX, y + totalH / 2)
-  ctx.font = '500 18px "General Sans"'
+  ctx.fillStyle = '#faf8f4'
+  ctx.font = `700 19px ${FONT}`
+  ctx.fillText('Bill total', cardX + innerX, y + totalH / 2 + 1)
+  ctx.fillStyle = COLORS.green
+  ctx.font = `700 34px ${FONT}`
   ctx.textAlign = 'right'
-  ctx.fillText(formatMoney(grandTotal, currency), cardX + cardW - innerX, y + totalH / 2 + 1)
+  ctx.fillText(formatMoney(grandTotal, currency), cardX + cardW - innerX, y + totalH / 2 + 2)
   ctx.textAlign = 'left'
-
   y += totalH
 
   if (hasSavings) {
-    ctx.fillStyle = COLORS.card
+    ctx.fillStyle = COLORS.totalTint
     ctx.fillRect(cardX, y, cardW, savingsH)
-    ctx.strokeStyle = COLORS.divider
-    ctx.beginPath()
-    ctx.moveTo(cardX, y)
-    ctx.lineTo(cardX + cardW, y)
-    ctx.stroke()
-    ctx.fillStyle = COLORS.green
-    ctx.font = '700 14px "General Sans"'
-    ctx.fillText('You saved', cardX + innerX, y + savingsH / 2)
-    ctx.font = '500 16px "General Sans"'
+    ctx.fillStyle = COLORS.greenDark
+    ctx.font = `700 16px ${FONT}`
+    ctx.fillText('You saved', cardX + innerX, y + savingsH / 2 + 1)
+    ctx.font = `700 20px ${FONT}`
     ctx.textAlign = 'right'
     ctx.fillText(formatMoney(savings, currency), cardX + cardW - innerX, y + savingsH / 2 + 1)
     ctx.textAlign = 'left'
@@ -204,29 +204,35 @@ export async function generateShareCard({ rows, grandTotal, currency, savings = 
     ctx.fillStyle = COLORS.warnBg
     ctx.fillRect(cardX, y, cardW, warnH)
     ctx.fillStyle = COLORS.warnText
-    ctx.font = '400 13px "General Sans"'
-    ctx.fillText(`${formatMoney(unassignedAmount, currency)} of items isn't assigned to anyone yet.`, cardX + innerX, y + warnH / 2)
+    ctx.font = `500 14px ${FONT}`
+    ctx.fillText(`${formatMoney(unassignedAmount, currency)} of items isn't assigned to anyone yet.`, cardX + innerX, y + warnH / 2 + 1)
     y += warnH
   }
 
-  ctx.fillStyle = COLORS.muted
-  ctx.font = '500 14px "General Sans"'
+  // Footer with the link
+  rule(y)
+  ctx.fillStyle = COLORS.soft
+  ctx.fillRect(cardX, y, cardW, footerH)
+  ctx.fillStyle = COLORS.ink
+  ctx.font = `600 16px ${FONT}`
   ctx.textAlign = 'center'
-  ctx.fillText(SITE_URL, cardX + cardW / 2, y + linkH / 2)
+  ctx.fillText(`Split your own bill at ${SITE_URL}`, cardX + cardW / 2, y + footerH / 2 + 1)
   ctx.textAlign = 'left'
 
   ctx.restore()
 
-  ctx.strokeStyle = COLORS.border
-  ctx.lineWidth = 1.5
-  roundRectPath(ctx, cardX, cardY, cardW, cardH, 24)
+  // Outline
+  ctx.lineWidth = BORDER
+  ctx.strokeStyle = COLORS.ink
+  roundRectPath(ctx, cardX, cardY, cardW, cardH, R)
   ctx.stroke()
 
   return new Promise((resolve) => canvas.toBlob(resolve, 'image/png', 1))
 }
 
+// The message that travels with the image. The link is a full URL so Messages and other apps make it tappable.
 export function buildShareText({ rows, grandTotal, currency, savings = 0 }) {
   const lines = rows.map((r) => `${r.name}: ${formatMoney(r.total, currency)}`)
   const saved = savings > 0.005 ? `\nSaved ${formatMoney(savings, currency)}` : ''
-  return `Bill split, total ${formatMoney(grandTotal, currency)}\n${lines.join('\n')}${saved}`
+  return `Bill split, total ${formatMoney(grandTotal, currency)}\n${lines.join('\n')}${saved}\n\nSplit yours: ${SITE_LINK}`
 }
