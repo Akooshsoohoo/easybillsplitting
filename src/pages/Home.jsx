@@ -310,7 +310,7 @@ export default function Home() {
               &lsaquo; Back
             </button>
           ) : (
-            <Landing onPickEven={() => pick('even', 'sec-even')} onPickItem={() => pick('item', 'sec-item')} />
+            <Landing onPickEven={() => pick('even', 'sec-even')} onPickItem={() => pick('item', 'sec-item')} showScene={mode === null} />
           )}
 
           {mode === 'even' && (

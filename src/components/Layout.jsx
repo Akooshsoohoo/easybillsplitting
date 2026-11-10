@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom'
 import SiteHeader from './SiteHeader.jsx'
 import SiteFooter from './SiteFooter.jsx'
 import TabBar from './TabBar.jsx'
+import Onboarding from './Onboarding.jsx'
 import { colors, wallpaper } from '../theme.js'
 import { isNative } from '../platform.js'
 
@@ -13,6 +14,7 @@ export default function Layout() {
         <Outlet />
       </main>
       {isNative ? <TabBar /> : <SiteFooter />}
+      {isNative && <Onboarding />}
     </div>
   )
 }

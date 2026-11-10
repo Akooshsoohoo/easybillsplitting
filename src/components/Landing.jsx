@@ -1,4 +1,11 @@
-export default function Landing({ onPickEven, onPickItem }) {
+import { useEffect, useState } from 'react'
+import { randomTeaScene } from '../teaScene.js'
+
+// Website start section. The tea scene is picked in an effect (not during render) so the
+// prerendered HTML and the first client render match; the box reserves its height meanwhile.
+export default function Landing({ onPickEven, onPickItem, showScene = true }) {
+  const [scene, setScene] = useState('')
+  useEffect(() => { setScene(randomTeaScene()) }, [])
   return (
     <section style={{ padding: '56px 0 8px' }}>
       <h1 className="rise" style={{ animationDelay: '0ms', margin: 0, fontSize: 44, lineHeight: 1.05, fontWeight: 600, letterSpacing: '-0.035em', textWrap: 'pretty' }}>
@@ -18,7 +25,7 @@ export default function Landing({ onPickEven, onPickItem }) {
           }}
         >
           <span style={{ fontSize: 19, fontWeight: 700, letterSpacing: '-0.02em' }}>Split evenly</span>
-          <span style={{ fontSize: 13, color: 'rgba(255,255,255,.88)' }}>Everyone pays the same</span>
+          <span style={{ fontSize: 13, color: 'rgba(255,255,255,.88)' }}>One total, everyone pays the same</span>
         </button>
         <button
           className="mode-btn"
@@ -30,9 +37,17 @@ export default function Landing({ onPickEven, onPickItem }) {
           }}
         >
           <span style={{ fontSize: 19, fontWeight: 700, letterSpacing: '-0.02em' }}>Split by item</span>
-          <span style={{ fontSize: 13, color: 'rgba(255,255,255,.88)' }}>People pay for what they ordered</span>
+          <span style={{ fontSize: 13, color: 'rgba(255,255,255,.88)' }}>Each person pays for what they ordered, with tax and tip</span>
         </button>
       </div>
+      {showScene && (
+        <div
+          className="rise"
+          aria-hidden={scene ? undefined : 'true'}
+          style={{ animationDelay: '240ms', marginTop: 28, aspectRatio: '300 / 130', width: '100%', maxWidth: 460, marginLeft: 'auto', marginRight: 'auto' }}
+          dangerouslySetInnerHTML={{ __html: scene }}
+        />
+      )}
     </section>
   )
 }
