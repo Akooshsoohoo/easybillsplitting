@@ -14,6 +14,7 @@ export default function SiteFooter() {
           <Link className="foot-link foot-dup" to="/faq" style={linkStyle}>FAQ</Link>
           <Link className="foot-link foot-dup" to="/how-to-split-a-bill" style={linkStyle}>How to split a bill</Link>
           <Link className="foot-link foot-dup" to="/history" style={linkStyle}>History</Link>
+          <Link className="foot-link" to="/contact" style={linkStyle}>Contact</Link>
           <Link className="foot-link" to="/privacy-policy" style={linkStyle}>Privacy Policy</Link>
           <Link className="foot-link" to="/terms" style={linkStyle}>Terms of Use</Link>
         </nav>

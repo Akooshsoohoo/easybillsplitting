@@ -23,6 +23,33 @@ export default function HowToSplitABill() {
       title="How to split a bill fairly"
       subtitle="A short guide to the two common ways a group splits a check, and how to keep tax and tip fair when everyone ordered something different."
     >
+      <Section title="See it in action">
+        <video
+          src="/demo/split-by-item.mp4"
+          poster="/demo/split-by-item-poster.jpg"
+          autoPlay loop muted playsInline controls preload="metadata"
+          width="720" height="620"
+          aria-label="Screen recording of splitting a three-item bill between two people in EasyBillSplitting"
+          style={{ display: 'block', width: '100%', height: 'auto', maxWidth: 560, margin: '0 auto 16px', border: '2px solid #1c1b18', borderRadius: 10, boxShadow: '4px 4px 0 #1c1b18', background: '#fff' }}
+        />
+        <p>
+          The recording above splits a small lunch between Ana and Ben. It follows the same five steps you'll see
+          in the <Link to="/" style={{ color: colors.greenDark }}>split-by-item calculator</Link>:
+        </p>
+        <ol style={{ margin: '0 0 14px', paddingLeft: 22 }}>
+          <li><strong>Items.</strong> Add each line from the receipt with its price. Here that's a burger at $14.50, fries at $5.00 and a salad at $12.00.</li>
+          <li><strong>Tax and tip.</strong> Type the two amounts from the bill, $3.00 tax and $7.50 tip in this example.</li>
+          <li><strong>Who's here.</strong> Add a name for everyone at the table.</li>
+          <li><strong>Assign.</strong> Tap an item, then tap each person who shared it. The burger goes to Ana, the salad to Ben, and the fries to both, so each of them carries half of that $5.00.</li>
+          <li><strong>Who owes what.</strong> Ana owes $22.67 and Ben owes $19.33. Together that's $42.00, the same as the items, tax and tip on the bill.</li>
+        </ol>
+        <p>
+          You can check the result by hand. Ana's items come to $17.00 (the burger plus half the fries) and Ben's to
+          $14.50 (the salad plus half the fries), a subtotal of $31.50. Ana's share of that is about 54 percent, so
+          she covers about 54 percent of the $3.00 tax and $7.50 tip, which is $1.62 and $4.05.
+        </p>
+      </Section>
+
       <Section title="Splitting evenly vs. splitting by item">
         <p>
           There are really only two approaches to splitting a bill, and the right one depends on what the group

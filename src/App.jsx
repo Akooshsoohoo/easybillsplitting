@@ -8,6 +8,7 @@ import History from './pages/History.jsx'
 import Privacy from './pages/Privacy.jsx'
 import Terms from './pages/Terms.jsx'
 import Info from './pages/Info.jsx'
+import Contact from './pages/Contact.jsx'
 import { GuidesIndex, GuidePage } from './pages/Guides.jsx'
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/how-to-split-a-bill" element={<HowToSplitABill />} />
         <Route path="/guides" element={<GuidesIndex />} />
         <Route path="/guides/:slug" element={<GuidePage />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/history" element={<History />} />
         <Route path="/privacy-policy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />

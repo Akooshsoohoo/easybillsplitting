@@ -8,6 +8,7 @@ const ROWS = [
   { to: '/guides', title: 'Guides', note: 'Tips for dinners, trips and roommates' },
   { to: '/faq', title: 'FAQ', note: 'Common questions' },
   { to: '/about', title: 'About', note: 'Why this app exists' },
+  { to: '/contact', title: 'Contact', note: 'Report a bug or ask a question' },
   { to: '/privacy-policy', title: 'Privacy Policy', note: 'Your bills stay on this device' },
   { to: '/terms', title: 'Terms of Use', note: '' },
 ]

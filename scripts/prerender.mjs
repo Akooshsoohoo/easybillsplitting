@@ -39,6 +39,19 @@ try {
         page = page.replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${esc(meta.description)}">`)
       }
     }
+    if (meta) {
+      // Social/share tags should describe this page, not the home page.
+      const url = `https://www.easybillsplitting.com${route === '/' ? '/' : route}`
+      page = page
+        .replace(/(<meta property="og:url" content=")[^"]*(">)/, `$1${url}$2`)
+        .replace(/(<meta property="og:title" content=")[^"]*(">)/, `$1${esc(meta.title)}$2`)
+        .replace(/(<meta name="twitter:title" content=")[^"]*(">)/, `$1${esc(meta.title)}$2`)
+      if (meta.description) {
+        page = page
+          .replace(/(<meta property="og:description" content=")[^"]*(">)/, `$1${esc(meta.description)}$2`)
+          .replace(/(<meta name="twitter:description" content=")[^"]*(">)/, `$1${esc(meta.description)}$2`)
+      }
+    }
     page = page.replace('</head>', `<link rel="canonical" href="https://www.easybillsplitting.com${route}">\n</head>`)
     const out = route === '/' ? path.join(dist, 'index.html') : path.join(dist, route + '.html')
     fs.mkdirSync(path.dirname(out), { recursive: true })
